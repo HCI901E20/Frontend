@@ -7,9 +7,7 @@
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
-    "e2e": "ng e2e",
-    "css-build": "node-sass --omit-source-map-url src/assets/styles/bulmaConfig.scss src/assets/styles/styles.css",
-    "css-watch": "npm run css-build -- --watch"
+    "e2e": "ng e2e"
   },
   "private": true,
   "dependencies": {
@@ -22,7 +20,6 @@
     "@angular/platform-browser-dynamic": "~10.1.2",
     "@angular/router": "~10.1.2",
     "bulma": "^0.9.0",
-    "node-sass": "^4.14.1",
     "rxjs": "~6.6.0",
     "tslib": "^2.0.0",
     "zone.js": "~0.10.2"
