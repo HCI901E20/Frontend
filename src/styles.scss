@@ -1,6 +1,14 @@
 @charset "utf-8";
 
 // Change Bulma variables.
+$grey-color:#565656;
+$selected-color:#858585;
+$sidebar-primary:#6D6D6D;
+$sidebar-secondary:#B9B9B9;
+$dark:$grey-color;
+$grey-light:$selected-color;
+
+$navbar-height: 3.25rem;
 
 // Import bulma after setting variables.
 @import "../node_modules/bulma/bulma.sass";
@@ -15,3 +23,39 @@
 @import "../node_modules/bulma/sass/components/navbar.sass";
 @import "../node_modules/bulma/sass/layout/hero.sass";
 @import "../node_modules/bulma/sass/layout/section.sass";
+
+.navbar-item{
+  color: white;
+}
+
+.navbar-item:hover{
+  background-color: $selected-color !important;
+  color: $grey-color !important;
+}
+
+.navbar-item.is-active{
+  background-color: $selected-color !important;
+  color: white !important;
+}
+
+.is-sidebar-primary{
+  background-color: $sidebar-primary;
+}
+
+.is-sidebar-secondary{
+  background-color: $sidebar-secondary;
+}
+
+.columns-fullheight {
+    min-height: calc(100vh - ( #{$navbar-height} - .75rem ) );
+    max-height: calc(100vh - ( #{$navbar-height} - .75rem ) );
+    height: calc(100vh - ( #{$navbar-height} - .75rem ) );
+    display: flex;
+    flex-direction: row;
+    justify-content: stretch;
+    overflow-y: auto;
+}
+
+.hero-head {
+  -webkit-box-shadow: 0px 3px 0px 0px hsla(0, 0%, 0%, 0.74);
+}
