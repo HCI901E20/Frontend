@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { faBars } from '@fortawesome/free-solid-svg-icons';
+import { Drone } from 'src/app/models/drone.model';
 import { SidebarService } from 'src/app/services/sidebar.service';
 
 @Component({
@@ -7,7 +8,10 @@ import { SidebarService } from 'src/app/services/sidebar.service';
   templateUrl: './drone-overview.component.html',
   styleUrls: ['./drone-overview.component.scss']
 })
+
 export class DroneOverviewComponent implements OnInit {
+  @Input() inputDrones: Drone[];
+
   faBars = faBars;
 
   constructor(

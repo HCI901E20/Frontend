@@ -5,6 +5,8 @@ import { PagesRoutingModule } from './pages-routing.module';
 import { ComponentsModule } from '../components/components.module';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { AgmCoreModule } from '@agm/core';
+import { environment } from '../../environments/environment';
 
 @NgModule({
   declarations: [HomeComponent, DashboardComponent],
@@ -13,6 +15,9 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
     PagesRoutingModule,
     ComponentsModule,
     FontAwesomeModule,
+    AgmCoreModule.forRoot({
+      apiKey: environment.googleAPIKey
+    }),
   ]
 })
 export class PagesModule { }

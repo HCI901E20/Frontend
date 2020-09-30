@@ -1,13 +1,14 @@
 <div class="columns is-fullwidth is-gapless full-columns">
   <div class="column">
     <div class="container is-fullwidth">
-      <div class="notification">
-        This container is <strong>centered</strong> on desktop.
-      </div>
+        <agm-map [latitude]="57.052243" [longitude]="9.933000"
+                [zoom]="16" [styles]=mapstyle [disableDefaultUI]="true"
+                [mapDraggable]="false">
+        </agm-map>
     </div>
   </div>
   <div class="column is-narrow">
-    <app-drone-overview></app-drone-overview>
+    <app-drone-overview [inputDrones]=drones></app-drone-overview>
   </div>
   <div class="column is-narrow">
     <app-livefeed></app-livefeed>

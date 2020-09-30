@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { faBars } from '@fortawesome/free-solid-svg-icons';
-import { faVideo } from '@fortawesome/free-solid-svg-icons';
+import { ApiService } from 'src/app/services/api.service';
+import mapstyle from '../../../assets/mapstyle.json';
+import { Drone } from '../../models/drone.model';
+
 
 @Component({
   selector: 'app-dashboard',
@@ -8,11 +10,14 @@ import { faVideo } from '@fortawesome/free-solid-svg-icons';
   styleUrls: ['./dashboard.component.scss']
 })
 export class DashboardComponent implements OnInit {
-  faBars = faBars;
-  faVideo = faVideo;
+  mapstyle = mapstyle;
+  drones = [];
 
-  constructor() { }
+  constructor(private apiService: ApiService) {}
 
   ngOnInit(): void {
+    this.apiService.getDrones().subscribe((data: Drone[]) => {
+      this.drones = data;
+    });
   }
 }

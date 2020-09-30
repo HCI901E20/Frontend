@@ -1,0 +1,34 @@
+<div class="card">
+  <div class="columns is-gapless">
+    <div class="column"><h4>Drone #{{inputDrone.uuid}}</h4></div>
+    <div class="column"><p class="has-text-grey">Last update: 5 min</p></div>
+  </div>
+  <div class="columns">
+    <div class="column">
+      <div class="container">
+        <button class="button is-info is-rounded is-fullwidth">
+          <span class="icon">
+            <fa-icon [icon]="faCrosshairs"></fa-icon>
+          </span>
+          <span>Center map</span>
+        </button>
+        <button class="button is-info is-rounded is-fullwidth">
+          <span class="icon">
+            <fa-icon [icon]="faFile"></fa-icon>
+          </span>
+          <span>Show logs</span>
+        </button>
+        <button class="button is-info is-rounded is-fullwidth">
+          <span class="icon">
+            <fa-icon [icon]="faCamera"></fa-icon>
+          </span>
+          <span>Livefeed</span>
+        </button>
+      </div>
+    </div>
+    <div class="column">
+      Second column
+    </div>
+  </div>
+</div>
+

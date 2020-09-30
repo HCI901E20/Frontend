@@ -14,7 +14,11 @@
     </div>
     <div class="container expanded-content">
       <div class="content has-text-white">
-        Hej hej <strong>sadsadsasadasddas</strong>
+
+        <div *ngFor="let drone of inputDrones">
+          <app-drone-card [inputDrone]=drone></app-drone-card>
+        </div>
+
       </div>
     </div>
   </div>

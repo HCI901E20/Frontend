@@ -5,13 +5,15 @@ import { RouterModule } from '@angular/router';
 import { DroneOverviewComponent } from './drone-overview/drone-overview.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { LivefeedComponent } from './livefeed/livefeed.component';
+import { DroneCardComponent } from './drone-card/drone-card.component';
 
 
 @NgModule({
   declarations: [
     HeaderComponent,
     DroneOverviewComponent,
-    LivefeedComponent
+    LivefeedComponent,
+    DroneCardComponent
   ],
   imports: [
     CommonModule,
