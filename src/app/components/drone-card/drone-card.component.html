@@ -1,24 +1,39 @@
 <div class="card">
-  <div class="columns is-gapless">
-    <div class="column"><h4>Drone #{{inputDrone.uuid}}</h4></div>
-    <div class="column"><p class="has-text-grey">Last update: 5 min</p></div>
-  </div>
+      <div class="columns is-vcentered is-gapless">
+        <div class="column is-narrow">
+          <div class="container">
+            <button class="button is-info is-rounded is-icon-left">
+              <span class="icon">
+                <strong>1</strong>
+              </span>
+            </button>
+          </div>
+        </div>
+        <div class="column has-text-left">
+          <p class="title is-6" style="margin-left: 10px !important;">Drone #{{inputDrone.uuid}}</p>
+        </div>
+        <div class="column is-6 has-text-left">
+          <p class="has-text-grey" style="margin-left: 10px !important;">Last update: 5 min</p>
+        </div>
+      </div>
   <div class="columns">
-    <div class="column">
+    <div class="column is-6">
       <div class="container">
-        <button class="button is-info is-rounded is-fullwidth">
+        <button class="button long is-info is-rounded is-fullwidth is-icon-left">
           <span class="icon">
             <fa-icon [icon]="faCrosshairs"></fa-icon>
           </span>
           <span>Center map</span>
         </button>
-        <button class="button is-info is-rounded is-fullwidth">
+        <button class="button long is-info is-rounded is-fullwidth is-icon-left">
           <span class="icon">
             <fa-icon [icon]="faFile"></fa-icon>
           </span>
           <span>Show logs</span>
         </button>
-        <button class="button is-info is-rounded is-fullwidth">
+        <button class="button long is-rounded is-fullwidth is-icon-left"
+          [ngClass]="{'is-info': inputDrone.status == 1, 'no-livefeed': inputDrone.status != 1}"
+          [attr.disabled]="inputDrone.status != 1 ? '' : null">
           <span class="icon">
             <fa-icon [icon]="faCamera"></fa-icon>
           </span>
@@ -26,9 +41,37 @@
         </button>
       </div>
     </div>
-    <div class="column">
-      Second column
+    <div class="column is-6">
+      <div class="columns is-gapless is-vcentered">
+        <div class="column is-narrow">
+          <span class="icon small-icon">
+            <fa-icon [icon]="faCamera"></fa-icon>
+          </span>
+        </div>
+        <div class="column has-text-left">
+          <p class="subtitle is-6">Battery: {{ inputDrone.batteryPercentage }}%</p>
+        </div>
+      </div>
+      <div class="columns is-gapless is-vcentered">
+        <div class="column is-narrow">
+          <span class="icon small-icon">
+            <fa-icon [icon]="faMapMarker"></fa-icon>
+          </span>
+        </div>
+        <div class="column has-text-left">
+          <p class="subtitle is-6">Battery: {{ inputDrone.batteryPercentage }}%</p>
+        </div>
+      </div>
+      <div class="columns is-gapless is-vcentered">
+        <div class="column is-narrow">
+          <span class="icon small-icon">
+            <fa-icon [icon]="faInfo"></fa-icon>
+          </span>
+        </div>
+        <div class="column has-text-left">
+          <p class="subtitle is-6">Battery: {{ inputDrone.batteryPercentage }}%</p>
+        </div>
+      </div>
     </div>
   </div>
 </div>
-

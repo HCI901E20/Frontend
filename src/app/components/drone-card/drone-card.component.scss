@@ -7,5 +7,25 @@
 
 .button {
   margin-left: 10px !important;
+}
+
+.button.long {
   margin-bottom: 10px !important;
+}
+
+.drone-icon {
+  margin-left: 10px !important;
+}
+
+.is-icon-left {
+  justify-content: flex-start;
+}
+
+.no-livefeed {
+  background: #B9B9B9;
+  color: white;
+}
+
+.small-icon {
+  margin-right: 10px !important;
 }

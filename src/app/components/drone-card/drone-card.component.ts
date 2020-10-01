@@ -1,7 +1,7 @@
 import { Input } from '@angular/core';
 import { Component, OnInit } from '@angular/core';
 import { Drone } from 'src/app/models/drone.model';
-import { faCrosshairs, faFile, faCamera } from '@fortawesome/free-solid-svg-icons';
+import { faCrosshairs, faFile, faCamera, faBatteryFull, faMapMarkerAlt, faInfo } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-drone-card',
@@ -13,6 +13,9 @@ export class DroneCardComponent implements OnInit {
   faCrosshairs = faCrosshairs;
   faFile = faFile;
   faCamera = faCamera;
+  faBatteryFull = faBatteryFull;
+  faMapMarker = faMapMarkerAlt;
+  faInfo = faInfo;
 
   constructor() { }
 
