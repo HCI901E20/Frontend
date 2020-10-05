@@ -48,9 +48,9 @@ $navbar-height: 3.25rem;
 
 // Use on columns in main window.
 .full-columns {
-  min-height: calc(100vh - ( #{$navbar-height} - .75rem ) );
-  max-height: calc(100vh - ( #{$navbar-height} - .75rem ) );
-  height: calc(100vh - ( #{$navbar-height} - .75rem ) );
+  min-height: calc(100vh - ( #{$navbar-height} ));
+  max-height: calc(100vh - ( #{$navbar-height} ));
+  height: calc(100vh - ( #{$navbar-height} ));
   display: flex;
   flex-direction: row;
   justify-content: stretch;
@@ -59,9 +59,9 @@ $navbar-height: 3.25rem;
 
 // Use on sidebar container.
 .max-height {
-  min-height: calc(100vh - ( #{$navbar-height} - .75rem ) );
-  max-height: calc(100vh - ( #{$navbar-height} - .75rem ) );
-  height: calc(100vh - ( #{$navbar-height} - .75rem ) );
+  min-height: calc(100vh - ( #{$navbar-height} ));
+  max-height: calc(100vh - ( #{$navbar-height} ));
+  height: calc(100vh - ( #{$navbar-height} ));
 }
 
 .is-fullwidth {
@@ -72,10 +72,22 @@ $navbar-height: 3.25rem;
 
 .navbar {
   -webkit-box-shadow: 0px 5px 0px 0px rgba(0,0,0,0.25);
+  box-shadow: 0px 5px 0px 0px rgba(0,0,0,0.25);
 }
 
 agm-map {
-  min-height: calc(100vh - ( #{$navbar-height} - .75rem ) );
-  max-height: calc(100vh - ( #{$navbar-height} - .75rem ) );
-  height: calc(100vh - ( #{$navbar-height} - .75rem ) );
+  min-height: calc(100vh - ( #{$navbar-height} ));
+  max-height: calc(100vh - ( #{$navbar-height} ));
+  height: calc(100vh - ( #{$navbar-height} ));
+}
+
+/* Hide scrollbar for Chrome, Safari and Opera */
+.hide-scroll::-webkit-scrollbar {
+  display: none;
+}
+
+/* Hide scrollbar for IE, Edge and Firefox */
+.hide-scroll {
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
 }

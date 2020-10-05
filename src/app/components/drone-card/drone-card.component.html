@@ -42,7 +42,7 @@
       </div>
     </div>
     <div class="column is-6">
-      <div class="columns is-gapless is-vcentered">
+      <div class="columns is-gapless is-vcentered no-margin-bottom">
         <div class="column is-narrow">
           <span class="icon small-icon">
             <fa-icon [icon]="faCamera"></fa-icon>
@@ -52,24 +52,34 @@
           <p class="subtitle is-6">Battery: {{ inputDrone.batteryPercentage }}%</p>
         </div>
       </div>
-      <div class="columns is-gapless is-vcentered">
+      <div class="columns is-gapless is-vcentered no-margin-bottom">
         <div class="column is-narrow">
           <span class="icon small-icon">
             <fa-icon [icon]="faMapMarker"></fa-icon>
           </span>
         </div>
         <div class="column has-text-left">
-          <p class="subtitle is-6">Battery: {{ inputDrone.batteryPercentage }}%</p>
+          <p class="subtitle is-6">Position: {{ inputDrone.currentPosition.latitude }}, {{inputDrone.currentPosition.longitude}}</p>
         </div>
       </div>
-      <div class="columns is-gapless is-vcentered">
+      <div class="columns is-gapless is-vcentered no-margin-bottom">
+        <div class="column is-narrow">
+          <span class="icon small-icon">
+            <fa-icon [icon]="faArrows"></fa-icon>
+          </span>
+        </div>
+        <div class="column has-text-left">
+          <p class="subtitle is-6">Altitude: {{ inputDrone.currentPosition.altitude }}</p>
+        </div>
+      </div>
+      <div class="columns is-gapless is-vcentered no-margin-bottom">
         <div class="column is-narrow">
           <span class="icon small-icon">
             <fa-icon [icon]="faInfo"></fa-icon>
           </span>
         </div>
         <div class="column has-text-left">
-          <p class="subtitle is-6">Battery: {{ inputDrone.batteryPercentage }}%</p>
+          <p class="subtitle is-6">Status: {{droneStatusString}}</p>
         </div>
       </div>
     </div>

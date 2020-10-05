@@ -1,14 +1,22 @@
-<div class="columns is-fullwidth is-gapless full-columns">
+<div class="columns is-fullwidth is-gapless full-columns" style="overflow: hidden;">
   <div class="column">
     <div class="container is-fullwidth">
         <agm-map [latitude]="57.052243" [longitude]="9.933000"
                 [zoom]="16" [styles]=mapstyle [disableDefaultUI]="true"
                 [mapDraggable]="false">
+
+                <agm-marker *ngFor="let drone of droneService.droneList; let i=index"
+                  [iconUrl]=drone.ui.iconUrl
+                  [label]="{color: 'white', text: (i + 1).toString(), fontWeight: 'bold', fontFamily: 'monospace'}"
+                  [latitude]="drone.currentPosition.latitude"
+                  [longitude]="drone.currentPosition.longitude"
+                  ></agm-marker>
+
         </agm-map>
     </div>
   </div>
   <div class="column is-narrow">
-    <app-drone-overview [inputDrones]=drones></app-drone-overview>
+    <app-drone-overview [inputDrones]=droneService.droneList></app-drone-overview>
   </div>
   <div class="column is-narrow">
     <app-livefeed></app-livefeed>

@@ -1,5 +1,5 @@
 <div *ngIf="sidebarService.expandOverview; else contracted">
-  <div class="container is-fullwidth max-height is-sidebar-primary sidebar expanded">
+  <div class="container is-fullwidth max-height is-sidebar-primary sidebar expanded" style="overflow-y: scroll;">
     <div class="columns is-vcentered has-text-centered top-padding is-gapless">
       <div class="column">
         <button class="button" (click)="sidebarService.toggleOverview()">
