@@ -1,12 +1,12 @@
 <div class="columns is-fullwidth is-gapless full-columns" style="overflow: hidden;">
   <div class="column">
     <div class="container is-fullwidth">
-        <agm-map [latitude]="57.052243" [longitude]="9.933000"
+        <agm-map [latitude]="57.052217" [longitude]="9.928468"
                 [zoom]="16" [styles]=mapstyle [disableDefaultUI]="true"
-                [mapDraggable]="false">
+                [mapDraggable]="true">
 
                 <agm-marker *ngFor="let drone of droneService.droneList; let i=index"
-                  [iconUrl]=drone.ui.iconUrl
+                  [iconUrl]="{url: drone.ui.iconUrl, scaledSize:{height:30,width:30}}"
                   [label]="{color: 'white', text: (i + 1).toString(), fontWeight: 'bold', fontFamily: 'monospace'}"
                   [latitude]="drone.currentPosition.latitude"
                   [longitude]="drone.currentPosition.longitude"

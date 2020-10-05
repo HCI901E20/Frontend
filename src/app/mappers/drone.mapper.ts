@@ -13,7 +13,7 @@ export class DroneMapper {
     drone.batteryPercentage = dto.batteryPercentage;
     drone.ui = {
       statusString: DroneStatus[dto.status].toString(),
-      iconUrl: '{url:' + '\'src/assets/icons/drone_icon_' + DroneStatus[dto.status].toString() + '.svg\'' + ',scaledSize:{height:30,width:30}}'
+      iconUrl: '/assets/icons/drone_icon_' + DroneStatus[dto.status].toString() + '.svg',
     };
 
     return drone;
