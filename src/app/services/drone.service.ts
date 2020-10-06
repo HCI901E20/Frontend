@@ -24,7 +24,6 @@ export class DroneService {
    * Maps all the data from DroneDta to a Drone model.
    */
   public updateDrones(): void {
-    console.log('Updating drones!');
     this.apiService
       .getDrones()
       .pipe(

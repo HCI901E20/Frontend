@@ -13,6 +13,8 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import { DroneStatus } from 'src/app/models/drone-status.enum';
 import { DroneService } from 'src/app/services/drone.service';
+import { MapService } from 'src/app/services/map.service';
+import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-drone-card',
@@ -33,7 +35,10 @@ export class DroneCardComponent implements OnInit {
   faCircle = faCircle;
   droneStatusString: string;
 
-  constructor(public droneService: DroneService) {}
+  constructor(
+    public droneService: DroneService,
+    public mapService: MapService
+  ) {}
 
   ngOnInit(): void {
     this.droneStatusString = DroneStatus[this.inputDrone.status].toString();
@@ -54,7 +59,7 @@ export class DroneCardComponent implements OnInit {
         currentDate.getDate(),
         currentDate.getHours(),
         currentDate.getMinutes(),
-        currentDate.getSeconds(),
+        currentDate.getSeconds()
       ) -
         Date.UTC(
           lastUpdate.getFullYear(),
@@ -62,25 +67,33 @@ export class DroneCardComponent implements OnInit {
           lastUpdate.getDate(),
           lastUpdate.getHours(),
           lastUpdate.getMinutes(),
-          lastUpdate.getSeconds(),
-        )) / 1000
+          lastUpdate.getSeconds()
+        )) /
+        1000
     );
 
     // Days.
-    if ((difference / (60 * 60 * 24)) > 1) {
+    if (difference / (60 * 60 * 24) > 1) {
       return Math.floor(difference / (60 * 60 * 24)) + ' days';
     }
     // Hours.
-    else if ((difference / (60 * 60)) > 1) {
+    else if (difference / (60 * 60) > 1) {
       return Math.floor(difference / (60 * 60)) + ' hours';
     }
     // Minutes.
-    else if ((difference / 60) > 1) {
-      return Math.floor((difference / 60)) + ' min';
+    else if (difference / 60 > 1) {
+      return Math.floor(difference / 60) + ' min';
     }
     // Seconds.
     else {
       return Math.floor(difference) + ' sec';
     }
+  }
+
+  public centerMap(): void {
+    this.mapService.centerMap(
+      this.inputDrone.currentPosition.latitude,
+      this.inputDrone.currentPosition.longitude
+    );
   }
 }

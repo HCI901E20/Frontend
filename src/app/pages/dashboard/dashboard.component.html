@@ -1,18 +1,24 @@
 <div class="columns is-fullwidth is-gapless full-columns" style="overflow: hidden;">
   <div class="column">
     <div class="container is-fullwidth">
-        <!-- <agm-map [latitude]="57.052217" [longitude]="9.928468"
-                [zoom]="16" [styles]=mapstyle [disableDefaultUI]="true"
-                [mapDraggable]="true">
 
-                <agm-marker *ngFor="let drone of droneService.droneList; let i=index"
-                  [iconUrl]="{url: drone.ui.iconUrl, scaledSize:{height:30,width:30}}"
-                  [label]="{color: 'white', text: (i + 1).toString(), fontWeight: 'bold', fontFamily: 'monospace'}"
-                  [latitude]="drone.currentPosition.latitude"
-                  [longitude]="drone.currentPosition.longitude"
-                  ></agm-marker>
+      <agm-map [latitude]=mapService.latitude [longitude]=mapService.longitude [zoom]="16" [styles]=mapstyle
+        [disableDefaultUI]="true" [mapDraggable]="true">
 
-        </agm-map> -->
+        <agm-marker *ngFor="let drone of droneService.droneList; let i=index"
+          [iconUrl]="{url: drone.ui.iconUrl, scaledSize:{height:30,width:30}}"
+          [label]="{color: 'white', text: (i + 1).toString(), fontWeight: 'bold', fontFamily: 'monospace'}"
+          [latitude]="drone.currentPosition.latitude" [longitude]="drone.currentPosition.longitude"></agm-marker>
+
+      </agm-map>
+
+      <button class="map-child button long is-rounded is-icon-left" (click)=mapService.centerMap()>
+        <span class="icon">
+          <fa-icon [icon]="faCrosshairs"></fa-icon>
+        </span>
+        <span>Center map</span>
+      </button>
+
     </div>
   </div>
   <div class="column is-narrow">
@@ -22,47 +28,3 @@
     <app-livefeed></app-livefeed>
   </div>
 </div>
-
-
-
-
-<!--
-
-<div class="columns is-gapless is-fullwidth fullheight columns-fullheight">
-  <div class="column is-8 has-text-white">
-    <div class="container">
-    </div>
-  </div>
-
-  <div class="column is-2 is-sidebar-primary has-text-white">
-    <div class="container">
-      <div class="columns is-vcentered">
-        <div class="column is-1">
-            <fa-icon [icon]="faBars"></fa-icon>
-        </div>
-        <div class="column">
-          <div class="content"><h4 class="has-text-white">Drone Overview</h4></div>
-        </div>
-      </div>
-    </div>
-    <div class="container">2½
-    </div>
-  </div>
-
-  <div class="column is-2 is-sidebar-secondary has-text-white">
-    <div class="container">
-      <div class="columns is-vcentered">
-        <div class="column is-1">
-            <fa-icon [icon]="faVideo"></fa-icon>
-        </div>
-        <div class="column">
-          <div class="content"><h4 class="has-text-white">Livefeed</h4></div>
-        </div>
-      </div>
-    </div>
-    <div class="container">2½
-    </div>
-</div>
-
--->
-
