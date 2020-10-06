@@ -1,0 +1,62 @@
+.sidebar {
+  width: 50px;
+}
+
+// .sidear.expanded == Style all sidebar elements with the expanded class.
+.sidebar.expanded {
+  animation: sidebarAnimExpand .5s ease-in-out;
+  // Make sure that the animation stays at last keyframe after completing.
+  -webkit-animation-fill-mode: forwards;
+}
+
+@keyframes sidebarAnimExpand {
+  0% { width: 50px; }
+  100% { width: 400px; }
+}
+
+.sidebar.contract {
+  animation: sidebarAnimContract .5s ease-in-out;
+  // Make sure that the animation stays at last keyframe after completing.
+  -webkit-animation-fill-mode: forwards;
+}
+
+@keyframes sidebarAnimContract {
+  0% { width: 400px; }
+  100% { width: 50px; }
+}
+
+.top-padding {
+  padding-top: 20px;
+}
+
+.expanded-content {
+  animation: contentAnimExpand 1s ease-in-out;
+  -webkit-animation-fill-mode: forwards;
+}
+
+@keyframes contentAnimExpand {
+  0% { opacity: 0.0; visibility: hidden;}
+  50% {opacity: 0.0; visibility: visible;}
+  100% {opacity: 1.0; visibility: visible;}
+}
+
+.contracted-content {
+  animation: contentAnimContract .5s ease-in-out;
+  -webkit-animation-fill-mode: forwards;
+}
+
+@keyframes contentAnimContract {
+  0% { opacity: 1.0; }
+  50% {opacity: 0.0; }
+  100% {opacity: 0.0; }
+}
+
+.no-multi-line {
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.has-text-upright {
+  writing-mode: vertical-rl;
+  text-orientation: upright;
+}
