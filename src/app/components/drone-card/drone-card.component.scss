@@ -33,3 +33,29 @@
 .no-margin-bottom {
   margin-bottom: 10px !important;
 }
+
+// Background circle drone icon.
+.icon-circle {
+  height: 35px;
+  width: 35px;
+  background-color: black;
+  border-radius: 50%;
+  margin-left: 10px;
+  position: relative;
+
+  display: -webkit-box;  /* OLD - iOS 6-, Safari 3.1-6, BB7 */
+  display: -ms-flexbox;  /* TWEENER - IE 10 */
+  display: -webkit-flex; /* NEW - Safari 6.1+. iOS 7.1+, BB10 */
+  display: flex;         /* NEW, Spec - Firefox, Chrome, Opera */
+
+  justify-content: center;
+  align-items: center;
+}
+
+// Text of drone icon.
+.icon-text {
+  color: white;
+  font-weight: 900;
+  position: absolute;
+  text-align: center;
+}

@@ -10,7 +10,11 @@ export class ApiService {
 
   constructor(private httpClient: HttpClient) { }
 
+ /**
+  * Gets all drone data from the backend.
+  * @returns An Observable of a DroneDto list.
+  */
   public getDrones(): Observable<DroneDto[]> {
-    return this.httpClient.get<DroneDto[]>('https://localhost:44310/api/drones');
+    return this.httpClient.get<DroneDto[]>('https://localhost:5001/api/drones');
   }
 }

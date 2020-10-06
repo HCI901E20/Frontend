@@ -1,6 +1,9 @@
+<!-- Expanded sidebar -->
 <div *ngIf="sidebarService.expandLivefeed; else contracted">
   <div class="container is-fullwidth max-height is-sidebar-secondary sidebar expanded">
     <div class="columns is-vcentered has-text-centered top-padding is-gapless">
+
+      <!-- Sidebare button -->
       <div class="column">
         <button class="button" (click)="sidebarService.toggleLivefeed()">
           <span class="icon is-small">
@@ -8,10 +11,14 @@
           </span>
         </button>
       </div>
+
+      <!-- Sidebar title -->
       <div class="column is-10">
         <div class="has-text-white title is-4 expanded-content no-multi-line has-text-left">Livefeed</div>
       </div>
     </div>
+
+    <!-- Sidebar content -->
     <div class="container expanded-content">
       <div class="content has-text-white">
         Hej hej <strong>xD</strong>
@@ -20,6 +27,7 @@
   </div>
 </div>
 
+<!-- Contracted sidebar -->
 <ng-template #contracted>
   <div class="container is-fullwidth max-height is-sidebar-secondary sidebar contract">
     <div class="columns is-vcentered has-text-centered top-padding is-gapless">

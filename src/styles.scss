@@ -8,12 +8,18 @@ $sidebar-secondary:#B9B9B9;
 $dark:$grey-color;
 $grey-light:$selected-color;
 
+// Drone status colors.
+$drone-idle: #F8961E;
+$drone-active: #43AA8B;
+$drone-selected: #3786CE;
+$drone-error: #F94144;
+
 $navbar-height: 3.25rem;
 
 // Import bulma after setting variables.
 @import "../node_modules/bulma/bulma.sass";
 
-// Import only what you need from Bulma
+// Import only what you need from Bulma.
 @import "../node_modules/bulma/sass/utilities/_all.sass";
 @import "../node_modules/bulma/sass/base/_all.sass";
 @import "../node_modules/bulma/sass/elements/button.sass";
@@ -38,10 +44,12 @@ $navbar-height: 3.25rem;
   color: white !important;
 }
 
+// Color for primary sidebar.
 .is-sidebar-primary{
   background-color: $sidebar-primary;
 }
 
+// Color for secondary sidebar.
 .is-sidebar-secondary{
   background-color: $sidebar-secondary;
 }
@@ -70,6 +78,7 @@ $navbar-height: 3.25rem;
   margin-right: 0 !important;
 }
 
+// Add drop shadow to navbar.
 .navbar {
   -webkit-box-shadow: 0px 5px 0px 0px rgba(0,0,0,0.25);
   box-shadow: 0px 5px 0px 0px rgba(0,0,0,0.25);
@@ -91,3 +100,30 @@ agm-map {
   -ms-overflow-style: none;  /* IE and Edge */
   scrollbar-width: none;  /* Firefox */
 }
+
+// Change text color and font-weight depending on drone status.
+.drone-status-idle {
+  color: $drone-idle !important;
+  font-weight: 600 !important;
+}
+
+.drone-status-active {
+  color: $drone-active !important;
+  font-weight: 600 !important;
+}
+
+.drone-status-selected {
+  color: $drone-selected !important;
+  font-weight: 600 !important;
+}
+
+.drone-status-error {
+  color: $drone-error !important;
+  font-weight: 600 !important;
+}
+
+// Change background color depending on drone status.
+.drone-status-idle-icon { background-color: $drone-idle !important; }
+.drone-status-active-icon { background-color: $drone-active !important; }
+.drone-status-selected-icon { background-color: $drone-selected !important; }
+.drone-status-error-icon { background-color: $drone-error !important; }

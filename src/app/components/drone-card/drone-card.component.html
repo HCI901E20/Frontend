@@ -1,22 +1,27 @@
 <div class="card">
-      <div class="columns is-vcentered is-gapless">
-        <div class="column is-narrow">
-          <div class="container">
-            <button class="button is-info is-rounded is-icon-left">
-              <span class="icon">
-                <strong>1</strong>
-              </span>
-            </button>
-          </div>
-        </div>
-        <div class="column has-text-left">
-          <p class="title is-6" style="margin-left: 10px !important;">Drone #{{inputDrone.uuid}}</p>
-        </div>
-        <div class="column is-6 has-text-left">
-          <p class="has-text-grey" style="margin-left: 10px !important;">Last update: 5 min</p>
+
+  <!-- Title and last updated -->
+  <div class="columns is-vcentered is-gapless">
+    <div class="column is-narrow">
+      <div class="icon-circle {{droneService.getDroneIconColor(inputDrone.status)}}">
+        <div class="icon-text">
+          {{inputIndex}}
         </div>
       </div>
+    </div>
+    <div class="column has-text-left">
+      <p class="heading is-6" style="margin-bottom: 0px !important; margin-left: 10px !important;">Drone:</p>
+      <p class="title is-5" style="margin-left: 10px !important;">{{inputDrone.uuid}}</p>
+    </div>
+    <div class="column is-6 has-text-left">
+      <p class="title is-6 has-text-grey" style="margin-left: 10px !important;">Last update: {{getLastUpdate()}}</p>
+    </div>
+  </div>
+
+  <!-- 2 segment card split -->
   <div class="columns">
+
+    <!-- Drone buttons -->
     <div class="column is-6">
       <div class="container">
         <button class="button long is-info is-rounded is-fullwidth is-icon-left">
@@ -31,9 +36,9 @@
           </span>
           <span>Show logs</span>
         </button>
-        <button class="button long is-rounded is-fullwidth is-icon-left"
-          [ngClass]="{'is-info': inputDrone.status == 1, 'no-livefeed': inputDrone.status != 1}"
-          [attr.disabled]="inputDrone.status != 1 ? '' : null">
+        <button class="button long is-rounded is-fullwidth is-icon-left has-text-white"
+          [ngClass]="{'drone-status-active-icon': !droneService.isLivefeedDisabled(inputDrone.status), 'no-livefeed': droneService.isLivefeedDisabled(inputDrone.status)}"
+          [attr.disabled]="droneService.isLivefeedDisabled(inputDrone.status) ? '' : null">
           <span class="icon">
             <fa-icon [icon]="faCamera"></fa-icon>
           </span>
@@ -41,15 +46,17 @@
         </button>
       </div>
     </div>
+
+    <!-- Drone information -->
     <div class="column is-6">
       <div class="columns is-gapless is-vcentered no-margin-bottom">
         <div class="column is-narrow">
           <span class="icon small-icon">
-            <fa-icon [icon]="faCamera"></fa-icon>
+            <fa-icon [icon]="faBatteryFull"></fa-icon>
           </span>
         </div>
         <div class="column has-text-left">
-          <p class="subtitle is-6">Battery: {{ inputDrone.batteryPercentage }}%</p>
+          <p class="subtitle is-7">Battery: {{ inputDrone.batteryPercentage }}%</p>
         </div>
       </div>
       <div class="columns is-gapless is-vcentered no-margin-bottom">
@@ -59,7 +66,8 @@
           </span>
         </div>
         <div class="column has-text-left">
-          <p class="subtitle is-6">Position: {{ inputDrone.currentPosition.latitude }}, {{inputDrone.currentPosition.longitude}}</p>
+          <p class="subtitle is-7">Position: {{ inputDrone.currentPosition.latitude }},
+            {{inputDrone.currentPosition.longitude}}</p>
         </div>
       </div>
       <div class="columns is-gapless is-vcentered no-margin-bottom">
@@ -69,7 +77,7 @@
           </span>
         </div>
         <div class="column has-text-left">
-          <p class="subtitle is-6">Altitude: {{ inputDrone.currentPosition.altitude }}</p>
+          <p class="subtitle is-7">Altitude: {{ inputDrone.currentPosition.altitude }} meters</p>
         </div>
       </div>
       <div class="columns is-gapless is-vcentered no-margin-bottom">
@@ -79,7 +87,8 @@
           </span>
         </div>
         <div class="column has-text-left">
-          <p class="subtitle is-6">Status: {{droneStatusString}}</p>
+          <p class="subtitle is-7">Status: <span
+              class={{droneService.getDroneColor(inputDrone.status)}}>{{droneStatusString}}</span></p>
         </div>
       </div>
     </div>
