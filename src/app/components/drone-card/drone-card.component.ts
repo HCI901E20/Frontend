@@ -33,16 +33,13 @@ export class DroneCardComponent implements OnInit {
   faInfo = faInfo;
   faArrows = faArrowsAltV;
   faCircle = faCircle;
-  droneStatusString: string;
 
   constructor(
     public droneService: DroneService,
     public mapService: MapService
   ) {}
 
-  ngOnInit(): void {
-    this.droneStatusString = DroneStatus[this.inputDrone.status].toString();
-  }
+  ngOnInit(): void {}
 
   /**
    * Function to format the time difference since last update.
