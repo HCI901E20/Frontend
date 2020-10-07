@@ -6,6 +6,7 @@ import { Injectable } from '@angular/core';
 export class MapService {
   public latitude = 57.052217;
   public longitude = 9.928468;
+  public polygon: any;
 
   constructor() { }
 

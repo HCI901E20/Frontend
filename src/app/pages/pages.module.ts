@@ -7,6 +7,7 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { AgmCoreModule } from '@agm/core';
 import { environment } from '../../environments/environment';
+import { AgmDrawingModule } from '@agm/drawing';
 
 @NgModule({
   declarations: [HomeComponent, DashboardComponent],
@@ -16,8 +17,10 @@ import { environment } from '../../environments/environment';
     ComponentsModule,
     FontAwesomeModule,
     AgmCoreModule.forRoot({
-      apiKey: environment.googleAPIKey
+      apiKey: '',
+      libraries: ['places', 'drawing', 'geometry']
     }),
+    AgmDrawingModule
   ]
 })
 export class PagesModule { }
