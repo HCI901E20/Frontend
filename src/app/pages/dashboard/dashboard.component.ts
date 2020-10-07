@@ -2,8 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import mapstyle from '../../../assets/mapstyle.json';
 import { DroneService } from 'src/app/services/drone.service';
 import { MapService } from 'src/app/services/map.service';
-import { faCrosshairs } from '@fortawesome/free-solid-svg-icons';
-import { ConsoleReporter } from 'jasmine';
+import { faCrosshairs, faEdit } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-dashboard',
@@ -13,45 +12,20 @@ import { ConsoleReporter } from 'jasmine';
 export class DashboardComponent implements OnInit {
   mapstyle = mapstyle;
   faCrosshairs = faCrosshairs;
-  polygon: any;
+  faEdit = faEdit;
 
-  managerOptions = {
-    drawingControl: true,
-    drawingControlOptions: {
-      drawingModes: ['polygon']
-    },
-    polygonOptions: {
-      draggable: true,
-      editable: true
-    },
-    drawingMode: 'polygon'
-  };
-
-  getPaths() {
-    console.log("get path");
-    if (this.polygon) {
-      const vertices = this.polygon.getPaths().getArray()[0];
-      let paths = [];
-      vertices.getArray().forEach(function (xy, i) {
-        // console.log(xy);
-        let latLng = {
-          lat: xy.lat(),
-          lng: xy.lng()
-        };
-        paths.push(JSON.stringify(latLng));
-      });
-      return paths;
+  /**
+   * An event listener for the polygonCreated event of the agm-drawing-manager.
+   * @param event The newly created polygon.
+   */
+  public polygonCreated(event: any): void {
+    // If a polygon already exists, clear the existing polygon from the map.
+    if (this.mapService.polygon) {
+      this.mapService.polygon.setMap(null);
     }
-    return [];
-  }
 
-  polygonCreated($event): void {
-    if (this.polygon) {
-      this.polygon.setMap(null);
-    }
-    this.polygon = $event;
-
-    console.log(this.getPaths());
+    // Save new polygon in the map service.
+    this.mapService.polygon = event;
   }
 
   constructor(
