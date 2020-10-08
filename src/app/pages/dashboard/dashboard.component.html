@@ -37,6 +37,14 @@
           </span>
           <span>Save zone</span>
         </button>
+
+        <button class="button is-rounded is-icon-left has-text-white drone-status-error-icon"
+          style="margin-left: 15px !important;" (click)=mapService.clearMap()>
+          <span class="icon">
+            <fa-icon [icon]="faTrash"></fa-icon>
+          </span>
+          <span>Clear zone</span>
+        </button>
       </div>
 
     </div>

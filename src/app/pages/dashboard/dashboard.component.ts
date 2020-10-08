@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import mapstyle from '../../../assets/mapstyle.json';
 import { DroneService } from 'src/app/services/drone.service';
 import { MapService } from 'src/app/services/map.service';
-import { faCrosshairs, faEdit } from '@fortawesome/free-solid-svg-icons';
+import { faCrosshairs, faEdit, faTrashAlt } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-dashboard',
@@ -13,6 +13,7 @@ export class DashboardComponent implements OnInit {
   mapstyle = mapstyle;
   faCrosshairs = faCrosshairs;
   faEdit = faEdit;
+  faTrash = faTrashAlt;
 
   /**
    * An event listener for the polygonCreated event of the agm-drawing-manager.

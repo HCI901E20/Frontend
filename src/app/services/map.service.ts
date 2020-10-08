@@ -22,7 +22,7 @@ export class MapService {
       strokeOpacity: 0.5
     },
     drawingMode: 'polygon'
-  }
+  };
 
   constructor() { }
 
@@ -37,21 +37,29 @@ export class MapService {
     this.longitude = inputLong;
   }
 
-   /**
+  /**
+   * Clears the polygon drawn on the map.
+   */
+  public clearMap(): void {
+    this.polygon.setMap(null);
+    this.polygon = null;
+  }
+
+  /**
    * Gets a list of coordinates for the polygon
    * @returns A JSON formatted list of (lat, long) tuples.
    */
   public getPolygonPaths(): any[] {
     if (this.polygon) {
       const vertices = this.polygon.getPaths().getArray()[0];
-      let paths = [];
-      vertices.getArray().forEach(function (xy, i) {
-        let latLng = {
-          lat: xy.lat(),
-          lng: xy.lng()
-        };
-        paths.push(JSON.stringify(latLng));
-      });
+      const paths = [];
+      vertices.getArray().forEach((xy: { lat: () => any; lng: () => any; }) => {
+          const latLng = {
+            lat: xy.lat(),
+            lng: xy.lng()
+          };
+          paths.push(JSON.stringify(latLng));
+        });
       return paths;
     }
     else {
