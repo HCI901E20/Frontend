@@ -11,10 +11,8 @@ import {
   faArrowsAltV,
   faCircle,
 } from '@fortawesome/free-solid-svg-icons';
-import { DroneStatus } from 'src/app/models/drone-status.enum';
 import { DroneService } from 'src/app/services/drone.service';
 import { MapService } from 'src/app/services/map.service';
-import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-drone-card',
@@ -43,12 +41,14 @@ export class DroneCardComponent implements OnInit {
 
   /**
    * Function to format the time difference since last update.
+   * @param currentDate Param is only used when testing the function.
+   * @param lastUpdate Param is only used when testing the function.
    * @returns The time differnce since last update in the correct format.
    */
-  public getLastUpdate(): string {
-    const currentDate = new Date();
-    const lastUpdate = new Date(this.inputDrone.lastUpdate);
-
+  public getLastUpdate(
+    currentDate: Date = new Date(),
+    lastUpdate: Date = new Date(this.inputDrone.lastUpdate)
+  ): string {
     const difference = Math.floor(
       (Date.UTC(
         currentDate.getFullYear(),
