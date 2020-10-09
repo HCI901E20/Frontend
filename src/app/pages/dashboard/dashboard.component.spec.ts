@@ -1,3 +1,4 @@
+import { AgmDrawingManager } from '@agm/drawing';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { ApiService } from 'src/app/services/api.service';
@@ -12,7 +13,7 @@ describe('DashboardComponent', () => {
     await TestBed.configureTestingModule({
       imports: [HttpClientTestingModule],
       providers: [ApiService],
-      declarations: [ DashboardComponent ]
+      declarations: [ DashboardComponent, AgmDrawingManager ]
     })
     .compileComponents();
   });
