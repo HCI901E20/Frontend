@@ -1,29 +1,61 @@
 <div class="columns is-fullwidth is-gapless full-columns" style="overflow: hidden;">
   <div class="column">
+
+    <!-- Map container -->
     <div class="container is-fullwidth">
 
       <agm-map [latitude]=mapService.latitude [longitude]=mapService.longitude [zoom]="16" [styles]=mapstyle
-        [disableDefaultUI]="true" [mapDraggable]="true">
+        [disableDefaultUI]="true" [mapDraggable]="true" [agmDrawingManager]="drawing">
 
         <agm-marker *ngFor="let drone of droneService.droneList; let i=index"
           [iconUrl]="{url: drone.ui.iconUrl, scaledSize:{height:30,width:30}}"
           [label]="{color: 'white', text: (i + 1).toString(), fontWeight: 'bold', fontFamily: 'monospace'}"
-          [latitude]="drone.currentPosition.latitude" [longitude]="drone.currentPosition.longitude"></agm-marker>
+          [latitude]="drone.currentPosition.latitude" [longitude]="drone.currentPosition.longitude">
+        </agm-marker>
 
       </agm-map>
+      <agm-drawing-manager #drawing="agmDrawingManager" (polygonComplete)="polygonCreated($event)"
+        [drawingControlOptions]="mapService.controlOptions.drawingControlOptions"
+        [polygonOptions]='mapService.controlOptions.polygonOptions'
+        [polylineOptions]='mapService.controlOptions.polylineOptions'
+        [drawingMode]='mapService.controlOptions.drawingMode'>
+      </agm-drawing-manager>
 
-      <button class="map-child button long is-rounded is-icon-left" (click)=mapService.centerMap()>
-        <span class="icon">
-          <fa-icon [icon]="faCrosshairs"></fa-icon>
-        </span>
-        <span>Center map</span>
-      </button>
+      <!-- Map buttons -->
+      <div class="container map-child">
+        <button class="button is-rounded is-icon-left" (click)=mapService.centerMap()>
+          <span class="icon">
+            <fa-icon [icon]="faCrosshairs"></fa-icon>
+          </span>
+          <span>Center map</span>
+        </button>
+
+        <button class="button is-rounded is-icon-left has-text-white drone-status-active-icon"
+          style="margin-left: 15px !important;">
+          <span class="icon">
+            <fa-icon [icon]="faEdit"></fa-icon>
+          </span>
+          <span>Save zone</span>
+        </button>
+
+        <button class="button is-rounded is-icon-left has-text-white drone-status-error-icon"
+          style="margin-left: 15px !important;" (click)=mapService.clearMap()>
+          <span class="icon">
+            <fa-icon [icon]="faTrash"></fa-icon>
+          </span>
+          <span>Clear zone</span>
+        </button>
+      </div>
 
     </div>
   </div>
+
+  <!-- Drone overview sidebar -->
   <div class="column is-narrow">
     <app-drone-overview [inputDrones]=droneService.droneList></app-drone-overview>
   </div>
+
+  <!-- Livefeed sidebar -->
   <div class="column is-narrow">
     <app-livefeed></app-livefeed>
   </div>
