@@ -1,0 +1,96 @@
+<div class="card">
+
+  <!-- Title and last updated -->
+  <div class="columns is-vcentered is-gapless">
+    <div class="column is-narrow">
+      <div class="icon-circle {{droneService.getDroneIconColor(inputDrone.status)}}">
+        <div class="icon-text">
+          {{inputIndex}}
+        </div>
+      </div>
+    </div>
+    <div class="column has-text-left">
+      <p class="heading is-6" style="margin-bottom: 0px !important; margin-left: 10px !important;">Drone:</p>
+      <p class="title is-5" style="margin-left: 10px !important;">{{inputDrone.uuid}}</p>
+    </div>
+    <div class="column is-6 has-text-left">
+      <p class="title is-6 has-text-grey" style="margin-left: 10px !important;">Last update: {{getLastUpdate()}}</p>
+    </div>
+  </div>
+
+  <!-- 2 segment card split -->
+  <div class="columns">
+
+    <!-- Drone buttons -->
+    <div class="column is-6">
+      <div class="container">
+        <button class="button long is-info is-rounded is-fullwidth is-icon-left" (click)="centerMap()">
+          <span class="icon">
+            <fa-icon [icon]="faCrosshairs"></fa-icon>
+          </span>
+          <span>Center map</span>
+        </button>
+        <button class="button long is-info is-rounded is-fullwidth is-icon-left">
+          <span class="icon">
+            <fa-icon [icon]="faFile"></fa-icon>
+          </span>
+          <span>Show logs</span>
+        </button>
+        <button class="button long is-rounded is-fullwidth is-icon-left has-text-white"
+          [ngClass]="{'drone-status-active-icon': !droneService.isLivefeedDisabled(inputDrone.status), 'no-livefeed': droneService.isLivefeedDisabled(inputDrone.status)}"
+          [attr.disabled]="droneService.isLivefeedDisabled(inputDrone.status) ? '' : null">
+          <span class="icon">
+            <fa-icon [icon]="faCamera"></fa-icon>
+          </span>
+          <span>Livefeed</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Drone information -->
+    <div class="column is-6">
+      <div class="columns is-gapless is-vcentered no-margin-bottom">
+        <div class="column is-narrow">
+          <span class="icon small-icon">
+            <fa-icon [icon]="faBatteryFull"></fa-icon>
+          </span>
+        </div>
+        <div class="column has-text-left">
+          <p class="subtitle is-7">Battery: {{ inputDrone.batteryPercentage }}%</p>
+        </div>
+      </div>
+      <div class="columns is-gapless is-vcentered no-margin-bottom">
+        <div class="column is-narrow">
+          <span class="icon small-icon">
+            <fa-icon [icon]="faMapMarker"></fa-icon>
+          </span>
+        </div>
+        <div class="column has-text-left">
+          <p class="subtitle is-7">Position: {{ inputDrone.currentPosition.latitude }},
+            {{inputDrone.currentPosition.longitude}}</p>
+        </div>
+      </div>
+      <div class="columns is-gapless is-vcentered no-margin-bottom">
+        <div class="column is-narrow">
+          <span class="icon small-icon">
+            <fa-icon [icon]="faArrows"></fa-icon>
+          </span>
+        </div>
+        <div class="column has-text-left">
+          <p class="subtitle is-7">Altitude: {{ inputDrone.currentPosition.altitude }} meters</p>
+        </div>
+      </div>
+      <div class="columns is-gapless is-vcentered no-margin-bottom">
+        <div class="column is-narrow">
+          <span class="icon small-icon">
+            <fa-icon [icon]="faInfo"></fa-icon>
+          </span>
+        </div>
+        <div class="column has-text-left">
+          <p class="subtitle is-7">Status: <span
+              class={{droneService.getDroneColor(inputDrone.status)}}>{{inputDrone.ui.statusString}}</span></p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,29 @@
+<div class="hero-head has-background-dark">
+  <header class="navbar">
+    <div class="container">
+      <div class="navbar-brand">
+        <a [routerLink]="['']" routerLinkActive="is-active" [routerLinkActiveOptions]="{ exact: true }" class="navbar-item">
+          <h1>DRONE</h1><h1 class="has-text-weight-bold"> SEARCH</h1>
+        </a>
+        <span class="navbar-burger burger" data-target="navbarMenuHeroC">
+          <span></span>
+          <span></span>
+          <span></span>
+        </span>
+      </div>
+      <div id="navbarMenuHeroC" class="navbar-menu">
+        <div class="navbar-end">
+          <a [routerLink]="['/dashboard']" routerLinkActive="is-active" class="navbar-item">
+            Dashboard
+          </a>
+          <a [routerLink]="['/setup']" routerLinkActive="is-active" class="navbar-item">
+            Setup
+          </a>
+          <a [routerLink]="['/search']" routerLinkActive="is-active" class="navbar-item">
+            Search
+          </a>
+        </div>
+      </div>
+    </div>
+  </header>
+</div>
