@@ -10,9 +10,11 @@ import { DroneZone, ZoneColors } from '../models/drone-zone.model';
   providedIn: 'root',
 })
 export class DroneService {
-  // The list of drons accessible by the system.
+  // The list of drones accessible by the system.
   public droneList: Drone[] = [];
   public droneZones: DroneZone[] = [];
+  public selectedDroneId = '';
+
   private usedZoneColors: string[] = [];
 
   subscription: Subscription;
@@ -39,6 +41,11 @@ export class DroneService {
       .subscribe((data: Drone[]) => {
         this.droneList = data;
       });
+  }
+
+  public getZoneColorFromUuid(uuid: string): string {
+    console.log(this.droneZones.find(element => element.droneUuid === uuid).zoneColor);
+    return this.droneZones.find(element => element.droneUuid === uuid).zoneColor;
   }
 
   private getRandomZoneColor(): string {

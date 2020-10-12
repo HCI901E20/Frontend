@@ -14,7 +14,7 @@
         </agm-marker>
 
         <ng-container *ngFor="let zone of droneService.droneZones; let i=index">
-          <agm-polygon [paths]="zone.area" [fillColor]="zone.zoneColor" [fillOpacity]="0.4" [strokeColor]="zone.zoneColor" [strokeOpacity]="0.4"></agm-polygon>
+          <agm-polygon [paths]="zone.area" [fillColor]="zone.zoneColor" [fillOpacity]="droneService.selectedDroneId == zone.droneUuid ? 0.7 : 0.4" [strokeColor]="zone.zoneColor" [strokeOpacity]="droneService.selectedDroneId == zone.droneUuid ? 1.0 : 0.4" (polyClick)="droneService.selectedDroneId = zone.droneUuid"></agm-polygon>
           <agm-polyline [strokeColor]="zone.zoneColor">
             <agm-polyline-point *ngFor="let point of zone.path" [latitude]="point.lat" [longitude]="point.lng">
             </agm-polyline-point>

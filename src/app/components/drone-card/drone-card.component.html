@@ -1,4 +1,4 @@
-<div class="card">
+<div class="card" [ngClass]="{'selected' : droneService.selectedDroneId == inputDrone.uuid}" (click)="droneService.selectedDroneId = inputDrone.uuid">
 
   <!-- Title and last updated -->
   <div class="columns is-vcentered is-gapless">
@@ -15,6 +15,7 @@
     </div>
     <div class="column is-6 has-text-left">
       <p class="title is-6 has-text-grey" style="margin-left: 10px !important;">Last update: {{getLastUpdate()}}</p>
+      <!-- <p class="title is-6 has-text-grey" style="margin-left: 10px !important;" [ngStyle]="{'color': droneService.getZoneColorFromUuid(inputDrone.uuid)}">Drone zone color</p> -->
     </div>
   </div>
 

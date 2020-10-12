@@ -5,6 +5,13 @@
   margin-right: 20px;
 }
 
+.card.selected {
+  border-style: outset;
+  border-color: black;
+  border-radius: 20px;
+  border-width: 5px;
+}
+
 .button {
   margin-left: 10px !important;
 }
