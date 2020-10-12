@@ -13,6 +13,15 @@
           [latitude]="drone.currentPosition.latitude" [longitude]="drone.currentPosition.longitude">
         </agm-marker>
 
+        <ng-container *ngFor="let zone of droneService.droneZones; let i=index">
+          <agm-polygon [paths]="zone.area" [fillColor]="zone.zoneColor" [fillOpacity]="0.4" [strokeColor]="zone.zoneColor" [strokeOpacity]="0.4"></agm-polygon>
+          <agm-polyline [strokeColor]="zone.zoneColor">
+            <agm-polyline-point *ngFor="let point of zone.path" [latitude]="point.lat" [longitude]="point.lng">
+            </agm-polyline-point>
+          </agm-polyline>
+          <agm-circle *ngFor="let point of zone.path" [latitude]="point.lat" [longitude]="point.lng" [radius]="5" [fillOpacity]=1 [fillColor]="zone.zoneColor"></agm-circle>
+        </ng-container>
+
       </agm-map>
       <agm-drawing-manager #drawing="agmDrawingManager" (polygonComplete)="polygonCreated($event)"
         [drawingControlOptions]="mapService.controlOptions.drawingControlOptions"
@@ -31,7 +40,7 @@
         </button>
 
         <button class="button is-rounded is-icon-left has-text-white drone-status-active-icon"
-          style="margin-left: 15px !important;">
+          style="margin-left: 15px !important;" (click)=mapService.getPolygonPaths()>
           <span class="icon">
             <fa-icon [icon]="faEdit"></fa-icon>
           </span>
