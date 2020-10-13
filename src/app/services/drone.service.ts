@@ -44,8 +44,13 @@ export class DroneService {
   }
 
   public getZoneColorFromUuid(uuid: string): string {
-    console.log(this.droneZones.find(element => element.droneUuid === uuid).zoneColor);
-    return this.droneZones.find(element => element.droneUuid === uuid).zoneColor;
+    for (const drone of this.droneZones) {
+      if (drone.droneUuid === uuid) {
+        return drone.zoneColor;
+      }
+    }
+
+    return '#858585';
   }
 
   private getRandomZoneColor(): string {
