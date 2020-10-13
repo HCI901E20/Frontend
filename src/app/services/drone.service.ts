@@ -14,7 +14,8 @@ export class DroneService {
   public droneList: Drone[] = [];
   public droneZones: DroneZone[] = [];
   public selectedDroneId = '';
-
+  public launchModalActive: boolean = false;
+  public isSearchLive: boolean = false;
   private usedZoneColors: string[] = [];
 
   subscription: Subscription;
@@ -159,6 +160,16 @@ export class DroneService {
         },
       ]
     });
+  }
+
+  public launchSearch(): void {
+    this.isSearchLive = true;
+    this.launchModalActive = false;
+  }
+
+  public recallSearch(): void {
+    this.isSearchLive = false;
+    this.launchModalActive = false;
   }
 
   /**

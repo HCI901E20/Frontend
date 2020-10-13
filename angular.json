@@ -123,6 +123,10 @@
           }
         }
       }
-    }},
-  "defaultProject": "droneFrontend"
+    }
+  },
+  "defaultProject": "droneFrontend",
+  "cli": {
+    "analytics": false
+  }
 }
