@@ -5,6 +5,7 @@ import { map } from 'rxjs/operators';
 import { interval, Subscription } from 'rxjs';
 import { DroneMapper } from '../mappers/drone.mapper';
 import { DroneZone, ZoneColors } from '../models/drone-zone.model';
+import { ToastrService } from 'ngx-toastr';
 
 @Injectable({
   providedIn: 'root',
@@ -21,7 +22,7 @@ export class DroneService {
   subscription: Subscription;
   source = interval(10000);
 
-  constructor(private apiService: ApiService) {
+  constructor(private apiService: ApiService, private toastService: ToastrService) {
     // Run updateDrones at the given interval (source).
     this.subscription = this.source.subscribe((val) => this.updateDrones());
     this.updateZones();
@@ -165,11 +166,15 @@ export class DroneService {
   public launchSearch(): void {
     this.isSearchLive = true;
     this.launchModalActive = false;
+
+    this.toastService.success("Your search has successfully started!", "Drones Launched")
   }
 
   public recallSearch(): void {
     this.isSearchLive = false;
     this.launchModalActive = false;
+
+    this.toastService.info("Your search has successfully been recalled!", "Drones Recalled")
   }
 
   /**

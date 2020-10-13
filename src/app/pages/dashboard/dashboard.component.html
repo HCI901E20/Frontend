@@ -14,12 +14,16 @@
         </agm-marker>
 
         <ng-container *ngFor="let zone of droneService.droneZones; let i=index">
-          <agm-polygon [paths]="zone.area" [fillColor]="zone.zoneColor" [fillOpacity]="droneService.selectedDroneId == zone.droneUuid ? 0.7 : 0.4" [strokeColor]="zone.zoneColor" [strokeOpacity]="droneService.selectedDroneId == zone.droneUuid ? 1.0 : 0.4" (polyClick)="droneService.selectedDroneId = zone.droneUuid"></agm-polygon>
+          <agm-polygon [paths]="zone.area" [fillColor]="zone.zoneColor"
+            [fillOpacity]="droneService.selectedDroneId == zone.droneUuid ? 0.7 : 0.4" [strokeColor]="zone.zoneColor"
+            [strokeOpacity]="droneService.selectedDroneId == zone.droneUuid ? 1.0 : 0.4"
+            (polyClick)="droneService.selectedDroneId = zone.droneUuid"></agm-polygon>
           <agm-polyline [strokeColor]="zone.zoneColor">
             <agm-polyline-point *ngFor="let point of zone.path" [latitude]="point.lat" [longitude]="point.lng">
             </agm-polyline-point>
           </agm-polyline>
-          <agm-circle *ngFor="let point of zone.path" [latitude]="point.lat" [longitude]="point.lng" [radius]="5" [fillOpacity]=1 [fillColor]="zone.zoneColor"></agm-circle>
+          <agm-circle *ngFor="let point of zone.path" [latitude]="point.lat" [longitude]="point.lng" [radius]="5"
+            [fillOpacity]=1 [fillColor]="zone.zoneColor"></agm-circle>
         </ng-container>
 
       </agm-map>
@@ -40,7 +44,8 @@
         </button>
 
         <button class="button is-rounded is-icon-left has-text-white drone-status-active-icon"
-          style="margin-left: 15px !important;" (click)=mapService.getPolygonPaths()>
+          style="margin-left: 15px !important;" (click)=mapService.saveSearchArea()
+          [attr.disabled]="mapService.polygonExists? null: ''">
           <span class="icon">
             <fa-icon [icon]="faEdit"></fa-icon>
           </span>
@@ -48,8 +53,9 @@
         </button>
 
         <button class="button is-rounded is-icon-left has-text-white drone-status-error-icon"
-          style="margin-left: 15px !important;" (click)=mapService.clearMap()>
-          <span class="icon">
+          style="margin-left: 15px !important;" (click)=mapService.clearMap()
+          [attr.disabled]="mapService.polygonExists? null: ''">
+          <span class=" icon">
             <fa-icon [icon]="faTrash"></fa-icon>
           </span>
           <span>Clear zone</span>

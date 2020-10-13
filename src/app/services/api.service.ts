@@ -3,13 +3,14 @@ import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { DroneDto } from '../models/drone.model';
 import { catchError } from 'rxjs/operators';
+import { ToastrService } from 'ngx-toastr';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ApiService {
 
-  constructor(private httpClient: HttpClient) { }
+  constructor(private httpClient: HttpClient, private toastService: ToastrService) { }
 
  /**
   * Gets all drone data from the backend.
@@ -47,5 +48,6 @@ export class ApiService {
         break;
       }
     }
+    this.toastService.error(errorMessage, errorTitle);
   }
 }

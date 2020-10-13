@@ -13,7 +13,7 @@
   "dependencies": {
     "@agm/core": "1.1.0",
     "@agm/drawing": "1.1.0",
-    "@angular/animations": "~10.1.2",
+    "@angular/animations": "^10.1.5",
     "@angular/common": "~10.1.2",
     "@angular/compiler": "~10.1.2",
     "@angular/core": "~10.1.2",
@@ -25,6 +25,7 @@
     "@fortawesome/fontawesome-svg-core": "^1.2.30",
     "@fortawesome/free-solid-svg-icons": "^5.14.0",
     "bulma": "^0.9.0",
+    "ngx-toastr": "^13.1.0",
     "rxjs": "~6.6.0",
     "tslib": "^2.0.0",
     "zone.js": "~0.10.2"
