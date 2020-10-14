@@ -77,6 +77,11 @@ export abstract class ApiBaseService<T, ID> implements ApiBaseInterface<T, ID> {
           'The request could not be completed due to a conflict with the current state of the target resource.';
         break;
       }
+      default: {
+        errorTitle = 'Server error';
+        errorMessage = 'Something went wrong..';
+        break;
+      }
     }
     this.toastService.error(errorMessage, errorTitle);
   }
