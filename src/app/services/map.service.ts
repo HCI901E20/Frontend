@@ -8,7 +8,7 @@ export class MapService {
   public latitude = 57.052217;
   public longitude = 9.928468;
   public polygon: any;
-  public polygonExists: boolean = false;
+  public polygonExists = false;
 
   controlOptions = {
     drawingControl: true,
@@ -74,6 +74,6 @@ export class MapService {
     this.clearMap();
     // TODO: Put request
 
-    this.toastService.success("The search area has been successfully updated!", "Success")
+    this.toastService.success('The search area has been successfully updated!', 'Success');
   }
 }

@@ -15,8 +15,8 @@ export class DroneService {
   public droneList: Drone[] = [];
   public droneZones: DroneZone[] = [];
   public selectedDroneId = '';
-  public launchModalActive: boolean = false;
-  public isSearchLive: boolean = false;
+  public launchModalActive = false;
+  public isSearchLive = false;
   private usedZoneColors: string[] = [];
 
   subscription: Subscription;
@@ -167,14 +167,14 @@ export class DroneService {
     this.isSearchLive = true;
     this.launchModalActive = false;
 
-    this.toastService.success("Your search has successfully started!", "Drones Launched")
+    this.toastService.success('Your search has successfully started!', 'Drones Launched');
   }
 
   public recallSearch(): void {
     this.isSearchLive = false;
     this.launchModalActive = false;
 
-    this.toastService.info("Your search has successfully been recalled!", "Drones Recalled")
+    this.toastService.info('Your search has successfully been recalled!', 'Drones Recalled');
   }
 
   /**
