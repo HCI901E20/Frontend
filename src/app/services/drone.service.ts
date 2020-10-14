@@ -1,16 +1,18 @@
 import { Injectable } from '@angular/core';
 import { Drone, DroneDto } from 'src/app/models/drone.model';
-import { ApiService } from './api.service';
 import { map } from 'rxjs/operators';
 import { interval, Subscription } from 'rxjs';
 import { DroneMapper } from '../mappers/drone.mapper';
 import { DroneZone, ZoneColors } from '../models/drone-zone.model';
 import { ToastrService } from 'ngx-toastr';
+import { ApiBaseService } from './api-base.service';
+import { HttpClient } from '@angular/common/http';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root',
 })
-export class DroneService {
+export class DroneService extends ApiBaseService<Drone, string> {
   // The list of drones accessible by the system.
   public droneList: Drone[] = [];
   public droneZones: DroneZone[] = [];
@@ -22,7 +24,13 @@ export class DroneService {
   subscription: Subscription;
   source = interval(10000);
 
-  constructor(private apiService: ApiService, private toastService: ToastrService) {
+  constructor(
+    protected toastService: ToastrService,
+    protected httpClient: HttpClient
+  ) {
+    // Setup base api.
+    super(`${environment.api.baseUrl}/drones`, httpClient, toastService);
+
     // Run updateDrones at the given interval (source).
     this.subscription = this.source.subscribe((val) => this.updateDrones());
     this.updateZones();
@@ -33,8 +41,7 @@ export class DroneService {
    * Maps all the data from DroneDta to a Drone model.
    */
   public updateDrones(): void {
-    this.apiService
-      .getDrones()
+    this.getAll()
       .pipe(
         map((drones: DroneDto[]) =>
           drones.map((drone: DroneDto) => new DroneMapper().mapDto(drone))
