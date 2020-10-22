@@ -1,23 +1,23 @@
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { ToastrModule, ToastrService } from 'ngx-toastr';
-import { HeaderComponent } from './header.component';
+import { LaunchModalComponent } from './launch-modal.component';
 
-describe('HeaderComponent', () => {
-  let component: HeaderComponent;
-  let fixture: ComponentFixture<HeaderComponent>;
+describe('LaunchModalComponent', () => {
+  let component: LaunchModalComponent;
+  let fixture: ComponentFixture<LaunchModalComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [ToastrModule.forRoot(), HttpClientTestingModule],
-      declarations: [ HeaderComponent],
+      declarations: [ LaunchModalComponent ],
       providers: [ToastrService]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(HeaderComponent);
+    fixture = TestBed.createComponent(LaunchModalComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

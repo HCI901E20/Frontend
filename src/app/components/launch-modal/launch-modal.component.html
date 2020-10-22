@@ -1,0 +1,54 @@
+<div *ngIf="!droneService.isSearchLive; else recallModal" class="modal"
+  [ngClass]="{'is-active': droneService.launchModalActive}">
+  <div class="modal-background"></div>
+  <div class="modal-content">
+    <div class="notification">
+      <button class="delete" (click)="droneService.launchModalActive = false"></button>
+      <div class="content">
+        <p class="title has-text-centered">Confirm Launch</p>
+        <p class="subtitle has-text-centered">The following drones will launch</p>
+        <ol type="1">
+          <li *ngFor="let item of droneService.droneList">
+            {{item.uuid}}
+          </li>
+        </ol>
+      </div>
+      <div class="container has-text-centered">
+        <div class="buttons is-centered">
+          <button class="button is-rounded drone-status-error-icon has-text-white is-medium"
+            (click)="droneService.launchModalActive = false">Cancel</button>
+          <button class="button is-rounded drone-status-active-icon has-text-white is-medium"
+            (click)="droneService.launchSearch()">Confirm Launch</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<ng-template #recallModal>
+  <div class="modal" [ngClass]="{'is-active': droneService.launchModalActive}">
+    <div class="modal-background"></div>
+    <div class="modal-content">
+      <div class="notification">
+        <button class="delete" (click)="droneService.launchModalActive = false"></button>
+        <div class="content">
+          <p class="title has-text-centered">Recall Launch</p>
+          <p class="subtitle has-text-centered">The following drones will be recalled</p>
+          <ol type="1">
+            <li *ngFor="let item of droneService.droneList">
+              {{item.uuid}}
+            </li>
+          </ol>
+        </div>
+        <div class="container has-text-centered">
+          <div class="buttons is-centered">
+            <button class="button is-rounded drone-status-error-icon has-text-white is-medium"
+              (click)="droneService.launchModalActive = false">Cancel</button>
+            <button class="button is-rounded drone-status-active-icon has-text-white is-medium"
+              (click)="droneService.recallSearch()">Confirm Recall</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-template>

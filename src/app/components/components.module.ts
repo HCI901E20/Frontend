@@ -6,6 +6,7 @@ import { DroneOverviewComponent } from './drone-overview/drone-overview.componen
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { LivefeedComponent } from './livefeed/livefeed.component';
 import { DroneCardComponent } from './drone-card/drone-card.component';
+import { LaunchModalComponent } from './launch-modal/launch-modal.component';
 
 
 @NgModule({
@@ -13,7 +14,8 @@ import { DroneCardComponent } from './drone-card/drone-card.component';
     HeaderComponent,
     DroneOverviewComponent,
     LivefeedComponent,
-    DroneCardComponent
+    DroneCardComponent,
+    LaunchModalComponent
   ],
   imports: [
     CommonModule,

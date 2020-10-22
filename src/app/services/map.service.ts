@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { ToastrService } from 'ngx-toastr';
 
 @Injectable({
   providedIn: 'root'
@@ -7,6 +8,7 @@ export class MapService {
   public latitude = 57.052217;
   public longitude = 9.928468;
   public polygon: any;
+  public polygonExists = false;
 
   controlOptions = {
     drawingControl: true,
@@ -24,7 +26,7 @@ export class MapService {
     drawingMode: 'polygon'
   };
 
-  constructor() { }
+  constructor(private toastService: ToastrService) { }
 
   /**
    * Centers the map from given parameters.
@@ -43,6 +45,7 @@ export class MapService {
   public clearMap(): void {
     this.polygon.setMap(null);
     this.polygon = null;
+    this.polygonExists = false;
   }
 
   /**
@@ -65,5 +68,12 @@ export class MapService {
     else {
       return [];
     }
+  }
+
+  public saveSearchArea(): void {
+    this.clearMap();
+    // TODO: Put request
+
+    this.toastService.success('The search area has been successfully updated!', 'Success');
   }
 }

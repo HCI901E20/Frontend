@@ -1,7 +1,8 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { DroneCardComponent } from './drone-card.component';
-import { ApiService } from 'src/app/services/api.service';
+import { DroneService } from 'src/app/services/drone.service';
+import { ToastrModule, ToastrService } from 'ngx-toastr';
 
 describe('DroneCardComponent', () => {
   let component: DroneCardComponent;
@@ -9,9 +10,9 @@ describe('DroneCardComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [HttpClientTestingModule],
-      providers: [ApiService],
-      declarations: [ DroneCardComponent ]
+      imports: [ToastrModule.forRoot(), HttpClientTestingModule],
+      declarations: [ DroneCardComponent],
+      providers: [DroneService, ToastrService],
     })
     .compileComponents();
   });

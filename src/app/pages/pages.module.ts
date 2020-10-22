@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { HomeComponent } from './home/home.component';
 import { PagesRoutingModule } from './pages-routing.module';
 import { ComponentsModule } from '../components/components.module';
 import { DashboardComponent } from './dashboard/dashboard.component';
@@ -10,7 +9,7 @@ import { environment } from '../../environments/environment';
 import { AgmDrawingModule } from '@agm/drawing';
 
 @NgModule({
-  declarations: [HomeComponent, DashboardComponent],
+  declarations: [DashboardComponent],
   imports: [
     CommonModule,
     PagesRoutingModule,

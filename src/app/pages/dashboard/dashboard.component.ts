@@ -27,6 +27,7 @@ export class DashboardComponent implements OnInit {
 
     // Save new polygon in the map service.
     this.mapService.polygon = event;
+    this.mapService.polygonExists = true;
   }
 
   constructor(
