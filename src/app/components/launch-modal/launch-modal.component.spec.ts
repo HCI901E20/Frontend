@@ -1,5 +1,6 @@
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-
+import { ToastrModule, ToastrService } from 'ngx-toastr';
 import { LaunchModalComponent } from './launch-modal.component';
 
 describe('LaunchModalComponent', () => {
@@ -8,7 +9,9 @@ describe('LaunchModalComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ LaunchModalComponent ]
+      imports: [ToastrModule.forRoot(), HttpClientTestingModule],
+      declarations: [ LaunchModalComponent ],
+      providers: [ToastrService]
     })
     .compileComponents();
   });

@@ -1,7 +1,6 @@
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { TestBed } from '@angular/core/testing';
-import { ApiService } from './api.service';
-
+import { ToastrModule, ToastrService } from 'ngx-toastr';
 import { DroneService } from './drone.service';
 
 describe('DroneService', () => {
@@ -9,8 +8,8 @@ describe('DroneService', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [HttpClientTestingModule],
-      providers: [ApiService]
+      imports: [ToastrModule.forRoot(), HttpClientTestingModule],
+      providers: [ToastrService]
     });
     service = TestBed.inject(DroneService);
   });

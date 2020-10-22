@@ -1,8 +1,8 @@
 import { AgmDrawingManager } from '@agm/drawing';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { ApiService } from 'src/app/services/api.service';
-
+import { ToastrModule, ToastrService } from 'ngx-toastr';
+import { DroneService } from 'src/app/services/drone.service';
 import { DashboardComponent } from './dashboard.component';
 
 describe('DashboardComponent', () => {
@@ -11,9 +11,9 @@ describe('DashboardComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [HttpClientTestingModule],
-      providers: [ApiService],
-      declarations: [ DashboardComponent, AgmDrawingManager ]
+      imports: [ToastrModule.forRoot(), HttpClientTestingModule],
+      declarations: [ DashboardComponent, AgmDrawingManager ],
+      providers: [DroneService, ToastrService],
     })
     .compileComponents();
   });

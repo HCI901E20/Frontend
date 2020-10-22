@@ -1,4 +1,5 @@
 import { TestBed } from '@angular/core/testing';
+import { ToastrModule, ToastrService } from 'ngx-toastr';
 
 import { MapService } from './map.service';
 
@@ -6,7 +7,11 @@ describe('MapService', () => {
   let service: MapService;
 
   beforeEach(() => {
-    TestBed.configureTestingModule({});
+    TestBed.configureTestingModule({
+      imports: [ToastrModule.forRoot()],
+      declarations: [],
+      providers: [ToastrService]
+    });
     service = TestBed.inject(MapService);
   });
 

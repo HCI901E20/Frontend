@@ -1,5 +1,6 @@
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-
+import { ToastrModule, ToastrService } from 'ngx-toastr';
 import { HeaderComponent } from './header.component';
 
 describe('HeaderComponent', () => {
@@ -8,7 +9,9 @@ describe('HeaderComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ HeaderComponent ]
+      imports: [ToastrModule.forRoot(), HttpClientTestingModule],
+      declarations: [ HeaderComponent],
+      providers: [ToastrService]
     })
     .compileComponents();
   });
