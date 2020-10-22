@@ -1,6 +1,6 @@
 {
   "name": "drone-frontend",
-  "version": "1.0.0",
+  "version": "1.1.0-dev.0",
   "scripts": {
     "ng": "ng",
     "start": "npm run css-watch",
@@ -28,6 +28,7 @@
     "ngx-toastr": "^13.1.0",
     "rxjs": "~6.6.0",
     "tslib": "^2.0.0",
+    "xml-js": "^1.6.11",
     "zone.js": "~0.10.2"
   },
   "devDependencies": {
