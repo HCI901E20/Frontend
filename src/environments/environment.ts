@@ -3,7 +3,14 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false
+  api : {
+    baseUrl: 'https://someurlhere:420/api',
+    apiKeys: {
+      googleMaps: 'APIKEYHERE',
+      openWeatherMap: 'APIKEYHERE'
+    }
+  },
+  production: false,
 };
 
 /*
