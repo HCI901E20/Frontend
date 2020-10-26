@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
+import { DroneService } from './drone.service';
 
 @Injectable({
   providedIn: 'root'
@@ -26,7 +27,8 @@ export class MapService {
     drawingMode: 'polygon'
   };
 
-  constructor(private toastService: ToastrService) { }
+  constructor(
+    private toastService: ToastrService) { }
 
   /**
    * Centers the map from given parameters.
@@ -56,24 +58,17 @@ export class MapService {
     if (this.polygon) {
       const vertices = this.polygon.getPaths().getArray()[0];
       const paths = [];
-      vertices.getArray().forEach((xy: { lat: () => any; lng: () => any; }) => {
+      vertices.getArray().forEach((xy: { lat: () => number; lng: () => number; }) => {
           const latLng = {
             lat: xy.lat(),
             lng: xy.lng()
           };
-          paths.push(JSON.stringify(latLng));
+          paths.push(latLng);
         });
       return paths;
     }
     else {
       return [];
     }
-  }
-
-  public saveSearchArea(): void {
-    this.clearMap();
-    // TODO: Put request
-
-    this.toastService.success('The search area has been successfully updated!', 'Success');
   }
 }

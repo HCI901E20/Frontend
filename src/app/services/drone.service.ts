@@ -8,6 +8,8 @@ import { ToastrService } from 'ngx-toastr';
 import { ApiBaseService } from './api-base.service';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../environments/environment';
+import { ZoneService } from './zone.service';
+import { MapService } from './map.service';
 
 @Injectable({
   providedIn: 'root',
@@ -26,14 +28,15 @@ export class DroneService extends ApiBaseService<Drone, string> {
 
   constructor(
     protected toastService: ToastrService,
-    protected httpClient: HttpClient
+    protected httpClient: HttpClient,
+    protected zoneService: ZoneService,
+    protected mapService: MapService
   ) {
     // Setup base api.
     super(`${environment.api.baseUrl}/drones`, httpClient, toastService);
 
     // Run updateDrones at the given interval (source).
     this.subscription = this.source.subscribe((val) => this.updateDrones());
-    this.updateZones();
   }
 
   /**
@@ -72,102 +75,14 @@ export class DroneService extends ApiBaseService<Drone, string> {
   }
 
   public updateZones(): void {
-    this.droneZones.push({
-      droneUuid: 'test1',
-      zoneColor: this.getRandomZoneColor(),
-      area: [
-        {
-          lat: 57.0530047355616,
-          lng: 9.918189775054937
-        },
-        {
-          lat: 57.0560504891736,
-          lng: 9.92136551052857
-        },
-        {
-          lat: 57.05489523273066,
-          lng: 9.924541246002203
-        },
-        {
-          lat: 57.05549036932661,
-          lng: 9.925270806854254
-        },
-        {
-          lat: 57.05510528203023,
-          lng: 9.9271161666565
-        },
-        {
-          lat: 57.050962423680616,
-          lng: 9.923468362396246
-        },
-        {
-          lat: 57.0518610547464,
-          lng: 9.920807611053473
-        },
-      ],
-      path: [
-        {
-          lat: 57.054244204977,
-          lng: 9.920750783506284
-        },
-        {
-          lat: 57.05361403889979,
-          lng: 9.922553227964292
-        },
-        {
-          lat: 57.05308889233257,
-          lng: 9.924398587766538
-        }
-      ]
+    // Get polygon points.
+    const polygon = this.mapService.getPolygonPaths();
+
+    this.zoneService.post(polygon).subscribe((res) => {
+      this.droneZones = res;
     });
-    this.droneZones.push({
-      droneUuid: 'test2',
-      zoneColor: this.getRandomZoneColor(),
-      area: [
-        {
-          lat: 57.05504997175444,
-          lng: 9.927763159339168
-        },
-        {
-          lat: 57.05077872940066,
-          lng: 9.924115355078914
-        },
-        {
-          lat: 57.050136833578975,
-          lng: 9.926497156684139
-        },
-        {
-          lat: 57.04985673010699,
-          lng: 9.92623966461871
-        },
-        {
-          lat: 57.04912144844144,
-          lng: 9.929522688452938
-        },
-        {
-          lat: 57.05391802367947,
-          lng: 9.93370693451617
-        }
-      ],
-      path: [
-        {
-          lat: 57.05263375930009,
-          lng: 9.92684476238812
-        },
-        {
-          lat: 57.052225301829054,
-          lng: 9.928475545469174
-        },
-        {
-          lat: 57.05191020299586,
-          lng: 9.930149243894467
-        },
-        {
-          lat: 57.05180516945729,
-          lng: 9.93158690792645
-        },
-      ]
-    });
+    this.mapService.clearMap();
+    this.toastService.success('The search area has been successfully updated!', 'Success');
   }
 
   public launchSearch(): void {

@@ -44,7 +44,7 @@
         </button>
 
         <button class="button is-rounded is-icon-left has-text-white drone-status-active-icon"
-          style="margin-left: 15px !important;" (click)=mapService.saveSearchArea()
+          style="margin-left: 15px !important;" (click)=droneService.updateZones()
           [attr.disabled]="mapService.polygonExists? null: ''">
           <span class="icon">
             <fa-icon [icon]="faEdit"></fa-icon>
