@@ -66,6 +66,10 @@ export class DroneService extends ApiBaseService<Drone, string> {
   }
 
   private getRandomZoneColor(): string {
+    if (this.usedZoneColors.length === 6) {
+      this.usedZoneColors = [];
+    }
+
     for (const color in ZoneColors) {
       if (!this.usedZoneColors.includes(color)) {
         this.usedZoneColors.push(color);
@@ -80,6 +84,9 @@ export class DroneService extends ApiBaseService<Drone, string> {
 
     this.zoneService.post(polygon).subscribe((res) => {
       this.droneZones = res;
+      for (const zone of this.droneZones) {
+        zone.zoneColor = this.getRandomZoneColor();
+      }
     });
     this.mapService.clearMap();
     this.toastService.success('The search area has been successfully updated!', 'Success');
