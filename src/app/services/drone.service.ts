@@ -6,6 +6,7 @@ import { DroneMapper } from '../mappers/drone.mapper';
 import { DroneZone, ZoneColors } from '../models/drone-zone.model';
 import { ToastrService } from 'ngx-toastr';
 import { ApiBaseService } from './api-base.service';
+import { SearchService } from './search.service';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../environments/environment';
 
@@ -26,7 +27,8 @@ export class DroneService extends ApiBaseService<Drone, string> {
 
   constructor(
     protected toastService: ToastrService,
-    protected httpClient: HttpClient
+    protected httpClient: HttpClient,
+    private searchServie: SearchService
   ) {
     // Setup base api.
     super(`${environment.api.baseUrl}/drones`, httpClient, toastService);
@@ -171,17 +173,27 @@ export class DroneService extends ApiBaseService<Drone, string> {
   }
 
   public launchSearch(): void {
-    this.isSearchLive = true;
-    this.launchModalActive = false;
 
-    this.toastService.success('Your search has successfully started!', 'Drones Launched');
+    this.searchServie.launch().subscribe(
+      (value: boolean) => {
+        if (!value) return
+        this.isSearchLive = true;
+        this.toastService.success('Your search has successfully started!', 'Drones Launched');
+      }
+    )
+
+    this.launchModalActive = false;
   }
 
   public recallSearch(): void {
-    this.isSearchLive = false;
+    this.searchServie.abort().subscribe(
+      (value: boolean) => {
+        if (!value) return;
+        this.isSearchLive = false;
+        this.toastService.info('Your search has been successfully recalled!', 'Drones Recalled');
+      }
+    )
     this.launchModalActive = false;
-
-    this.toastService.info('Your search has successfully been recalled!', 'Drones Recalled');
   }
 
   /**
