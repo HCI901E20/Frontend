@@ -28,7 +28,7 @@ export class DroneService extends ApiBaseService<Drone, string> {
   constructor(
     protected toastService: ToastrService,
     protected httpClient: HttpClient,
-    private searchServie: SearchService
+    private searchService: SearchService
   ) {
     // Setup base api.
     super(`${environment.api.baseUrl}/drones`, httpClient, toastService);
@@ -174,25 +174,26 @@ export class DroneService extends ApiBaseService<Drone, string> {
 
   public launchSearch(): void {
 
-    this.searchServie.launch().subscribe(
+    this.searchService.launch().subscribe(
       (value: boolean) => {
-        if (!value) return
+        if (!value) { return; }
         this.isSearchLive = true;
         this.toastService.success('Your search has successfully started!', 'Drones Launched');
       }
-    )
+    );
 
     this.launchModalActive = false;
   }
 
   public recallSearch(): void {
-    this.searchServie.abort().subscribe(
+    this.searchService.abort().subscribe(
       (value: boolean) => {
-        if (!value) return;
+        if (!value) { return; }
         this.isSearchLive = false;
         this.toastService.info('Your search has been successfully recalled!', 'Drones Recalled');
       }
-    )
+    );
+
     this.launchModalActive = false;
   }
 

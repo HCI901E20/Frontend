@@ -20,13 +20,13 @@ export class SearchService  {
   ) {}
 
 
-  private LaunchService = class launchService extends ApiBaseService<string, string> {
+  private LaunchService = class LaunchService extends ApiBaseService<string, string> {
     constructor(private parent: SearchService) {
-        super(`${environment.api.baseUrl}/search/launch`, parent.httpClient, parent.toastService)
+        super(`${environment.api.baseUrl}/search/launch`, parent.httpClient, parent.toastService);
     }
 
     public launch(): Observable<boolean> {
-        let success = new Subject<boolean>()
+        const success = new Subject<boolean>();
 
         this.post('').subscribe(
             (res: string) => {
@@ -38,19 +38,19 @@ export class SearchService  {
             (err: any) => {
                 success.next(false);
             }
-        )
+        );
 
         return success.asObservable();
     }
-  }
+  };
 
   private AbortService = class AbortService extends ApiBaseService<string, string> {
     constructor(private parent: SearchService) {
-        super(`${environment.api.baseUrl}/search/abort`, parent.httpClient, parent.toastService)
+        super(`${environment.api.baseUrl}/search/abort`, parent.httpClient, parent.toastService);
     }
 
     public abort(): Observable<boolean> {
-        let success = new Subject<boolean>()
+        const success = new Subject<boolean>();
 
         this.post('').subscribe(
             (res: string) => {
@@ -62,17 +62,17 @@ export class SearchService  {
             (err: any) => {
                 success.next(false);
             }
-        )
+        );
 
         return success.asObservable();
     }
-  }
+  };
 
   public launch(): Observable<boolean> {
-    return new this.LaunchService(this).launch()
+    return new this.LaunchService(this).launch();
   }
 
   public abort(): Observable<boolean> {
-    return new this.AbortService(this).abort()
+    return new this.AbortService(this).abort();
   }
 }
