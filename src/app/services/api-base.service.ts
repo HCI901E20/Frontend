@@ -1,6 +1,6 @@
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { ToastrService } from 'ngx-toastr';
-import { Observable, EMPTY } from 'rxjs';
+import { Observable, EMPTY, throwError} from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { ApiBaseInterface } from './api-base.interface';
 
@@ -15,7 +15,7 @@ export abstract class ApiBaseService<T, ID> implements ApiBaseInterface<T, ID> {
     return this.httpClient.get<T[]>(this.apiUrl).pipe(
       catchError((error) => {
         this.handleServerError(error);
-        return EMPTY;
+        throw error;
       })
     );
   }
@@ -24,7 +24,7 @@ export abstract class ApiBaseService<T, ID> implements ApiBaseInterface<T, ID> {
     return this.httpClient.get<T>(this.apiUrl + '/' + id).pipe(
       catchError((error) => {
         this.handleServerError(error);
-        return EMPTY;
+        throw error;
       })
     );
   }
@@ -33,7 +33,7 @@ export abstract class ApiBaseService<T, ID> implements ApiBaseInterface<T, ID> {
     return this.httpClient.post<T[]>(this.apiUrl, t).pipe(
       catchError((error) => {
         this.handleServerError(error);
-        return EMPTY;
+        throw error;
       })
     );
   }
@@ -42,7 +42,7 @@ export abstract class ApiBaseService<T, ID> implements ApiBaseInterface<T, ID> {
     return this.httpClient.put<T>(this.apiUrl + '/' + id, t).pipe(
       catchError((error) => {
         this.handleServerError(error);
-        return EMPTY;
+        throw error;
       })
     );
   }
@@ -51,7 +51,7 @@ export abstract class ApiBaseService<T, ID> implements ApiBaseInterface<T, ID> {
     return this.httpClient.delete<T>(this.apiUrl + '/' + id).pipe(
       catchError((error) => {
         this.handleServerError(error);
-        return EMPTY;
+        throw error;
       })
     );
   }
@@ -75,6 +75,11 @@ export abstract class ApiBaseService<T, ID> implements ApiBaseInterface<T, ID> {
         errorTitle = '409 - Conflict';
         errorMessage =
           'The request could not be completed due to a conflict with the current state of the target resource.';
+        break;
+      }
+      case 406: {
+        errorTitle = '406 - Not Acceptable';
+        errorMessage = error.error;
         break;
       }
       default: {

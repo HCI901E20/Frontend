@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.1.0-dev.1](https://github.com/HCI901E20/Frontend/compare/v1.1.0-dev.0...v1.1.0-dev.1) (2021-01-06)
+
+
+### Features
+
+* Added search service ([dec5bc0](https://github.com/HCI901E20/Frontend/commit/dec5bc06d60a31b5a649d4433779401564a05b9b))
+
 ## [1.1.0-dev.0](https://github.com/HCI901E20/Frontend/compare/v1.0.0...v1.1.0-dev.0) (2020-10-22)
 
 
