@@ -29,8 +29,8 @@ export abstract class ApiBaseService<T, ID> implements ApiBaseInterface<T, ID> {
     );
   }
 
-  post(t: T): Observable<T> {
-    return this.httpClient.post<T>(this.apiUrl, t).pipe(
+  post(t: any): Observable<T[]> {
+    return this.httpClient.post<T[]>(this.apiUrl, t).pipe(
       catchError((error) => {
         this.handleServerError(error);
         throw error;
