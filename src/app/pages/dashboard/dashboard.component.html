@@ -5,7 +5,7 @@
     <div class="container is-fullwidth">
 
       <agm-map [latitude]=mapService.latitude [longitude]=mapService.longitude [zoom]="16" [styles]=mapstyle
-        [disableDefaultUI]="true" [mapDraggable]="true" [agmDrawingManager]="drawing">
+        [disableDefaultUI]="true" [mapDraggable]="true">
 
         <agm-marker *ngFor="let drone of droneService.droneList; let i=index"
           [iconUrl]="{url: drone.ui.iconUrl, scaledSize:{height:30,width:30}}"
@@ -13,7 +13,7 @@
           [latitude]="drone.currentPosition.latitude" [longitude]="drone.currentPosition.longitude">
         </agm-marker>
 
-        <ng-container *ngFor="let zone of droneService.droneZones; let i=index">
+        <!--<ng-container *ngFor="let zone of droneService.droneZones; let i=index">
           <agm-polygon [paths]="zone.area" [fillColor]="zone.zoneColor"
             [fillOpacity]="droneService.selectedDroneId == zone.droneUuid ? 0.7 : 0.4" [strokeColor]="zone.zoneColor"
             [strokeOpacity]="droneService.selectedDroneId == zone.droneUuid ? 1.0 : 0.4"
@@ -24,15 +24,9 @@
           </agm-polyline>
           <agm-circle *ngFor="let point of zone.path" [latitude]="point.lat" [longitude]="point.lng" [radius]="5"
             [fillOpacity]=1 [fillColor]="zone.zoneColor"></agm-circle>
-        </ng-container>
+        </ng-container>-->
 
       </agm-map>
-      <agm-drawing-manager #drawing="agmDrawingManager" (polygonComplete)="polygonCreated($event)"
-        [drawingControlOptions]="mapService.controlOptions.drawingControlOptions"
-        [polygonOptions]='mapService.controlOptions.polygonOptions'
-        [polylineOptions]='mapService.controlOptions.polylineOptions'
-        [drawingMode]='mapService.controlOptions.drawingMode'>
-      </agm-drawing-manager>
 
       <!-- Map buttons -->
       <div class="container map-child">
@@ -42,36 +36,8 @@
           </span>
           <span>Center map</span>
         </button>
-
-        <button class="button is-rounded is-icon-left has-text-white drone-status-active-icon"
-          style="margin-left: 15px !important;" (click)=mapService.saveSearchArea()
-          [attr.disabled]="mapService.polygonExists? null: ''">
-          <span class="icon">
-            <fa-icon [icon]="faEdit"></fa-icon>
-          </span>
-          <span>Save zone</span>
-        </button>
-
-        <button class="button is-rounded is-icon-left has-text-white drone-status-error-icon"
-          style="margin-left: 15px !important;" (click)=mapService.clearMap()
-          [attr.disabled]="mapService.polygonExists? null: ''">
-          <span class=" icon">
-            <fa-icon [icon]="faTrash"></fa-icon>
-          </span>
-          <span>Clear zone</span>
-        </button>
       </div>
 
     </div>
-  </div>
-
-  <!-- Drone overview sidebar -->
-  <div class="column is-narrow">
-    <app-drone-overview [inputDrones]=droneService.droneList></app-drone-overview>
-  </div>
-
-  <!-- Livefeed sidebar -->
-  <div class="column is-narrow">
-    <app-livefeed></app-livefeed>
   </div>
 </div>

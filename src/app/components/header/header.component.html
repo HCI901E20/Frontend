@@ -15,13 +15,6 @@
       </div>
       <div id="navbarMenuHeroC" class="navbar-menu">
         <div class="navbar-end">
-          <a [routerLink]="['']" routerLinkActive="is-active" [routerLinkActiveOptions]="{ exact: true }"
-            class="navbar-item">
-            Dashboard
-          </a>
-          <a [routerLink]="['/setup']" routerLinkActive="is-active" class="navbar-item">
-            Setup
-          </a>
           <div class="navbar-item">
             <button class="button has-text-white" (click)="droneService.launchModalActive = true"
               [ngClass]="droneService.isSearchLive? 'drone-status-error-icon' : 'drone-status-active-icon'">
