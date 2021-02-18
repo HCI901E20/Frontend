@@ -13,6 +13,11 @@
           [latitude]="drone.currentPosition.latitude" [longitude]="drone.currentPosition.longitude">
         </agm-marker>
 
+        <agm-marker *ngIf="boatService.BoatPosition | async; let pos"
+          [iconUrl]="{url: '/assets/icons/boat.svg', scaledSize:{height:30,width:30}}"
+          [latitude]="pos.lat" [longitude]="pos.lng">
+        </agm-marker>
+
         <!--<ng-container *ngFor="let zone of droneService.droneZones; let i=index">
           <agm-polygon [paths]="zone.area" [fillColor]="zone.zoneColor"
             [fillOpacity]="droneService.selectedDroneId == zone.droneUuid ? 0.7 : 0.4" [strokeColor]="zone.zoneColor"
