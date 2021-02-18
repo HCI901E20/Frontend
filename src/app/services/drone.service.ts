@@ -23,7 +23,7 @@ export class DroneService extends ApiBaseService<Drone, string> {
   private usedZoneColors: string[] = [];
 
   subscription: Subscription;
-  source = interval(10000);
+  source = interval(1000);
 
   constructor(
     protected toastService: ToastrService,
@@ -50,7 +50,12 @@ export class DroneService extends ApiBaseService<Drone, string> {
         )
       )
       .subscribe((data: Drone[]) => {
-        this.droneList = data;
+        if (this.droneList.length == 0)
+          this.droneList = data;
+        else
+          data.forEach((nDrone: Drone) => {
+            Object.assign(this.droneList.find((oDrone: Drone) => oDrone.uuid == nDrone.uuid), nDrone);
+          });
       });
   }
 

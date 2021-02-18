@@ -15,21 +15,6 @@ export class DashboardComponent implements OnInit {
   faEdit = faEdit;
   faTrash = faTrashAlt;
 
-  /**
-   * An event listener for the polygonCreated event of the agm-drawing-manager.
-   * @param event The newly created polygon.
-   */
-  public polygonCreated(event: any): void {
-    // If a polygon already exists, clear the existing polygon from the map.
-    if (this.mapService.polygon) {
-      this.mapService.polygon.setMap(null);
-    }
-
-    // Save new polygon in the map service.
-    this.mapService.polygon = event;
-    this.mapService.polygonExists = true;
-  }
-
   constructor(
     public droneService: DroneService,
     public mapService: MapService
