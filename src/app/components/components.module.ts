@@ -4,18 +4,20 @@ import { HeaderComponent } from './header/header.component';
 import { RouterModule } from '@angular/router';
 import { DroneOverviewComponent } from './drone-overview/drone-overview.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { LivefeedComponent } from './livefeed/livefeed.component';
 import { DroneCardComponent } from './drone-card/drone-card.component';
 import { LaunchModalComponent } from './launch-modal/launch-modal.component';
+import { LivefeedsComponent } from './livefeeds/livefeeds.component';
+import { VideoPlayerComponent } from './video-player/video-player.component';
 
 
 @NgModule({
   declarations: [
     HeaderComponent,
     DroneOverviewComponent,
-    LivefeedComponent,
     DroneCardComponent,
-    LaunchModalComponent
+    LaunchModalComponent,
+    LivefeedsComponent,
+    VideoPlayerComponent
   ],
   imports: [
     CommonModule,
@@ -25,7 +27,7 @@ import { LaunchModalComponent } from './launch-modal/launch-modal.component';
   exports: [
     HeaderComponent,
     DroneOverviewComponent,
-    LivefeedComponent
+    LivefeedsComponent
   ]
 })
 export class ComponentsModule { }

@@ -1,6 +1,5 @@
 <div class="columns is-fullwidth is-gapless full-columns" style="overflow: hidden;">
   <div class="column">
-
     <!-- Map container -->
     <div class="container is-fullwidth">
 
@@ -11,6 +10,11 @@
           [iconUrl]="{url: drone.ui.iconUrl, scaledSize:{height:30,width:30}}"
           [label]="{color: 'white', text: (i + 1).toString(), fontWeight: 'bold', fontFamily: 'monospace'}"
           [latitude]="drone.currentPosition.latitude" [longitude]="drone.currentPosition.longitude">
+        </agm-marker>
+
+        <agm-marker *ngIf="boatService.BoatPosition | async; let pos"
+          [iconUrl]="{url: '/assets/icons/boat.svg', scaledSize:{height:30,width:30}}"
+          [latitude]="pos.lat" [longitude]="pos.lng">
         </agm-marker>
 
         <!--<ng-container *ngFor="let zone of droneService.droneZones; let i=index">
@@ -37,9 +41,14 @@
           <span>Center map</span>
         </button>
       </div>
-
-      
-
     </div>
+
+    <div class="container is-fullwidth feeds-container">
+      <app-livefeeds></app-livefeeds>
+    </div>
+
   </div>
 </div>
+
+
+

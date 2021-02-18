@@ -3,6 +3,7 @@ import mapstyle from '../../../assets/mapstyle.json';
 import { DroneService } from 'src/app/services/drone.service';
 import { MapService } from 'src/app/services/map.service';
 import { faCrosshairs, faEdit, faTrashAlt } from '@fortawesome/free-solid-svg-icons';
+import { BoatService } from 'src/app/services/boat.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -15,24 +16,10 @@ export class DashboardComponent implements OnInit {
   faEdit = faEdit;
   faTrash = faTrashAlt;
 
-  /**
-   * An event listener for the polygonCreated event of the agm-drawing-manager.
-   * @param event The newly created polygon.
-   */
-  public polygonCreated(event: any): void {
-    // If a polygon already exists, clear the existing polygon from the map.
-    if (this.mapService.polygon) {
-      this.mapService.polygon.setMap(null);
-    }
-
-    // Save new polygon in the map service.
-    this.mapService.polygon = event;
-    this.mapService.polygonExists = true;
-  }
-
   constructor(
     public droneService: DroneService,
-    public mapService: MapService
+    public mapService: MapService,
+    public boatService: BoatService
   ) {}
 
   ngOnInit(): void {
