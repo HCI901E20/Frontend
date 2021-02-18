@@ -1,13 +1,10 @@
+import { Position } from "./position.model";
+
 export class DroneZone {
   droneUuid: string;
   zoneColor: string;
   area: Position[];
   path: Position[];
-}
-
-export class Position {
-  lat: number;
-  lng: number;
 }
 
 export enum ZoneColors {
