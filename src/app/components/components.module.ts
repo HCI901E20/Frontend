@@ -8,6 +8,10 @@ import { DroneCardComponent } from './drone-card/drone-card.component';
 import { LaunchModalComponent } from './launch-modal/launch-modal.component';
 import { LivefeedsComponent } from './livefeeds/livefeeds.component';
 import { VideoPlayerComponent } from './video-player/video-player.component';
+import { VgCoreModule } from '@videogular/ngx-videogular/core';
+import { VgControlsModule } from '@videogular/ngx-videogular/controls';
+import { VgOverlayPlayModule } from '@videogular/ngx-videogular/overlay-play';
+import { VgBufferingModule } from '@videogular/ngx-videogular/buffering';
 
 
 @NgModule({
@@ -22,12 +26,20 @@ import { VideoPlayerComponent } from './video-player/video-player.component';
   imports: [
     CommonModule,
     RouterModule,
-    FontAwesomeModule
+    FontAwesomeModule,
+    VgCoreModule,
+    VgControlsModule,
+    VgOverlayPlayModule,
+    VgBufferingModule
   ],
   exports: [
     HeaderComponent,
     DroneOverviewComponent,
-    LivefeedsComponent
+    LivefeedsComponent,
+    VgCoreModule,
+    VgControlsModule,
+    VgOverlayPlayModule,
+    VgBufferingModule
   ]
 })
 export class ComponentsModule { }
