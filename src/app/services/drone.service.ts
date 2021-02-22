@@ -50,8 +50,10 @@ export class DroneService extends ApiBaseService<Drone, string> {
         )
       )
       .subscribe((data: Drone[]) => {
-        if (this.droneList.length == 0)
+        if (this.droneList.length == 0){
+          data.forEach((drone: Drone) => drone.orientation = Math.random() * 360)
           this.droneList = data;
+        }
         else
           data.forEach((nDrone: Drone) => {
             Object.assign(this.droneList.find((oDrone: Drone) => oDrone.uuid == nDrone.uuid), nDrone);

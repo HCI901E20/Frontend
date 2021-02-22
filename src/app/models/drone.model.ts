@@ -21,6 +21,7 @@ export class Drone {
     longitude: number;
     altitude: number;
   };
+  orientation?: number;
   batteryPercentage: number;
   status: number;
   ip: string;
