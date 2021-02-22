@@ -4,28 +4,42 @@ import { HeaderComponent } from './header/header.component';
 import { RouterModule } from '@angular/router';
 import { DroneOverviewComponent } from './drone-overview/drone-overview.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { LivefeedComponent } from './livefeed/livefeed.component';
 import { DroneCardComponent } from './drone-card/drone-card.component';
 import { LaunchModalComponent } from './launch-modal/launch-modal.component';
+import { LivefeedsComponent } from './livefeeds/livefeeds.component';
+import { VideoPlayerComponent } from './video-player/video-player.component';
+import { VgCoreModule } from '@videogular/ngx-videogular/core';
+import { VgControlsModule } from '@videogular/ngx-videogular/controls';
+import { VgOverlayPlayModule } from '@videogular/ngx-videogular/overlay-play';
+import { VgBufferingModule } from '@videogular/ngx-videogular/buffering';
 
 
 @NgModule({
   declarations: [
     HeaderComponent,
     DroneOverviewComponent,
-    LivefeedComponent,
     DroneCardComponent,
-    LaunchModalComponent
+    LaunchModalComponent,
+    LivefeedsComponent,
+    VideoPlayerComponent
   ],
   imports: [
     CommonModule,
     RouterModule,
-    FontAwesomeModule
+    FontAwesomeModule,
+    VgCoreModule,
+    VgControlsModule,
+    VgOverlayPlayModule,
+    VgBufferingModule
   ],
   exports: [
     HeaderComponent,
     DroneOverviewComponent,
-    LivefeedComponent
+    LivefeedsComponent,
+    VgCoreModule,
+    VgControlsModule,
+    VgOverlayPlayModule,
+    VgBufferingModule
   ]
 })
 export class ComponentsModule { }
