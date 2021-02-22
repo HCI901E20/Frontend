@@ -7,16 +7,34 @@
       <agm-map [latitude]=mapService.latitude [longitude]=mapService.longitude [zoom]="16" [styles]=mapstyle
         [disableDefaultUI]="true" [mapDraggable]="true">
 
-        <agm-marker *ngFor="let drone of droneService.droneList; let i=index"
-          [iconUrl]="{url: drone.ui.iconUrl, scaledSize:{height:30,width:30}}"
-          [label]="{color: 'white', text: (i + 1).toString(), fontWeight: 'bold', fontFamily: 'monospace'}"
-          [latitude]="drone.currentPosition.latitude" [longitude]="drone.currentPosition.longitude">
-        </agm-marker>
+        <!-- Boat Marker -->
+        <ng-container *ngIf="boatService.BoatPosition | async; let pos">
 
-        <agm-marker *ngIf="boatService.BoatPosition | async; let pos"
-          [iconUrl]="{url: '/assets/icons/boat.svg', scaledSize:{height:30,width:30}}"
-          [latitude]="pos.lat" [longitude]="pos.lng">
-        </agm-marker>
+          <agm-marker
+            [iconUrl]='{path: getSvgPath(boatService.BoatOrientation | async), fillColor: "#FFFFFF", fillOpacity: 0.25, strokeWeight: 0}'
+            [latitude]="pos.lat" [longitude]="pos.lng" [zIndex]="10">
+          </agm-marker>
+
+          <agm-marker [iconUrl]="{url: '/assets/icons/boat.svg', scaledSize:{height:30,width:30}}" [latitude]="pos.lat"
+            [longitude]="pos.lng" [zIndex]="20">
+          </agm-marker>
+
+        </ng-container>
+
+        <!-- Drone Markers -->
+        <ng-container *ngFor="let drone of droneService.droneList; let i=index">
+
+          <agm-marker
+            [iconUrl]='{path: getSvgPath(drone.orientation), fillColor: "#FFFFFF", fillOpacity: 0.25, strokeWeight: 0}'
+            [latitude]="drone.currentPosition.latitude" [longitude]="drone.currentPosition.longitude" [zIndex]="10">
+          </agm-marker>
+
+          <agm-marker [iconUrl]="{url: drone.ui.iconUrl, scaledSize:{height:30,width:30}}"
+            [label]="{color: 'white', text: (i + 1).toString(), fontWeight: 'bold', fontFamily: 'monospace'}"
+            [latitude]="drone.currentPosition.latitude" [longitude]="drone.currentPosition.longitude" [zIndex]="20">
+          </agm-marker>
+
+        </ng-container>
 
         <!--<ng-container *ngFor="let zone of droneService.droneZones; let i=index">
           <agm-polygon [paths]="zone.area" [fillColor]="zone.zoneColor"

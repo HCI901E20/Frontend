@@ -16,6 +16,9 @@ export class DashboardComponent implements OnInit {
   faEdit = faEdit;
   faTrash = faTrashAlt;
 
+  private coneLenght = 60;
+  private coneAngle = 90;
+
   constructor(
     public droneService: DroneService,
     public mapService: MapService,
@@ -25,4 +28,30 @@ export class DashboardComponent implements OnInit {
   ngOnInit(): void {
     this.droneService.updateDrones();
   }
+
+  private degToRad(degress: number): number {
+    return degress * (Math.PI / 180);
+  }
+
+  private getX(angle: number): number {
+    return this.coneLenght * Math.cos(this.degToRad(angle));
+  }
+
+  private getY(angle: number): number {
+    return this.coneLenght * Math.sin(this.degToRad(angle));
+  }
+
+  public getSvgPath(angle: number): string {
+    const diff = this.coneAngle/2;
+
+    const x1 = Math.round(this.getX(angle - diff))
+    const y1 = Math.round(this.getY(angle - diff))
+
+    const x2 = Math.round(this.getX(angle + diff))
+    const y2 = Math.round(this.getY(angle + diff))
+
+    return "M0,-15 " + x1 + "," + (y1 - 15) + " " + x2 + "," + (y2 - 15) + "z";
+  }
+
+
 }
