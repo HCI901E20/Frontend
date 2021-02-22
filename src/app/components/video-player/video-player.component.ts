@@ -1,6 +1,7 @@
 import { Input } from '@angular/core';
 import { Component, OnInit } from '@angular/core';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { VgApiService } from '@videogular/ngx-videogular/core';
+import { BehaviorSubject, ObjectUnsubscribedError, Observable } from 'rxjs';
 
 @Component({
   selector: 'app-video-player',
@@ -9,10 +10,13 @@ import { BehaviorSubject, Observable } from 'rxjs';
 })
 export class VideoPlayerComponent implements OnInit {
   @Input() source: Observable<String>;
-
+  api: VgApiService;
   constructor() { }
 
   ngOnInit(): void {
   }
 
+  onPlayerReady(api: VgApiService) {
+    this.api = api;
+  }
 }
