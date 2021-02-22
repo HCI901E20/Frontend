@@ -31,6 +31,17 @@
           <agm-marker [iconUrl]="{url: drone.ui.iconUrl, scaledSize:{height:30,width:30}}"
             [label]="{color: 'white', text: (i + 1).toString(), fontWeight: 'bold', fontFamily: 'monospace'}"
             [latitude]="drone.currentPosition.latitude" [longitude]="drone.currentPosition.longitude" [zIndex]="20">
+
+            <agm-snazzy-info-window [maxWidth]="200" [isOpen]="true" [placement]="'right'" [closeOnMapClick]="false" [showCloseButton]="false"
+              [panOnOpen]="false" [pointer]=false [shadow]=false [padding]="'0'" [backgroundColor]="'transparent'" [border]="false" [fontColor]="'white'">
+              <ng-template>
+                <ng-container *ngIf="boatService.BoatPosition | async; let pos">
+                  Distance: {{mapService.calulateDistance(drone.currentPosition.latitude, drone.currentPosition.longitude, pos.lat, pos.lng)}}m<br>
+                  Bearing: {{mapService.calulateBearing(drone.currentPosition.latitude, drone.currentPosition.longitude, pos.lat, pos.lng)}}°
+                </ng-container>
+              </ng-template>
+            </agm-snazzy-info-window>
+
           </agm-marker>
 
         </ng-container>

@@ -7,6 +7,7 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { AgmCoreModule } from '@agm/core';
 import { environment } from '../../environments/environment';
 import { AgmDrawingModule } from '@agm/drawing';
+import { AgmSnazzyInfoWindowModule } from '@agm/snazzy-info-window';
 
 @NgModule({
   declarations: [DashboardComponent],
@@ -19,7 +20,8 @@ import { AgmDrawingModule } from '@agm/drawing';
       apiKey: '',
       libraries: ['places', 'drawing', 'geometry']
     }),
-    AgmDrawingModule
+    AgmDrawingModule,
+    AgmSnazzyInfoWindowModule
   ]
 })
 export class PagesModule { }
