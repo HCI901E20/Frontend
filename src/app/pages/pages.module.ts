@@ -17,7 +17,7 @@ import { AgmSnazzyInfoWindowModule } from '@agm/snazzy-info-window';
     ComponentsModule,
     FontAwesomeModule,
     AgmCoreModule.forRoot({
-      apiKey: '',
+      apiKey: environment.production? environment.api.apiKeys.googleMaps : '',
       libraries: ['places', 'drawing', 'geometry']
     }),
     AgmDrawingModule,
