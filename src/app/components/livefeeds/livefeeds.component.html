@@ -4,49 +4,57 @@
     <!-- Small Video Columns -->
     <div class="column is-2">
       <div *ngIf="this.feedsService.feeds.length >= 1">
-        <div class="container vid-container">
-          <app-video-player [source]=obsList[0]></app-video-player>
+        <div class="container" [ngClass]="(selectedVidIndex == 0) ? 'vid-container-selected' : 'vid-container-unselected'">
+          <app-video-player [source]=obsList[0] (click)="onPlayerClick(0)" (playerApi)="addPlayerApi($event)">
+          </app-video-player>
         </div>
       </div>
       <div *ngIf="this.feedsService.feeds.length >= 2">
-        <div class="container vid-container">
-          <app-video-player [source]=obsList[1]></app-video-player>
+        <div class="container" [ngClass]="(selectedVidIndex == 1) ? 'vid-container-selected' : 'vid-container-unselected'">
+          <app-video-player [source]=obsList[1] (click)="onPlayerClick(1)" (playerApi)="addPlayerApi($event)">
+          </app-video-player>
         </div>
       </div>
     </div>
     <div class="column is-2">
       <div *ngIf="this.feedsService.feeds.length >= 3">
-        <div class="container vid-container">
-          <app-video-player [source]=obsList[2]></app-video-player>
+        <div class="container" [ngClass]="(selectedVidIndex == 2) ? 'vid-container-selected' : 'vid-container-unselected'">
+          <app-video-player [source]=obsList[2] (click)="onPlayerClick(2)" (playerApi)="addPlayerApi($event)">
+          </app-video-player>
         </div>
       </div>
       <div *ngIf="this.feedsService.feeds.length >= 4">
-        <div class="container vid-container">
-          <app-video-player [source]=obsList[3]></app-video-player>
+        <div class="container" [ngClass]="(selectedVidIndex == 3) ? 'vid-container-selected' : 'vid-container-unselected'">
+          <app-video-player [source]=obsList[3] (click)="onPlayerClick(3)" (playerApi)="addPlayerApi($event)">
+          </app-video-player>
         </div>
       </div>
     </div>
     <div class="column is-2">
       <div *ngIf="this.feedsService.feeds.length >= 5">
-        <div class="container vid-container">
-          <app-video-player [source]=obsList[4]></app-video-player>
+        <div class="container" [ngClass]="(selectedVidIndex == 4) ? 'vid-container-selected' : 'vid-container-unselected'">
+          <app-video-player [source]=obsList[4] (click)="onPlayerClick(4)" (playerApi)="addPlayerApi($event)">
+          </app-video-player>
         </div>
       </div>
       <div *ngIf="this.feedsService.feeds.length >= 6">
-        <div class="container vid-container">
-          <app-video-player [source]=obsList[5]></app-video-player>
+        <div class="container" [ngClass]="(selectedVidIndex == 5) ? 'vid-container-selected' : 'vid-container-unselected'">
+          <app-video-player [source]=obsList[5] (click)="onPlayerClick(5)" (playerApi)="addPlayerApi($event)">
+          </app-video-player>
         </div>
       </div>
     </div>
     <div class="column is-2">
       <div *ngIf="this.feedsService.feeds.length >= 7">
-        <div class="container vid-container">
-          <app-video-player [source]=obsList[6]></app-video-player>
+        <div class="container" [ngClass]="(selectedVidIndex == 6) ? 'vid-container-selected' : 'vid-container-unselected'">
+          <app-video-player [source]=obsList[6] (click)="onPlayerClick(6)" (playerApi)="addPlayerApi($event)">
+          </app-video-player>
         </div>
       </div>
       <div *ngIf="this.feedsService.feeds.length >= 8">
-        <div class="container vid-container">
-          <app-video-player [source]=obsList[7]></app-video-player>
+        <div class="container" [ngClass]="(selectedVidIndex == 7) ? 'vid-container-selected' : 'vid-container-unselected'">
+          <app-video-player [source]=obsList[7] (click)="onPlayerClick(7)" (playerApi)="addPlayerApi($event)">
+          </app-video-player>
         </div>
       </div>
     </div>
@@ -54,9 +62,8 @@
     <!-- Enlarged Video Column -->
     <div class="column is-4">
       <div class="container ">
-        <app-video-player [source]=enlargedVidPathObs></app-video-player>
+        <app-video-player [source]=enlargedVidPathObs (playerApi)="addEnlargedPlayerApi($event)"></app-video-player>
       </div>
     </div>
   </div>
 </div>
-
