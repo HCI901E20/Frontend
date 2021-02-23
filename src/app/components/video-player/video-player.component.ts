@@ -1,4 +1,4 @@
-import { Input } from '@angular/core';
+import { Input, Output, EventEmitter } from '@angular/core';
 import { Component, OnInit } from '@angular/core';
 import { VgApiService } from '@videogular/ngx-videogular/core';
 import { BehaviorSubject, ObjectUnsubscribedError, Observable } from 'rxjs';
@@ -10,13 +10,14 @@ import { BehaviorSubject, ObjectUnsubscribedError, Observable } from 'rxjs';
 })
 export class VideoPlayerComponent implements OnInit {
   @Input() source: Observable<String>;
-  api: VgApiService;
+  @Output() playerApi = new EventEmitter<VgApiService>();
   constructor() { }
 
   ngOnInit(): void {
   }
 
   onPlayerReady(api: VgApiService) {
-    this.api = api;
+    console.log("Inside onPlayerReady");
+    this.playerApi.emit(api);
   }
 }

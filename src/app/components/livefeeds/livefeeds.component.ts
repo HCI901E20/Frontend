@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, HostListener, OnInit } from '@angular/core';
+import { VgApiService } from '@videogular/ngx-videogular/core';
 import { BehaviorSubject, interval, Observable } from 'rxjs';
 import { FeedsService } from 'src/app/services/feeds.service';
 
@@ -13,6 +14,7 @@ export class LivefeedsComponent implements OnInit {
 
   subjectList: Array<BehaviorSubject<String>> = [];
   obsList: Array<Observable<String>> = [];
+  playerApiList: Array<VgApiService> = [];
 
   constructor(public feedsService: FeedsService) {
     let i = 0
@@ -24,10 +26,21 @@ export class LivefeedsComponent implements OnInit {
       this.obsList.push(obs);
     });
 
-    this.enlargedVidPathSub.next(this.subjectList[0].value)
+    this.enlargedVidPathSub.next(this.subjectList[0].value);
   }
 
   ngOnInit(): void {
+  }
+
+  onPlayerClick(index: number): void {
+    console.log(index);
+    this.enlargedVidPathSub.next(this.subjectList[index].value);
+  }
+
+  addPlayerApi(api: VgApiService) {
+    console.log("inside call" + this.playerApiList.length);
+    this.playerApiList.push(api);
+    console.log(this.playerApiList.length);
   }
 
 }
