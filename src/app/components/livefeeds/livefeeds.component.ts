@@ -1,6 +1,7 @@
-import { Component, HostListener, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { VgApiService } from '@videogular/ngx-videogular/core';
-import { BehaviorSubject, interval, Observable } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
+import { take } from 'rxjs/operators';
 import { FeedsService } from 'src/app/services/feeds.service';
 
 @Component({
@@ -8,16 +9,19 @@ import { FeedsService } from 'src/app/services/feeds.service';
   templateUrl: './livefeeds.component.html',
   styleUrls: ['./livefeeds.component.scss']
 })
+
 export class LivefeedsComponent implements OnInit {
   enlargedVidPathSub: BehaviorSubject<String> = new BehaviorSubject<String>("");
   enlargedVidPathObs: Observable<String> = this.enlargedVidPathSub.asObservable();
+  enlargedVidApi: VgApiService = new VgApiService();
+
+  selectedVidIndex = 0;
 
   subjectList: Array<BehaviorSubject<String>> = [];
   obsList: Array<Observable<String>> = [];
   playerApiList: Array<VgApiService> = [];
 
   constructor(public feedsService: FeedsService) {
-    let i = 0
     feedsService.feeds.forEach(elem => {
       let sub: BehaviorSubject<String> = new BehaviorSubject<String>(elem);
       let obs: Observable<String> = sub.asObservable();
@@ -33,14 +37,18 @@ export class LivefeedsComponent implements OnInit {
   }
 
   onPlayerClick(index: number): void {
-    console.log(index);
     this.enlargedVidPathSub.next(this.subjectList[index].value);
+    this.enlargedVidApi.getDefaultMedia().subscriptions.canPlay.pipe(take(1)).subscribe(() => {
+      this.enlargedVidApi.currentTime = this.playerApiList[index].currentTime;
+    })
+    this.selectedVidIndex = index;
   }
 
   addPlayerApi(api: VgApiService) {
-    console.log("inside call" + this.playerApiList.length);
     this.playerApiList.push(api);
-    console.log(this.playerApiList.length);
   }
 
+  addEnlargedPlayerApi(api: VgApiService) {
+    this.enlargedVidApi = api;
+  }
 }
