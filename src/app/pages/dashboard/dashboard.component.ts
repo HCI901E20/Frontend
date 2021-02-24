@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, HostListener, OnInit } from '@angular/core';
 import mapstyle from '../../../assets/mapstyle.json';
 import { DroneService } from 'src/app/services/drone.service';
 import { MapService } from 'src/app/services/map.service';
 import { faCrosshairs, faEdit, faTrashAlt } from '@fortawesome/free-solid-svg-icons';
 import { BoatService } from 'src/app/services/boat.service';
+import { BehaviorSubject, Observable, Subject } from 'rxjs';
 import { FeedsService } from 'src/app/services/feeds.service';
 
 @Component({

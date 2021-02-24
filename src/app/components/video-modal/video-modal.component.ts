@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, HostListener, OnInit } from '@angular/core';
 import { VgApiService } from '@videogular/ngx-videogular/core';
 import { take } from 'rxjs/operators';
 import { FeedsService } from 'src/app/services/feeds.service';
@@ -12,6 +12,12 @@ export class VideoModalComponent implements OnInit {
   fullscreenPlayerApi: VgApiService;
 
   constructor(public feedsService: FeedsService) { }
+
+  @HostListener('document:keypress', ['$event'])
+  private handleKeyboardEvent(event: KeyboardEvent) {
+    if (event.key == "Enter")
+      this.onClose()
+  }
 
   ngOnInit(): void {
   }
