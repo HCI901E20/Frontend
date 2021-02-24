@@ -61,9 +61,8 @@ export class LivefeedsComponent implements OnInit {
 
   private hoverEnter() {
     if (Number.isNaN(this.hoverVidIndex) || this.hoverVidIndex == this.selectedVidIndex) {
-      //TODO enlarge player
-      console.log("DU ER EN BØLLE!!!");
-      
+      this.onPlayerDoubleClick(this.selectedVidIndex)      
+      this.hoverVidIndex = NaN;
     } else {
       this.onPlayerClick(this.hoverVidIndex);
       this.hoverVidIndex = NaN;
@@ -138,6 +137,11 @@ export class LivefeedsComponent implements OnInit {
         this.enlargedVidApi.currentTime = this.playerApiList[index].currentTime;
       });
     this.selectedVidIndex = index;
+  }
+
+  onPlayerDoubleClick(index: number): void {
+    this.feedsService.activeFullscreenTime = this.playerApiList[index].currentTime;
+    this.feedsService.activeFullscreenSourceSub.next(this.subjectList[index].value);
   }
 
   addPlayerApi(api: VgApiService) {

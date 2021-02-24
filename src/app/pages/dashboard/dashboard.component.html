@@ -65,9 +65,15 @@
       </div>
     </div>
 
+    <!-- Livefeed bar -->
     <div class="container is-fullwidth feeds-container">
       <app-livefeeds></app-livefeeds>
     </div>
-
   </div>
 </div>
+
+<!-- Full Screen Modal -->
+<div *ngIf="(feedsService.activeFullscreenSourceObs | async) != null">
+  <app-video-modal></app-video-modal>
+</div>
+
