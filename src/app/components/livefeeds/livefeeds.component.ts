@@ -44,6 +44,11 @@ export class LivefeedsComponent implements OnInit {
     this.selectedVidIndex = index;
   }
 
+  onPlayerDoubleClick(index: number): void {
+    this.feedsService.activeFullscreenTime = this.playerApiList[index].currentTime;
+    this.feedsService.activeFullscreenSourceSub.next(this.subjectList[index].value);
+  }
+
   addPlayerApi(api: VgApiService) {
     this.playerApiList.push(api);
   }

@@ -1,10 +1,15 @@
 import { Injectable } from '@angular/core';
+import { BehaviorSubject, Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class FeedsService {
   feeds: Array<string>;
+
+  activeFullscreenSourceSub: BehaviorSubject<String> = new BehaviorSubject<String>(null);
+  activeFullscreenSourceObs: Observable<String> = this.activeFullscreenSourceSub.asObservable();
+  activeFullscreenTime: number = 0;
 
   constructor() {
     let startfeeds = [

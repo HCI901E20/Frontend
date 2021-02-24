@@ -12,6 +12,7 @@ import { VgCoreModule } from '@videogular/ngx-videogular/core';
 import { VgControlsModule } from '@videogular/ngx-videogular/controls';
 import { VgOverlayPlayModule } from '@videogular/ngx-videogular/overlay-play';
 import { VgBufferingModule } from '@videogular/ngx-videogular/buffering';
+import { VideoModalComponent } from './video-modal/video-modal.component';
 
 
 @NgModule({
@@ -21,7 +22,8 @@ import { VgBufferingModule } from '@videogular/ngx-videogular/buffering';
     DroneCardComponent,
     LaunchModalComponent,
     LivefeedsComponent,
-    VideoPlayerComponent
+    VideoPlayerComponent,
+    VideoModalComponent
   ],
   imports: [
     CommonModule,
@@ -36,6 +38,7 @@ import { VgBufferingModule } from '@videogular/ngx-videogular/buffering';
     HeaderComponent,
     DroneOverviewComponent,
     LivefeedsComponent,
+    VideoModalComponent,
     VgCoreModule,
     VgControlsModule,
     VgOverlayPlayModule,
