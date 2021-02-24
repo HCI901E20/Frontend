@@ -4,6 +4,7 @@ import { DroneService } from 'src/app/services/drone.service';
 import { MapService } from 'src/app/services/map.service';
 import { faCrosshairs, faEdit, faTrashAlt } from '@fortawesome/free-solid-svg-icons';
 import { BoatService } from 'src/app/services/boat.service';
+import { FeedsService } from 'src/app/services/feeds.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -22,7 +23,8 @@ export class DashboardComponent implements OnInit {
   constructor(
     public droneService: DroneService,
     public mapService: MapService,
-    public boatService: BoatService
+    public boatService: BoatService,
+    public feedsService: FeedsService
   ) {}
 
   ngOnInit(): void {
