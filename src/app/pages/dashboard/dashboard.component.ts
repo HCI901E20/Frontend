@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, HostListener, OnInit } from '@angular/core';
 import mapstyle from '../../../assets/mapstyle.json';
 import { DroneService } from 'src/app/services/drone.service';
 import { MapService } from 'src/app/services/map.service';
 import { faCrosshairs, faEdit, faTrashAlt } from '@fortawesome/free-solid-svg-icons';
 import { BoatService } from 'src/app/services/boat.service';
+import { BehaviorSubject, Observable, Subject } from 'rxjs';
 
 @Component({
   selector: 'app-dashboard',
@@ -27,6 +28,15 @@ export class DashboardComponent implements OnInit {
 
   ngOnInit(): void {
     this.droneService.updateDrones();
+  }
+
+  private subject: BehaviorSubject<string> = new BehaviorSubject<string>('no key yet :D ');
+  public observable: Observable<string> = this.subject.asObservable();
+
+  @HostListener('document:keypress', ['$event'])
+  private handleKeyboardEvent(event: KeyboardEvent) {
+
+    
   }
 
   private degToRad(degress: number): number {
