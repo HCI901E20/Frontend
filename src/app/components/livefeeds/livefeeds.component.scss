@@ -25,3 +25,28 @@
   margin-right: 10px;
   margin-top: 0.5rem;
 }
+
+.icon-text {
+  color: white;
+  font-weight: 600;
+  position: absolute;
+  text-align: center;
+}
+
+.icon-circle {
+  height: 24px;
+  width: 24px;
+  background-color: #43aa8b;
+  border-radius: 50%;
+  position: absolute;
+  left: 8px;
+  top: 8px;
+
+  display: -webkit-box;  /* OLD - iOS 6-, Safari 3.1-6, BB7 */
+  display: -ms-flexbox;  /* TWEENER - IE 10 */
+  display: -webkit-flex; /* NEW - Safari 6.1+. iOS 7.1+, BB10 */
+  display: flex;         /* NEW, Spec - Firefox, Chrome, Opera */
+
+  justify-content: center;
+  align-items: center;
+}
