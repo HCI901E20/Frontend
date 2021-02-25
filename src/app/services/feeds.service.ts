@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { VgApiService } from '@videogular/ngx-videogular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 
 @Injectable({
@@ -10,6 +11,8 @@ export class FeedsService {
   activeFullscreenSourceSub: BehaviorSubject<String> = new BehaviorSubject<String>(null);
   activeFullscreenSourceObs: Observable<String> = this.activeFullscreenSourceSub.asObservable();
   activeFullscreenTime: number = 0;
+
+  playerApiList: Array<VgApiService> = [];
 
   constructor() {
     let startfeeds = [
@@ -24,5 +27,9 @@ export class FeedsService {
     ];
 
     this.feeds = startfeeds;
+  }
+
+  public addPlayerApi(api: VgApiService): void {
+    this.playerApiList.push(api);
   }
 }
