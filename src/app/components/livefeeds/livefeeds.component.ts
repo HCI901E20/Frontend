@@ -61,7 +61,7 @@ export class LivefeedsComponent implements OnInit {
 
   private hoverEnter() {
     if (Number.isNaN(this.hoverVidIndex) || this.hoverVidIndex == this.selectedVidIndex) {
-      this.onPlayerDoubleClick(this.selectedVidIndex)      
+      this.onPlayerDoubleClick(this.selectedVidIndex)
       this.hoverVidIndex = NaN;
     } else {
       this.onPlayerClick(this.hoverVidIndex);
@@ -117,14 +117,14 @@ export class LivefeedsComponent implements OnInit {
   private getLastVideoBottomRow(): number {
     if (this.isNumberEqual(this.feedsService.feeds.length - 1))
       return this.feedsService.feeds.length - 2;
-    else 
+    else
       return this.feedsService.feeds.length - 1;
   }
 
   private getLastVideoTopRow(): number {
     if (this.isNumberEqual(this.feedsService.feeds.length - 2))
       return this.feedsService.feeds.length - 2;
-    else 
+    else
     return this.feedsService.feeds.length - 1;
   }
 
