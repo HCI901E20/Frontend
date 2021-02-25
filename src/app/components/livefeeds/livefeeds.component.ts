@@ -134,18 +134,21 @@ export class LivefeedsComponent implements OnInit {
       .getDefaultMedia()
       .subscriptions.canPlay.pipe(take(1))
       .subscribe(() => {
-        this.enlargedVidApi.currentTime = this.playerApiList[index].currentTime;
+        //this.enlargedVidApi.currentTime = this.playerApiList[index].currentTime;
+        this.enlargedVidApi.currentTime = this.feedsService.playerApiList[index].currentTime;
       });
     this.selectedVidIndex = index;
   }
 
   onPlayerDoubleClick(index: number): void {
-    this.feedsService.activeFullscreenTime = this.playerApiList[index].currentTime;
+    //this.feedsService.activeFullscreenTime = this.playerApiList[index].currentTime;
+    this.feedsService.activeFullscreenTime = this.feedsService.playerApiList[index].currentTime;
     this.feedsService.activeFullscreenSourceSub.next(this.subjectList[index].value);
   }
 
   addPlayerApi(api: VgApiService) {
-    this.playerApiList.push(api);
+    //this.playerApiList.push(api);
+    this.feedsService.playerApiList.push(api);
   }
 
   addEnlargedPlayerApi(api: VgApiService) {
