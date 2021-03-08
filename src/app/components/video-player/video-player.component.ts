@@ -1,7 +1,9 @@
 import { Input, Output, EventEmitter } from '@angular/core';
 import { Component, OnInit } from '@angular/core';
 import { VgApiService } from '@videogular/ngx-videogular/core';
-import { Observable } from 'rxjs';
+import { interval, Observable } from 'rxjs';
+import { take } from 'rxjs/operators';
+import { PredictiveService } from 'src/app/services/predictive.service';
 
 @Component({
   selector: 'app-video-player',
@@ -13,12 +15,21 @@ export class VideoPlayerComponent implements OnInit {
   @Input() source: Observable<String>;
   @Output() playerApi: EventEmitter<VgApiService> = new EventEmitter<VgApiService>();
 
-  constructor() { }
+  constructor(private pred: PredictiveService) { }
 
   ngOnInit(): void {
   }
 
   onPlayerReady(api: VgApiService) {
     this.playerApi.emit(api);
+
+    interval(100).subscribe(() => {
+      if (api.currentTime < this.pred.TIMESTAMP + 0.5 && api.currentTime >= this.pred.TIMESTAMP) {
+        this.source.pipe(take(1)).subscribe((url: string) => {
+          this.pred.enablePredictive(url)
+        })
+      }
+    })
+
   }
 }
