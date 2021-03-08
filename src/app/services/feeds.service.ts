@@ -16,14 +16,15 @@ export class FeedsService {
 
   constructor() {
     let startfeeds = [
-      "https://content.jensoft.dk/P10/feed1.mp4",
+      "http://static.videogular.com/assets/videos/videogular.mp4"
+      /*"https://content.jensoft.dk/P10/feed1.mp4",
       "https://content.jensoft.dk/P10/feed2.mp4",
       "https://content.jensoft.dk/P10/feed3.mp4",
       "https://content.jensoft.dk/P10/feed4.mp4",
       "https://content.jensoft.dk/P10/feed5.mp4",
       "https://content.jensoft.dk/P10/feed6.mp4",
       "https://content.jensoft.dk/P10/feed7.mp4",
-      "https://content.jensoft.dk/P10/feed8.mp4",
+      "https://content.jensoft.dk/P10/feed8.mp4",*/
     ];
 
     this.feeds = startfeeds;
