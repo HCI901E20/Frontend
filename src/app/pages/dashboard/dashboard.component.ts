@@ -6,6 +6,7 @@ import { faCrosshairs, faEdit, faTrashAlt } from '@fortawesome/free-solid-svg-ic
 import { BoatService } from 'src/app/services/boat.service';
 import { BehaviorSubject, Observable, Subject } from 'rxjs';
 import { FeedsService } from 'src/app/services/feeds.service';
+import { PersonService } from 'src/app/services/person.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -25,7 +26,8 @@ export class DashboardComponent implements OnInit {
     public droneService: DroneService,
     public mapService: MapService,
     public boatService: BoatService,
-    public feedsService: FeedsService
+    public feedsService: FeedsService,
+    public personService: PersonService
   ) {}
 
   ngOnInit(): void {

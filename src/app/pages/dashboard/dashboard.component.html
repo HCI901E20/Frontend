@@ -6,6 +6,13 @@
       <agm-map [latitude]=mapService.latitude [longitude]=mapService.longitude [zoom]="16" [styles]=mapstyle
         [disableDefaultUI]="true" [mapDraggable]="true">
 
+        <!-- Person Marker -->
+        <ng-container *ngIf="personService.Show | async">
+          <agm-marker *ngIf="personService.Position | async; let pos" [iconUrl]="{url: '/assets/icons/person.svg', scaledSize:{height:45,width:45}}" [latitude]="pos.lat"
+            [longitude]="pos.lng" [zIndex]="30">
+          </agm-marker>
+        </ng-container>
+
         <!-- Boat Marker -->
         <ng-container *ngIf="boatService.BoatPosition | async; let pos">
 
