@@ -10,10 +10,6 @@ import { FeedsService } from 'src/app/services/feeds.service';
   styleUrls: ['./livefeeds.component.scss'],
 })
 export class LivefeedsComponent implements OnInit {
-  enlargedVidPathSub: BehaviorSubject<String> = new BehaviorSubject<String>('');
-  enlargedVidPathObs: Observable<String> = this.enlargedVidPathSub.asObservable();
-  enlargedVidApi: VgApiService = new VgApiService();
-
   selectedVidIndex = 0;
   hoverVidIndex = NaN;
 
@@ -30,7 +26,7 @@ export class LivefeedsComponent implements OnInit {
       this.obsList.push(obs);
     });
 
-    this.enlargedVidPathSub.next(this.subjectList[0].value);
+    this.feedsService.enlargedVidPathSub.next(this.subjectList[0].value);
   }
 
   ngOnInit(): void {}
@@ -60,8 +56,11 @@ export class LivefeedsComponent implements OnInit {
   }
 
   private hoverEnter() {
-    if (Number.isNaN(this.hoverVidIndex) || this.hoverVidIndex == this.selectedVidIndex) {
-      this.onPlayerDoubleClick(this.selectedVidIndex)
+    if (
+      Number.isNaN(this.hoverVidIndex) ||
+      this.hoverVidIndex == this.selectedVidIndex
+    ) {
+      this.onPlayerDoubleClick(this.selectedVidIndex);
       this.hoverVidIndex = NaN;
     } else {
       this.onPlayerClick(this.hoverVidIndex);
@@ -70,38 +69,38 @@ export class LivefeedsComponent implements OnInit {
   }
 
   private hoverLeft() {
-    this.setHover()
+    this.setHover();
 
     if (this.hoverVidIndex == 0)
       this.hoverVidIndex = this.getLastVideoBottomRow();
     else if (this.hoverVidIndex == 1)
       this.hoverVidIndex = this.getLastVideoTopRow();
-    else
-      this.hoverVidIndex -= 2;
+    else this.hoverVidIndex -= 2;
   }
 
   private hoverRight() {
-    this.setHover()
+    this.setHover();
 
     if (this.hoverVidIndex == this.getLastVideoBottomRow())
       this.hoverVidIndex = 0;
     else if (this.hoverVidIndex == this.getLastVideoTopRow())
       this.hoverVidIndex = 1;
-    else
-      this.hoverVidIndex += 2;
+    else this.hoverVidIndex += 2;
   }
 
   private hoverUp() {
-    this.setHover()
+    this.setHover();
 
-    if (!this.isNumberEqual(this.hoverVidIndex))
-      this.hoverVidIndex -= 1;
+    if (!this.isNumberEqual(this.hoverVidIndex)) this.hoverVidIndex -= 1;
   }
 
   private hoverDown() {
-    this.setHover()
+    this.setHover();
 
-    if (this.isNumberEqual(this.hoverVidIndex) && this.hoverVidIndex + 1 < this.feedsService.feeds.length)
+    if (
+      this.isNumberEqual(this.hoverVidIndex) &&
+      this.hoverVidIndex + 1 < this.feedsService.feeds.length
+    )
       this.hoverVidIndex += 1;
   }
 
@@ -111,47 +110,50 @@ export class LivefeedsComponent implements OnInit {
   }
 
   private isNumberEqual(x: number): boolean {
-    return (x % 2) == 0;
+    return x % 2 == 0;
   }
 
   private getLastVideoBottomRow(): number {
     if (this.isNumberEqual(this.feedsService.feeds.length - 1))
       return this.feedsService.feeds.length - 2;
-    else
-      return this.feedsService.feeds.length - 1;
+    else return this.feedsService.feeds.length - 1;
   }
 
   private getLastVideoTopRow(): number {
     if (this.isNumberEqual(this.feedsService.feeds.length - 2))
       return this.feedsService.feeds.length - 2;
-    else
-    return this.feedsService.feeds.length - 1;
+    else return this.feedsService.feeds.length - 1;
   }
 
   onPlayerClick(index: number): void {
-    this.enlargedVidPathSub.next(this.subjectList[index].value);
-    this.enlargedVidApi
+    this.feedsService.enlargedVidPathSub.next(this.subjectList[index].value);
+    this.feedsService.enlargedVidApi
       .getDefaultMedia()
       .subscriptions.canPlay.pipe(take(1))
       .subscribe(() => {
-        //this.enlargedVidApi.currentTime = this.playerApiList[index].currentTime;
-        this.enlargedVidApi.currentTime = this.feedsService.playerApiList[index].currentTime;
+        this.feedsService.enlargedVidApi.currentTime = this.feedsService.playerApiList[
+          index
+        ].currentTime;
+        this.feedsService.enlargedVidApi.play();
       });
     this.selectedVidIndex = index;
   }
 
   onPlayerDoubleClick(index: number): void {
     //this.feedsService.activeFullscreenTime = this.playerApiList[index].currentTime;
-    this.feedsService.activeFullscreenTime = this.feedsService.playerApiList[index].currentTime;
-    this.feedsService.activeFullscreenSourceSub.next(this.subjectList[index].value);
+    this.feedsService.activeFullscreenTime = this.feedsService.playerApiList[
+      index
+    ].currentTime;
+    this.feedsService.activeFullscreenSourceSub.next(
+      this.subjectList[index].value
+    );
   }
 
   addPlayerApi(api: VgApiService) {
-    //this.playerApiList.push(api);
     this.feedsService.playerApiList.push(api);
   }
 
   addEnlargedPlayerApi(api: VgApiService) {
-    this.enlargedVidApi = api;
+    this.feedsService.enlargedVidApi = api;
   }
 }

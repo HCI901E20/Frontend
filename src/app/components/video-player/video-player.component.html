@@ -1,3 +1,4 @@
 <vg-player (onPlayerReady)="onPlayerReady($event)">
-  <video [src]="this.source | async" [vgMedia]="media" #media id="singlePlayer" preload="auto" autoplay loop playsinline muted></video>
+  <video [src]="this.source | async" [vgMedia]="media" #media id="singlePlayer" preload="auto" loop playsinline
+    muted></video>
 </vg-player>
