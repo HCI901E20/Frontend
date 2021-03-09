@@ -3,6 +3,8 @@ import { VgApiService } from '@videogular/ngx-videogular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { take } from 'rxjs/operators';
 import { FeedsService } from 'src/app/services/feeds.service';
+import { PersonService } from 'src/app/services/person.service';
+import { PredictiveService } from 'src/app/services/predictive.service';
 
 @Component({
   selector: 'app-livefeeds',
@@ -21,7 +23,7 @@ export class LivefeedsComponent implements OnInit {
   obsList: Array<Observable<String>> = [];
   playerApiList: Array<VgApiService> = [];
 
-  constructor(public feedsService: FeedsService) {
+  constructor(public feedsService: FeedsService, private predictiveService: PredictiveService) {
     feedsService.feeds.forEach((elem) => {
       let sub: BehaviorSubject<String> = new BehaviorSubject<String>(elem);
       let obs: Observable<String> = sub.asObservable();
@@ -31,6 +33,14 @@ export class LivefeedsComponent implements OnInit {
     });
 
     this.enlargedVidPathSub.next(this.subjectList[0].value);
+
+    this.predictiveService.ShowPredictive.subscribe((show: boolean) => {
+      if (show) {
+        this.predictiveService.Data.pipe(take(1)).subscribe((index: number) => {
+          this.onPlayerClick(index);
+        })
+      }
+    })
   }
 
   ngOnInit(): void {}
