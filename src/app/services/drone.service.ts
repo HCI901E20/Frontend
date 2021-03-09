@@ -18,9 +18,9 @@ export class DroneService extends ApiBaseService<Drone, string> {
   public droneList: Drone[] = [];
   public droneZones: DroneZone[] = [];
   public selectedDroneId = '';
-  public launchModalActive = false;
-  public isSearchLive = false;
   private usedZoneColors: string[] = [];
+  public isDemoLive = false;
+  public isDemoStarted = false;
 
   subscription: Subscription;
   source = interval(1000);
@@ -734,36 +734,6 @@ export class DroneService extends ApiBaseService<Drone, string> {
       ],
       path: [],
     });
-  }
-
-  public launchSearch(): void {
-    this.searchService.launch().subscribe((value: boolean) => {
-      if (!value) {
-        return;
-      }
-      this.isSearchLive = true;
-      this.toastService.success(
-        'Your search has successfully started!',
-        'Drones Launched'
-      );
-    });
-
-    this.launchModalActive = false;
-  }
-
-  public recallSearch(): void {
-    this.searchService.abort().subscribe((value: boolean) => {
-      if (!value) {
-        return;
-      }
-      this.isSearchLive = false;
-      this.toastService.info(
-        'Your search has been successfully recalled!',
-        'Drones Recalled'
-      );
-    });
-
-    this.launchModalActive = false;
   }
 
   /**

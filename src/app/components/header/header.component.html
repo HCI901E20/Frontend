@@ -15,15 +15,14 @@
       </div>
       <div id="navbarMenuHeroC" class="navbar-menu">
         <div class="navbar-end">
-          <!-- <div class="navbar-item">
-            <button class="button has-text-white drone-status-active-icon" (click)="startDemo()">
-              Start Demo
+          <div class="navbar-item">
+            <button class="button has-text-white drone-status-active-icon" (click)="demoService.toggleStartDemo()"
+              [ngClass]="demoService.isDemoLive? 'drone-status-error-icon' : 'drone-status-active-icon'">
+              {{demoService.btnTxt}}
             </button>
-          </div> -->
+          </div>
         </div>
       </div>
     </div>
   </header>
 </div>
-
-<app-launch-modal></app-launch-modal>
