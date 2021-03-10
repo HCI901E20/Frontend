@@ -18,8 +18,8 @@ export class LivefeedsComponent implements OnInit {
   selectedVidIndex = 0;
   hoverVidIndex = NaN;
 
-  subjectList: Array<BehaviorSubject<String>> = [];
-  obsList: Array<Observable<String>> = [];
+  subjectList: Array<BehaviorSubject<string>> = [];
+  obsList: Array<Observable<string>> = [];
   playerApiList: Array<VgApiService> = [];
 
   constructor(
@@ -33,13 +33,14 @@ export class LivefeedsComponent implements OnInit {
       this.subjectList = [];
       this.obsList = [];
       feedList.forEach((feed: string) => {
-        let sub: BehaviorSubject<String> = new BehaviorSubject<String>(feed);
-        let obs: Observable<String> = sub.asObservable();
+        let sub: BehaviorSubject<string> = new BehaviorSubject<string>(feed);
+        let obs: Observable<string> = sub.asObservable();
 
         this.subjectList.push(sub);
         this.obsList.push(obs);
       });
       this.feedsService.enlargedVidPathSub.next(this.subjectList[0]?.value);
+      this.feedsService.predictiveVidPathSub.next(this.subjectList[0]?.value);
     });
 
     this.predictiveService.ShowPredictive.subscribe((show: boolean) => {

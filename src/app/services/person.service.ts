@@ -27,10 +27,9 @@ export class PersonService {
         interval(1000).subscribe(() =>
           this.PositionSub.next(this.getPosition())
         );
-      } else {
-        this.show = show;
-        this.ShowSub.next(this.show);
       }
+      this.show = show;
+      this.ShowSub.next(this.show);
     });
   }
 

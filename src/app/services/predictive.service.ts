@@ -6,9 +6,9 @@ import { FeedsService } from './feeds.service';
   providedIn: 'root'
 })
 export class PredictiveService {
-  private TriggerSub: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(true);
-  private DataSub: BehaviorSubject<number> = new BehaviorSubject<number>(1);
-  private ShowInfoCardSub: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(true);
+  private TriggerSub: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+  private DataSub: BehaviorSubject<number> = new BehaviorSubject<number>(NaN);
+  private ShowInfoCardSub: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
 
   public ShowPredictive: Observable<boolean> = this.TriggerSub.asObservable();
   public Data: Observable<number> = this.DataSub.asObservable();

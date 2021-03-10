@@ -9,10 +9,16 @@ import { PredictiveService } from 'src/app/services/predictive.service';
   styleUrls: ['./object-confirm.component.scss'],
 })
 export class ObjectConfirmComponent implements OnInit {
+  public drone: number;
+
   constructor(
     public feedService: FeedsService,
     public predictiveService: PredictiveService
-  ) {}
+  ) {
+    this.predictiveService.Data.subscribe((index: number) => {
+      this.drone = index + 1;
+    });
+  }
 
   ngOnInit(): void {}
 
@@ -30,7 +36,7 @@ export class ObjectConfirmComponent implements OnInit {
         index
       ].currentTime;
       this.feedService.activeFullscreenSourceSub.next(
-        this.feedService.feeds[index]
+        this.feedService.feedsActiveSub.value[index]
       );
     });
   }

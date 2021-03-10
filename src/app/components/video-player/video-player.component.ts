@@ -23,7 +23,7 @@ export class VideoPlayerComponent implements OnInit {
     this.playerApi.emit(api);
 
     this.source.pipe(take(1)).subscribe((url: string) => {
-      if (url.includes('out')) {
+      if (url?.includes('out')) {
         interval(100).subscribe(() => {
           if (
             api.currentTime < this.pred.TIMESTAMP + 0.5 &&
