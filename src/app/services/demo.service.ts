@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { faThumbsDown } from '@fortawesome/free-solid-svg-icons';
 import { ToastrService } from 'ngx-toastr';
 import { FeedsService } from './feeds.service';
 

@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { HostListener, Injectable } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { VgApiService } from '@videogular/ngx-videogular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { ToastrService } from 'ngx-toastr';
