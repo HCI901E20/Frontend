@@ -20,6 +20,15 @@ export abstract class ApiBaseService<T, ID> implements ApiBaseInterface<T, ID> {
     );
   }
 
+  getAllId(id: ID): Observable<T[]> {
+    return this.httpClient.get<T[]>(this.apiUrl + '/' + id).pipe(
+      catchError((error) => {
+        this.handleServerError(error);
+        throw error;
+      })
+    );
+  }
+
   get(id: ID): Observable<T> {
     return this.httpClient.get<T>(this.apiUrl + '/' + id).pipe(
       catchError((error) => {
