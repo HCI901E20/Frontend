@@ -22,7 +22,7 @@ export class PredictiveService {
   public enablePredictive(data: string = '') {
     if (!this.block) {
       this.TriggerSub.next(true);
-      this.DataSub.next(this.feedService.feeds.indexOf(data));
+      this.DataSub.next(this.feedService.feedsActiveSub.value.indexOf(data));
       this.block = true;
       setTimeout(() => {this.block = false},1000);
     }

@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { faThumbsDown } from '@fortawesome/free-solid-svg-icons';
 import { ToastrService } from 'ngx-toastr';
 import { FeedsService } from './feeds.service';
 
@@ -29,7 +30,6 @@ export class DemoService {
       'Demo Started!'
     );
     this.btnTxt = toggleDemoBtnTxt[1];
-    console.log('startDemo called');
   }
 
   public pauseDemo(): void {
@@ -37,7 +37,20 @@ export class DemoService {
     this.isDemoLive = false;
     this.toastService.info('The demo has successfully paused', 'Demo Paused!');
     this.btnTxt = toggleDemoBtnTxt[2];
-    console.log('pauseDemo called');
+  }
+
+  public restartDemo(): void {
+    this.isDemoLive = false;
+    this.isDemoStarted = false;
+    this.btnTxt = toggleDemoBtnTxt[0];
+
+    this.feedsService.isPredictive = !this.feedsService.isPredictive;
+    this.feedsService.getFeeds();
+    
+    if(this.feedsService.isPredictive)
+      this.toastService.success('The demo has successfully switched to predictive mode');
+    else 
+      this.toastService.success('The demo has successfully switched to non predictive mode');
   }
 }
 
