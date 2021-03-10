@@ -6,7 +6,6 @@ import { DroneMapper } from '../mappers/drone.mapper';
 import { DroneZone, ZoneColors } from '../models/drone-zone.model';
 import { ToastrService } from 'ngx-toastr';
 import { ApiBaseService } from './api-base.service';
-import { SearchService } from './search.service';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../environments/environment';
 
@@ -28,7 +27,6 @@ export class DroneService extends ApiBaseService<Drone, string> {
   constructor(
     protected toastService: ToastrService,
     protected httpClient: HttpClient,
-    private searchService: SearchService
   ) {
     // Setup base api.
     super(`${environment.api.baseUrl}/drones`, httpClient, toastService);

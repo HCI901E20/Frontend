@@ -5,6 +5,9 @@ import { take } from 'rxjs/operators';
 import { FeedsService } from 'src/app/services/feeds.service';
 import { PersonService } from 'src/app/services/person.service';
 import { PredictiveService } from 'src/app/services/predictive.service';
+import { DemoService } from 'src/app/services/demo.service';
+import { ToastrService } from 'ngx-toastr';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-livefeeds',
@@ -19,24 +22,33 @@ export class LivefeedsComponent implements OnInit {
   obsList: Array<Observable<String>> = [];
   playerApiList: Array<VgApiService> = [];
 
-  constructor(public feedsService: FeedsService, private predictiveService: PredictiveService) {
-    feedsService.feeds.forEach((elem) => {
-      let sub: BehaviorSubject<String> = new BehaviorSubject<String>(elem);
-      let obs: Observable<String> = sub.asObservable();
+  constructor(
+    public feedsService: FeedsService,
+    public demoService: DemoService,
+    protected toastService: ToastrService,
+    protected httpClient: HttpClient,
+    public predictiveService: PredictiveService
+  ) {
+    feedsService.feedsActiveObs.subscribe((feedList: string[]) => {
+      this.subjectList = [];
+      this.obsList = [];
+      feedList.forEach((feed: string) => {
+        let sub: BehaviorSubject<String> = new BehaviorSubject<String>(feed);
+        let obs: Observable<String> = sub.asObservable();
 
-      this.subjectList.push(sub);
-      this.obsList.push(obs);
+        this.subjectList.push(sub);
+        this.obsList.push(obs);
+      });
+      this.feedsService.enlargedVidPathSub.next(this.subjectList[0]?.value);
     });
 
     this.predictiveService.ShowPredictive.subscribe((show: boolean) => {
       if (show) {
         this.predictiveService.Data.pipe(take(1)).subscribe((index: number) => {
           this.onPlayerClick(index);
-        })
+        });
       }
-    })
-
-    this.feedsService.enlargedVidPathSub.next(this.subjectList[0].value);
+    });
   }
 
   ngOnInit(): void {}
@@ -58,6 +70,9 @@ export class LivefeedsComponent implements OnInit {
         break;
       case 'Enter': // Select
         this.hoverEnter();
+        break;
+      case '-':
+        this.demoService.restartDemo();
         break;
 
       default:
@@ -109,7 +124,7 @@ export class LivefeedsComponent implements OnInit {
 
     if (
       this.isNumberEqual(this.hoverVidIndex) &&
-      this.hoverVidIndex + 1 < this.feedsService.feeds.length
+      this.hoverVidIndex + 1 < this.feedsService.feedsActiveSub.value.length
     )
       this.hoverVidIndex += 1;
   }
@@ -124,15 +139,15 @@ export class LivefeedsComponent implements OnInit {
   }
 
   private getLastVideoBottomRow(): number {
-    if (this.isNumberEqual(this.feedsService.feeds.length - 1))
-      return this.feedsService.feeds.length - 2;
-    else return this.feedsService.feeds.length - 1;
+    if (this.isNumberEqual(this.feedsService.feedsActiveSub.value.length - 1))
+      return this.feedsService.feedsActiveSub.value.length - 2;
+    else return this.feedsService.feedsActiveSub.value.length - 1;
   }
 
   private getLastVideoTopRow(): number {
-    if (this.isNumberEqual(this.feedsService.feeds.length - 2))
-      return this.feedsService.feeds.length - 2;
-    else return this.feedsService.feeds.length - 1;
+    if (this.isNumberEqual(this.feedsService.feedsActiveSub.value.length - 2))
+      return this.feedsService.feedsActiveSub.value.length - 2;
+    else return this.feedsService.feedsActiveSub.value.length - 1;
   }
 
   onPlayerClick(index: number): void {
@@ -144,19 +159,21 @@ export class LivefeedsComponent implements OnInit {
         this.feedsService.enlargedVidApi.currentTime = this.feedsService.playerApiList[
           index
         ].currentTime;
-        this.feedsService.enlargedVidApi.play();
+        if (this.demoService.isDemoLive)
+          this.feedsService.enlargedVidApi.play();
       });
     this.selectedVidIndex = index;
   }
 
   onPlayerDoubleClick(index: number): void {
-    //this.feedsService.activeFullscreenTime = this.playerApiList[index].currentTime;
+    this.feedsService.fullScreenVidApi = this.feedsService.playerApiList[index];
     this.feedsService.activeFullscreenTime = this.feedsService.playerApiList[
       index
     ].currentTime;
     this.feedsService.activeFullscreenSourceSub.next(
       this.subjectList[index].value
     );
+    if (this.demoService.isDemoLive) this.feedsService.fullScreenVidApi.play();
   }
 
   addPlayerApi(api: VgApiService) {
@@ -165,5 +182,9 @@ export class LivefeedsComponent implements OnInit {
 
   addEnlargedPlayerApi(api: VgApiService) {
     this.feedsService.enlargedVidApi = api;
+  }
+
+  addFullScreenPlayerApi(api: VgApiService) {
+    this.feedsService.fullScreenVidApi = api;
   }
 }

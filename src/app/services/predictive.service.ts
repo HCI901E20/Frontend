@@ -16,7 +16,7 @@ export class PredictiveService {
 
   private block: boolean = false;
 
-  public TIMESTAMP:number = 10.10
+  public TIMESTAMP: number = 10.10
 
   constructor(private feedService: FeedsService) {
 
@@ -25,12 +25,11 @@ export class PredictiveService {
   public enablePredictive(data: string = '') {
     if (!this.block) {
       this.block = true;
-      setTimeout(() => {this.block = false},1000);
-      this.feedService.setPredictiveSource(this.feedService.feeds.indexOf(data))
+      setTimeout(() => { this.block = false; }, 1000);
+      this.DataSub.next(this.feedService.feedsActiveSub.value.indexOf(data));
+      this.feedService.setPredictiveSource(this.feedService.feedsActiveSub.value.indexOf(data));
       this.TriggerSub.next(true);
       this.ShowInfoCardSub.next(true);
-      this.DataSub.next(this.feedService.feeds.indexOf(data));
-      this.feedService
     }
   }
 
