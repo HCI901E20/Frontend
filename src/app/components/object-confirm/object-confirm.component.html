@@ -1,0 +1,18 @@
+<div class="card" *ngIf="predictiveService.ShowInfoCard| async">
+  <div class="card-image" *ngIf="predictiveService.Data | async">
+    <figure>
+      <app-video-player [source]="feedService.predictiveVidPathObs" (playerApi)="feedService.addPredictivePlayerApi($event)">
+      </app-video-player>
+    </figure>
+  </div>
+  <div class="card-content">
+    <div class="content">
+      <p>Drone #{{ drone }} have detected what appears to be a person</p>
+    </div>
+  </div>
+  <footer class="card-footer">
+    <a class="card-footer-item" (click)="confirm()">Confirm</a>
+    <a class="card-footer-item" (click)="ignore()">Ignore</a>
+    <a class="card-footer-item" (click)="view()">View</a>
+  </footer>
+</div>

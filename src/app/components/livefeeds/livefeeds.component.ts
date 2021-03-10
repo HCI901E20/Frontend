@@ -3,6 +3,8 @@ import { VgApiService } from '@videogular/ngx-videogular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { take } from 'rxjs/operators';
 import { FeedsService } from 'src/app/services/feeds.service';
+import { PersonService } from 'src/app/services/person.service';
+import { PredictiveService } from 'src/app/services/predictive.service';
 import { DemoService } from 'src/app/services/demo.service';
 import { ToastrService } from 'ngx-toastr';
 import { HttpClient } from '@angular/common/http';
@@ -16,27 +18,37 @@ export class LivefeedsComponent implements OnInit {
   selectedVidIndex = 0;
   hoverVidIndex = NaN;
 
-  subjectList: Array<BehaviorSubject<String>> = [];
-  obsList: Array<Observable<String>> = [];
+  subjectList: Array<BehaviorSubject<string>> = [];
+  obsList: Array<Observable<string>> = [];
   playerApiList: Array<VgApiService> = [];
 
   constructor(
     public feedsService: FeedsService,
     public demoService: DemoService,
     protected toastService: ToastrService,
-    protected httpClient: HttpClient
+    protected httpClient: HttpClient,
+    public predictiveService: PredictiveService
   ) {
     feedsService.feedsActiveObs.subscribe((feedList: string[]) => {
       this.subjectList = [];
       this.obsList = [];
       feedList.forEach((feed: string) => {
-        let sub: BehaviorSubject<String> = new BehaviorSubject<String>(feed);
-        let obs: Observable<String> = sub.asObservable();
+        let sub: BehaviorSubject<string> = new BehaviorSubject<string>(feed);
+        let obs: Observable<string> = sub.asObservable();
 
         this.subjectList.push(sub);
         this.obsList.push(obs);
       });
       this.feedsService.enlargedVidPathSub.next(this.subjectList[0]?.value);
+      this.feedsService.predictiveVidPathSub.next(this.subjectList[0]?.value);
+    });
+
+    this.predictiveService.ShowPredictive.subscribe((show: boolean) => {
+      if (show) {
+        this.predictiveService.Data.pipe(take(1)).subscribe((index: number) => {
+          this.onPlayerClick(index);
+        });
+      }
     });
   }
 

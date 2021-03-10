@@ -1,3 +1,4 @@
+<app-object-confirm></app-object-confirm>
 <div class="columns is-fullwidth is-gapless full-columns" style="overflow: hidden;">
   <div class="column">
     <!-- Map container -->
@@ -8,7 +9,8 @@
 
         <!-- Person Marker -->
         <ng-container *ngIf="personService.Show | async">
-          <agm-marker *ngIf="personService.Position | async; let pos" [iconUrl]="{url: '/assets/icons/person.svg', scaledSize:{height:45,width:45}}" [latitude]="pos.lat"
+          <agm-marker *ngIf="personService.Position | async; let pos"
+            [iconUrl]="{url: '/assets/icons/person.svg', scaledSize:{height:45,width:45}}" [latitude]="pos.lat"
             [longitude]="pos.lng" [zIndex]="30">
           </agm-marker>
         </ng-container>
@@ -39,12 +41,15 @@
             [label]="{color: 'white', text: (i + 1).toString(), fontWeight: 'bold', fontFamily: 'monospace'}"
             [latitude]="drone.currentPosition.latitude" [longitude]="drone.currentPosition.longitude" [zIndex]="20">
 
-            <agm-snazzy-info-window [maxWidth]="200" [isOpen]="true" [placement]="'right'" [closeOnMapClick]="false" [showCloseButton]="false"
-              [panOnOpen]="false" [pointer]=false [shadow]=false [padding]="'0'" [backgroundColor]="'transparent'" [border]="false" [fontColor]="'white'">
+            <agm-snazzy-info-window [maxWidth]="200" [isOpen]="true" [placement]="'right'" [closeOnMapClick]="false"
+              [showCloseButton]="false" [panOnOpen]="false" [pointer]=false [shadow]=false [padding]="'0'"
+              [backgroundColor]="'transparent'" [border]="false" [fontColor]="'white'">
               <ng-template>
                 <ng-container *ngIf="boatService.BoatPosition | async; let pos">
-                  Distance: {{mapService.calulateDistance(drone.currentPosition.latitude, drone.currentPosition.longitude, pos.lat, pos.lng)}}m<br>
-                  Bearing: {{mapService.calulateBearing(drone.currentPosition.latitude, drone.currentPosition.longitude, pos.lat, pos.lng)}}°
+                  Distance: {{mapService.calulateDistance(drone.currentPosition.latitude,
+                  drone.currentPosition.longitude, pos.lat, pos.lng)}}m<br>
+                  Bearing: {{mapService.calulateBearing(drone.currentPosition.latitude, drone.currentPosition.longitude,
+                  pos.lat, pos.lng)}}°
                 </ng-container>
               </ng-template>
             </agm-snazzy-info-window>
@@ -54,8 +59,7 @@
         </ng-container>
 
         <ng-container *ngFor="let zone of droneService.droneZones; let i=index">
-          <agm-polygon [paths]="zone.area" [fillColor]="grey"
-            [fillOpacity]="0.1" [strokeColor]="black"
+          <agm-polygon [paths]="zone.area" [fillColor]="grey" [fillOpacity]="0.1" [strokeColor]="black"
             [strokeOpacity]="1"></agm-polygon>
         </ng-container>
 
@@ -72,15 +76,14 @@
       </div>
     </div> -->
 
-    <!-- Livefeed bar -->
-    <div class="container is-fullwidth feeds-container">
-      <app-livefeeds></app-livefeeds>
+      <!-- Livefeed bar -->
+      <div class="container is-fullwidth feeds-container">
+        <app-livefeeds></app-livefeeds>
+      </div>
     </div>
   </div>
-</div>
 
-<!-- Full Screen Modal -->
-<div *ngIf="(feedsService.activeFullscreenSourceObs | async) != null">
-  <app-video-modal></app-video-modal>
-</div>
-
+  <!-- Full Screen Modal -->
+  <div *ngIf="(feedsService.activeFullscreenSourceObs | async) != null">
+    <app-video-modal></app-video-modal>
+  </div>

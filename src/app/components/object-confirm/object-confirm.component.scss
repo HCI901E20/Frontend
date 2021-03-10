@@ -1,0 +1,22 @@
+.card {
+  position: fixed;
+  top: auto;
+  bottom: auto;
+  right: 10px;
+  z-index: 40;
+
+  max-width: 400px;
+
+  .card-footer {
+    border: none;
+  }
+
+  .card-footer-item {
+    border: none;
+    color: white;
+  }
+
+  .card-footer-item:hover {
+    background-color: #858585;
+  }
+}
