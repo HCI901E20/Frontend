@@ -6,6 +6,7 @@ export class DroneDto {
     latitude: number;
     longitude: number;
     altitude: number;
+    bearing : number;
   };
   batteryPercentage: number;
   status: number;
@@ -20,8 +21,8 @@ export class Drone {
     latitude: number;
     longitude: number;
     altitude: number;
+    bearing : number;
   };
-  orientation?: number;
   batteryPercentage: number;
   status: number;
   ip: string;
