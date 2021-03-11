@@ -3,7 +3,6 @@ import { VgApiService } from '@videogular/ngx-videogular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { take } from 'rxjs/operators';
 import { FeedsService } from 'src/app/services/feeds.service';
-import { PersonService } from 'src/app/services/person.service';
 import { PredictiveService } from 'src/app/services/predictive.service';
 import { DemoService } from 'src/app/services/demo.service';
 import { ToastrService } from 'ngx-toastr';
@@ -73,7 +72,7 @@ export class LivefeedsComponent implements OnInit {
         this.hoverEnter();
         break;
       case '-':
-        this.demoService.restartDemo();
+        this.demoService.togglePredictive();
         break;
 
       default:
@@ -152,29 +151,22 @@ export class LivefeedsComponent implements OnInit {
   }
 
   onPlayerClick(index: number): void {
-    this.feedsService.enlargedVidPathSub.next(this.subjectList[index].value);
+    this.feedsService.enlargedVidPathSub.next(this.subjectList[index].value + '?start=' +
+      this.feedsService.playerApiList[index].currentTime);
+
     this.feedsService.enlargedVidApi
-      .getDefaultMedia()
-      .subscriptions.canPlay.pipe(take(1))
-      .subscribe(() => {
-        this.feedsService.enlargedVidApi.currentTime = this.feedsService.playerApiList[
-          index
-        ].currentTime;
-        if (this.demoService.isDemoLive)
-          this.feedsService.enlargedVidApi.play();
-      });
-    this.selectedVidIndex = index;
+    .getDefaultMedia()
+    .subscriptions.canPlay.pipe(take(1))
+    .subscribe(() => {
+      if (this.demoService.isDemoLive)
+        this.feedsService.enlargedVidApi.play();
+    });
+  this.selectedVidIndex = index;
   }
 
   onPlayerDoubleClick(index: number): void {
-    this.feedsService.fullScreenVidApi = this.feedsService.playerApiList[index];
-    this.feedsService.activeFullscreenTime = this.feedsService.playerApiList[
-      index
-    ].currentTime;
-    this.feedsService.activeFullscreenSourceSub.next(
-      this.subjectList[index].value
-    );
-    if (this.demoService.isDemoLive) this.feedsService.fullScreenVidApi.play();
+    this.feedsService.activeFullscreenSourceSub.next(this.subjectList[index].value + '?start=' + 
+      this.feedsService.playerApiList[index].currentTime);
   }
 
   addPlayerApi(api: VgApiService) {

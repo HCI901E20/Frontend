@@ -38,7 +38,7 @@ export class DemoService {
     this.btnTxt = toggleDemoBtnTxt[2];
   }
 
-  public restartDemo(): void {
+  public togglePredictive(): void {
     this.isDemoLive = false;
     this.isDemoStarted = false;
     this.btnTxt = toggleDemoBtnTxt[0];

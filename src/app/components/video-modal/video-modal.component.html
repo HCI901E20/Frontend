@@ -2,7 +2,7 @@
   <div class="modal-background"></div>
   <div class="modal-content is-fullwidth">
     <div class="container vid-container is-centered">
-      <app-video-player [source]="feedsService.activeFullscreenSourceObs" (playerApi)="addFullscreenPlayerApi($event)"></app-video-player>
+      <app-video-player [source]=feedsService.activeFullscreenSourceObs (playerApi)="addFullscreenPlayerApi($event)"></app-video-player>
     </div>
   </div>
   <button class="modal-close xl-button" aria-label="close" (click)="onClose()"></button>

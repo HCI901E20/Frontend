@@ -1,6 +1,6 @@
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { ToastrService } from 'ngx-toastr';
-import { Observable, EMPTY, throwError} from 'rxjs';
+import { Observable} from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { ApiBaseInterface } from './api-base.interface';
 

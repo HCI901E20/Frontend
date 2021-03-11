@@ -45,19 +45,18 @@ export class FeedsService extends ApiBaseService<string, string> {
 
     /*
     let startFeeds = [
-      'https://content.jensoft.dk/P10/feed1.mp4',
-      'https://content.jensoft.dk/P10/feed2.mp4',
-      'https://content.jensoft.dk/P10/feed3.mp4',
-      'https://content.jensoft.dk/P10/feed4.mp4',
-      'https://content.jensoft.dk/P10/feed5.mp4',
-      'https://content.jensoft.dk/P10/feed6.mp4',
-      'https://content.jensoft.dk/P10/feed7.mp4',
-      'https://content.jensoft.dk/P10/feed8.mp4',
+      'http://server.ronsholt.me/videos/feed1.mp4',
+      'http://server.ronsholt.me/videos/feed2.mp4',
+      'http://server.ronsholt.me/videos/feed3.mp4',
+      'http://server.ronsholt.me/videos/feed4.mp4',
+      'http://server.ronsholt.me/videos/feed5.mp4',
+      'http://server.ronsholt.me/videos/feed6.mp4',
+      'http://server.ronsholt.me/videos/feed7.mp4',
+      'http://server.ronsholt.me/videos/feed8.mp4',
     ];
-
+    
     this.feedsActiveSub.next(startFeeds);
     */
-    //this.isPredictive = predictiveToggle;
     this.getFeeds();
   }
 
@@ -71,7 +70,6 @@ export class FeedsService extends ApiBaseService<string, string> {
             this.feedsActiveSub.next(this.feedsPredictiveSub.value);
           else
             this.feedsActiveSub.next(this.feedsNonPredictiveSub.value);
-          console.log(this.feedsActiveSub.value);
         }
       );
     });
@@ -86,7 +84,7 @@ export class FeedsService extends ApiBaseService<string, string> {
       })
     );
   }
-
+  
   public startFeeds(): void {
     this.playerApiList.forEach((feed) => {
       feed.play();
