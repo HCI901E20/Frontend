@@ -33,7 +33,7 @@
         <ng-container *ngFor="let drone of droneService.droneList; let i=index">
 
           <agm-marker
-            [iconUrl]='{path: getSvgPath(drone.orientation), fillColor: "#FFFFFF", fillOpacity: 0.25, strokeWeight: 0}'
+            [iconUrl]='{path: getSvgPath(drone.currentPosition.bearing - 90), fillColor: "#FFFFFF", fillOpacity: 0.25, strokeWeight: 0}'
             [latitude]="drone.currentPosition.latitude" [longitude]="drone.currentPosition.longitude" [zIndex]="10">
           </agm-marker>
 
