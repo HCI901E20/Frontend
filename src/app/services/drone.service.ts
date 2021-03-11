@@ -8,6 +8,7 @@ import { ToastrService } from 'ngx-toastr';
 import { ApiBaseService } from './api-base.service';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../environments/environment';
+import { TickService } from './tick.service';
 
 @Injectable({
   providedIn: 'root',
@@ -22,17 +23,17 @@ export class DroneService extends ApiBaseService<Drone, string> {
   public isDemoStarted = false;
 
   subscription: Subscription;
-  source = interval(1000);
 
   constructor(
     protected toastService: ToastrService,
     protected httpClient: HttpClient,
+    private tickService: TickService
   ) {
     // Setup base api.
     super(`${environment.api.baseUrl}/drones`, httpClient, toastService);
 
     // Run updateDrones at the given interval (source).
-    this.subscription = this.source.subscribe((val) => this.updateDrones());
+    this.subscription = this.tickService.UpdateClock.subscribe((val) => this.updateDrones());
     this.updateZones();
   }
 

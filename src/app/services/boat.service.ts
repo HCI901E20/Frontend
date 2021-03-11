@@ -3,6 +3,7 @@ import { BehaviorSubject, interval, Observable, Subscription } from 'rxjs';
 import { take } from 'rxjs/operators';
 import { Position } from '../models/position.model';
 import { MapService } from './map.service';
+import { TickService } from './tick.service';
 
 @Injectable({
   providedIn: 'root'
@@ -10,8 +11,6 @@ import { MapService } from './map.service';
 export class BoatService {
   private position: Position = {lat: 57.049356121182555, lng: 9.940183888977057};
   private ms: number = 10;
-
-  private update: Observable<number> = interval(1000);
 
   private boatPositionSub: BehaviorSubject<Position> = new BehaviorSubject<Position>(this.getPosition());
   public BoatPosition: Observable<Position> = this.boatPositionSub.asObservable();
@@ -22,8 +21,9 @@ export class BoatService {
   private movementSub: Subscription;
 
 
-  constructor(private mapService: MapService) {
-    this.update.subscribe(() => this.boatPositionSub.next(this.getPosition()));
+  constructor(private mapService: MapService,
+    private tickService: TickService) {
+    this.tickService.UpdateClock.subscribe(() => this.boatPositionSub.next(this.getPosition()));
   }
 
   private getPosition(): Position {
@@ -35,7 +35,7 @@ export class BoatService {
     const distance = this.mapService.calculateDistance(this.position.lat, this.position.lng, lat, lng);
     const steps = distance / this.ms;    
 
-    this.movementSub = this.update.pipe(take(steps)).subscribe(() => {
+    this.movementSub = this.tickService.UpdateClock.pipe(take(steps)).subscribe(() => {
       const bearing = this.mapService.calculateBearing(this.position.lat, this.position.lng, lat, lng);
       this.boatOrientationSub.next(bearing - 90);
 
