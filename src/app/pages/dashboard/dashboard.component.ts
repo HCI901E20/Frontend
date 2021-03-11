@@ -7,6 +7,9 @@ import { BoatService } from 'src/app/services/boat.service';
 import { BehaviorSubject, Observable, Subject } from 'rxjs';
 import { FeedsService } from 'src/app/services/feeds.service';
 import { PersonService } from 'src/app/services/person.service';
+import { GoogleMap, MapsEventListener } from '@agm/core/services/google-maps-types';
+import { AgmMarker } from '@agm/core';
+import { DemoService } from 'src/app/services/demo.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -27,11 +30,25 @@ export class DashboardComponent implements OnInit {
     public mapService: MapService,
     public boatService: BoatService,
     public feedsService: FeedsService,
-    public personService: PersonService
+    public personService: PersonService,
+    public demoService: DemoService
   ) {}
 
   ngOnInit(): void {
     this.droneService.updateDrones();
+  }
+
+  public click(event: google.maps.PolyMouseEvent) {
+    const lat: number = event.latLng.lat();
+    const lng: number = event.latLng.lng();
+
+    this.boatService.MoveTo(lat, lng);
+    this.demoService.addMapClickToLog(lat, lng);
+  }
+
+  public moveHere(marker: AgmMarker) {
+    this.boatService.MoveTo(marker.latitude, marker.longitude);
+    this.demoService.addMapClickToLog(marker.latitude, marker.longitude);
   }
 
   private degToRad(degress: number): number {

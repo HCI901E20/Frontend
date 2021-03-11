@@ -88,9 +88,9 @@ export class DroneCardComponent implements OnInit {
   }
 
   public centerMap(): void {
-    this.mapService.centerMap(
+    /* this.mapService.centerMap(
       this.inputDrone.currentPosition.latitude,
       this.inputDrone.currentPosition.longitude
-    );
+    ); */
   }
 }

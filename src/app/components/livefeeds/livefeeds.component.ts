@@ -75,6 +75,9 @@ export class LivefeedsComponent implements OnInit {
       case '-':
         this.demoService.restartDemo();
         break;
+      case ',': // display logs in console
+        this.demoService.displayLogs();
+        break;
 
       default:
         break;

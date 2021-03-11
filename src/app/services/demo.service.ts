@@ -15,6 +15,21 @@ export class DemoService {
   public isDemoStarted = false;
   public btnTxt = toggleDemoBtnTxt[0];
 
+  public logs: string[] = [];
+
+  public addMapClickToLog(lat: number, lng: number) {
+    this.logs.push('MapClick: ' + this.getTimestamp() + ' | ' + lat + ', ' + lng);
+  }
+
+  private getTimestamp() {
+    const now: Date = new Date();
+    return now.getHours() + ':' + now.getMinutes() + ':' + now.getSeconds() + ':' + now.getMilliseconds();
+  }
+
+  public displayLogs() {
+    console.log(this.logs);
+  }
+
   public toggleStartDemo(): void {
     if (this.isDemoLive) this.pauseDemo();
     else this.startDemo();
@@ -29,6 +44,8 @@ export class DemoService {
       'Demo Started!'
     );
     this.btnTxt = toggleDemoBtnTxt[1];
+    this.logs.push('DemoStart: ' + this.getTimestamp());
+
   }
 
   public pauseDemo(): void {
@@ -36,12 +53,14 @@ export class DemoService {
     this.isDemoLive = false;
     this.toastService.info('The demo has successfully paused', 'Demo Paused!');
     this.btnTxt = toggleDemoBtnTxt[2];
+    this.logs.push('DemoPause: ' + this.getTimestamp());
   }
 
   public restartDemo(): void {
     this.isDemoLive = false;
     this.isDemoStarted = false;
     this.btnTxt = toggleDemoBtnTxt[0];
+    this.logs.push('DemoRestart: ' + this.getTimestamp());
 
     this.feedsService.isPredictive = !this.feedsService.isPredictive;
     this.feedsService.getFeeds();
