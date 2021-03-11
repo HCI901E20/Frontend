@@ -6,84 +6,12 @@ import { Position } from '../models/position.model';
   providedIn: 'root',
 })
 export class MapService {
-  public latitude = 57.052217;
-  public longitude = 9.928468;
-  public polygon: any;
-  public polygonExists = false;
-
-  controlOptions = {
-    drawingControl: true,
-    drawingControlOptions: {
-      drawingModes: ['polygon'],
-    },
-    polygonOptions: {
-      draggable: true,
-      editable: true,
-      fillOpacity: 0.2,
-    },
-    polylineOptions: {
-      strokeOpacity: 0.5,
-    },
-    drawingMode: 'polygon',
-  };
+  public latitude = 57.05208707673086;
+  public longitude = 9.940698873107916;
 
   constructor(private toastService: ToastrService) {}
 
-  /**
-   * Centers the map from given parameters.
-   * If none is given, map is centered to default position.
-   * @param inputLat The latitude to center the map.
-   * @param inputLong The longitude to center the map.
-   */
-  public centerMap(
-    inputLat: number = 57.052217,
-    inputLong: number = 9.928468
-  ): void {
-    this.latitude = inputLat;
-    this.longitude = inputLong;
-  }
-
-  /**
-   * Clears the polygon drawn on the map.
-   */
-  public clearMap(): void {
-    this.polygon.setMap(null);
-    this.polygon = null;
-    this.polygonExists = false;
-  }
-
-  /**
-   * Gets a list of coordinates for the polygon
-   * @returns A JSON formatted list of (lat, long) tuples.
-   */
-  public getPolygonPaths(): any[] {
-    if (this.polygon) {
-      const vertices = this.polygon.getPaths().getArray()[0];
-      const paths = [];
-      vertices.getArray().forEach((xy: { lat: () => any; lng: () => any }) => {
-        const latLng = {
-          lat: xy.lat(),
-          lng: xy.lng(),
-        };
-        paths.push(JSON.stringify(latLng));
-      });
-      return paths;
-    } else {
-      return [];
-    }
-  }
-
-  public saveSearchArea(): void {
-    this.clearMap();
-    // TODO: Put request
-
-    this.toastService.success(
-      'The search area has been successfully updated!',
-      'Success'
-    );
-  }
-
-  public calulateDistance(lat1, lon1, lat2, lon2): number {
+  public calculateDistance(lat1, lon1, lat2, lon2): number {
     const R = 6371e3; // earth mean radius
     const φ1 = (lat1 * Math.PI) / 180;
     const φ2 = (lat2 * Math.PI) / 180;
@@ -98,7 +26,7 @@ export class MapService {
     return Math.round(R * c); // in metres
   }
 
-  public calulateBearing(lat1, lon1, lat2, lon2): number {
+  public calculateBearing(lat1, lon1, lat2, lon2): number {
     const y = Math.sin(lon2 - lon1) * Math.cos(lat2);
     const x =
       Math.cos(lat1) * Math.sin(lat2) -
@@ -106,4 +34,25 @@ export class MapService {
     const θ = Math.atan2(y, x);
     return Math.round(((θ * 180) / Math.PI + 360) % 360); // in degrees
   }
+
+  public getCoordinate(lat, lng, bearing, distance): Position {
+    const R = 6371e3;
+    const delta = distance / R;
+    bearing = this.toRad(bearing);
+    lat = this.toRad(lat);
+    lng = this.toRad(lng);
+
+    const lat2 = Math.asin(Math.sin(lat) *  Math.cos(delta) + Math.cos(lat) * Math.sin(delta) * Math.cos(bearing));
+    const lng2 = lng + Math.atan2(Math.sin(bearing) * Math.sin(delta) * Math.cos(lat), Math.cos(delta) - Math.sin(lat) * Math.sin(lat2));
+
+    return Object.assign(new Position(), {lat: this.toDeg(lat2), lng: this.toDeg(lng2)});
+  }
+
+  private toRad(x: number): number {
+    return (Math.PI * x) / 180;
+  }
+
+  private toDeg(x: number): number {
+    return (x * 180) / Math.PI;
+  } 
 }

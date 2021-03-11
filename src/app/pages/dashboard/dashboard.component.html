@@ -4,14 +4,14 @@
     <!-- Map container -->
     <div class="container is-fullwidth">
 
-      <agm-map [latitude]=mapService.latitude [longitude]=mapService.longitude [zoom]="16" [styles]=mapstyle
-        [disableDefaultUI]="true" [mapDraggable]="true">
+      <agm-map [latitude]=mapService.latitude [longitude]=mapService.longitude [zoom]="15" [styles]=mapstyle
+        [disableDefaultUI]="true" [mapDraggable]="true" (mapClick)="click($event)">
 
         <!-- Person Marker -->
         <ng-container *ngIf="personService.Show | async">
           <agm-marker *ngIf="personService.Position | async; let pos"
             [iconUrl]="{url: '/assets/icons/person.svg', scaledSize:{height:45,width:45}}" [latitude]="pos.lat"
-            [longitude]="pos.lng" [zIndex]="30">
+            [longitude]="pos.lng" [zIndex]="30" (markerClick)="moveHere($event)">
           </agm-marker>
         </ng-container>
 
@@ -39,16 +39,17 @@
 
           <agm-marker [iconUrl]="{url: drone.ui.iconUrl, scaledSize:{height:30,width:30}}"
             [label]="{color: 'white', text: (i + 1).toString(), fontWeight: 'bold', fontFamily: 'monospace'}"
-            [latitude]="drone.currentPosition.latitude" [longitude]="drone.currentPosition.longitude" [zIndex]="20">
+            [latitude]="drone.currentPosition.latitude" [longitude]="drone.currentPosition.longitude" [zIndex]="20"
+            (markerClick)="moveHere($event)">
 
             <agm-snazzy-info-window [maxWidth]="200" [isOpen]="true" [placement]="'right'" [closeOnMapClick]="false"
               [showCloseButton]="false" [panOnOpen]="false" [pointer]=false [shadow]=false [padding]="'0'"
               [backgroundColor]="'transparent'" [border]="false" [fontColor]="'white'">
               <ng-template>
                 <ng-container *ngIf="boatService.BoatPosition | async; let pos">
-                  Distance: {{mapService.calulateDistance(drone.currentPosition.latitude,
+                  Distance: {{mapService.calculateDistance(drone.currentPosition.latitude,
                   drone.currentPosition.longitude, pos.lat, pos.lng)}}m<br>
-                  Bearing: {{mapService.calulateBearing(drone.currentPosition.latitude, drone.currentPosition.longitude,
+                  Bearing: {{mapService.calculateBearing(drone.currentPosition.latitude, drone.currentPosition.longitude,
                   pos.lat, pos.lng)}}°
                 </ng-container>
               </ng-template>
@@ -60,7 +61,7 @@
 
         <ng-container *ngFor="let zone of droneService.droneZones; let i=index">
           <agm-polygon [paths]="zone.area" [fillColor]="grey" [fillOpacity]="0.1" [strokeColor]="black"
-            [strokeOpacity]="1"></agm-polygon>
+            [strokeOpacity]="1" (polyClick)="click($event)"></agm-polygon>
         </ng-container>
 
       </agm-map>
