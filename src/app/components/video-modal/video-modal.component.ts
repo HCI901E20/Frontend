@@ -28,10 +28,8 @@ export class VideoModalComponent implements OnInit {
 
   addFullscreenPlayerApi(api: VgApiService) {
     this.fullscreenPlayerApi = api;
-
     this.fullscreenPlayerApi.getDefaultMedia().subscriptions.canPlay.pipe(take(1)).subscribe(() => {
-      this.fullscreenPlayerApi.currentTime = this.feedsService.activeFullscreenTime;
-    })
-  }
-
+      this.fullscreenPlayerApi.play();
+    });
+  };
 }
