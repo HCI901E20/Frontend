@@ -77,19 +77,19 @@ export class DemoService extends ApiBaseService<string, string>{
   public togglePredictive(): void {
     if (!this.isDemoLive) {
       this.isDemoLive = false;
-    this.isDemoStarted = false;
-    this.restartDrones();
-    this.btnTxt = toggleDemoBtnTxt[0];
-    this.logs.push('DemoRestart: ' + this.getTimestamp());
+      this.isDemoStarted = false;
+      this.restartDrones();
+      this.btnTxt = toggleDemoBtnTxt[0];
+      this.logs.push('DemoRestart: ' + this.getTimestamp());
 
-    this.feedsService.isPredictive = !this.feedsService.isPredictive;
-    this.feedsService.getFeeds();
-    
-    if(this.feedsService.isPredictive)
-      this.toastService.success('The demo has successfully switched to predictive mode');
-    else 
-      this.toastService.success('The demo has successfully switched to non predictive mode');
-    }
+      this.feedsService.isPredictive = !this.feedsService.isPredictive;
+      this.feedsService.getFeeds();
+
+      if(this.feedsService.isPredictive)
+        this.toastService.success('The demo has successfully switched to predictive mode');
+      else 
+        this.toastService.success('The demo has successfully switched to non predictive mode');
+   }
   }
 }
 
