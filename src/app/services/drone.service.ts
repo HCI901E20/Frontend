@@ -53,7 +53,6 @@ export class DroneService extends ApiBaseService<Drone, string> {
           this.droneList = data;
         } else
           data.forEach((nDrone: Drone) => {
-
             Object.assign(
               this.droneList.find(
                 (oDrone: Drone) => oDrone.uuid == nDrone.uuid
