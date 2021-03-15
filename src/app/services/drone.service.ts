@@ -25,12 +25,12 @@ export class DroneService extends ApiBaseService<Drone, string> {
   subscription: Subscription;
 
   constructor(
-    protected toastService: ToastrService,
+    protected toastrService: ToastrService,
     protected httpClient: HttpClient,
     private tickService: TickService
   ) {
     // Setup base api.
-    super(`${environment.api.baseUrl}/drones`, httpClient, toastService);
+    super(`${environment.api.baseUrl}/drones`, httpClient, toastrService);
 
     // Run updateDrones at the given interval (source).
     this.subscription = this.tickService.UpdateClock.subscribe((val) => this.updateDrones());
@@ -53,7 +53,6 @@ export class DroneService extends ApiBaseService<Drone, string> {
           this.droneList = data;
         } else
           data.forEach((nDrone: Drone) => {
-
             Object.assign(
               this.droneList.find(
                 (oDrone: Drone) => oDrone.uuid == nDrone.uuid

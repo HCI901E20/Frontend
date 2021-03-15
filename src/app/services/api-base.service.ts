@@ -56,6 +56,15 @@ export abstract class ApiBaseService<T, ID> implements ApiBaseInterface<T, ID> {
     );
   }
 
+  postDemoToggle(ext: string) {
+    return this.httpClient.post<string>(this.apiUrl + '/' + ext, '').pipe(
+      catchError((error) => {
+        this.handleServerError(error);
+        throw error;      
+      })
+    );
+  }
+
   put(id: ID, t: T): Observable<T> {
     return this.httpClient.put<T>(this.apiUrl + '/' + id, t).pipe(
       catchError((error) => {
@@ -65,8 +74,8 @@ export abstract class ApiBaseService<T, ID> implements ApiBaseInterface<T, ID> {
     );
   }
 
-  delete(id: ID): Observable<any> {
-    return this.httpClient.delete<T>(this.apiUrl + '/' + id).pipe(
+  delete(): Observable<any> {
+    return this.httpClient.delete<T>(this.apiUrl).pipe(
       catchError((error) => {
         this.handleServerError(error);
         throw error;
