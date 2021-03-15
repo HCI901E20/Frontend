@@ -29,6 +29,15 @@ export abstract class ApiBaseService<T, ID> implements ApiBaseInterface<T, ID> {
     );
   }
 
+  putDronePause(id: ID, pause: boolean): Observable<boolean> {
+    return this.httpClient.put<boolean>(this.apiUrl + '/' + id + '/' + pause, null).pipe(
+      catchError((error) => {
+        this.handleServerError(error);
+        throw error;
+      })
+    );
+  }
+
   get(id: ID): Observable<T> {
     return this.httpClient.get<T>(this.apiUrl + '/' + id).pipe(
       catchError((error) => {

@@ -1,15 +1,27 @@
 import { Injectable } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
+import { DroneService } from './drone.service';
 import { FeedsService } from './feeds.service';
+import { PredictiveService } from './predictive.service';
+import { environment } from '../../environments/environment';
+import { HttpClient } from '@angular/common/http';
+import { ApiBaseService } from './api-base.service';
+import { Drone } from '../models/drone.model';
+import { take } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root',
 })
-export class DemoService {
+export class DemoService extends ApiBaseService<Drone, string> {
   constructor(
     protected toastService: ToastrService,
-    protected feedsService: FeedsService
-  ) {}
+    protected feedsService: FeedsService,
+    protected httpClient: HttpClient,
+    protected predictiveService: PredictiveService,
+    protected droneService: DroneService
+  ) {
+    super(`${environment.api.baseUrl}/demo`, httpClient, toastService);
+  }
 
   public isDemoLive = false;
   public isDemoStarted = false;
@@ -46,6 +58,12 @@ export class DemoService {
     this.btnTxt = toggleDemoBtnTxt[1];
     this.logs.push('DemoStart: ' + this.getTimestamp());
 
+    this.predictiveService.Data.subscribe((idx: number) => {
+      if (idx >= 0) {
+        this.toggleDronePause(idx, true);
+      }
+    })
+
   }
 
   public pauseDemo(): void {
@@ -64,11 +82,15 @@ export class DemoService {
 
     this.feedsService.isPredictive = !this.feedsService.isPredictive;
     this.feedsService.getFeeds();
-    
+
     if(this.feedsService.isPredictive)
       this.toastService.success('The demo has successfully switched to predictive mode');
-    else 
+    else
       this.toastService.success('The demo has successfully switched to non predictive mode');
+  }
+
+  public toggleDronePause(idx: number, pause: boolean): void {
+    this.putDronePause(this.droneService.droneList[idx].uuid, pause).pipe(take(1)).subscribe();
   }
 }
 
