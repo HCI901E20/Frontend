@@ -4,6 +4,7 @@ import { ApiBaseService } from './api-base.service';
 import { FeedsService } from './feeds.service';
 import { environment } from '../../environments/environment';
 import { HttpClient } from '@angular/common/http';
+import { take } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root',
@@ -25,12 +26,12 @@ export class DemoService extends ApiBaseService<string, string>{
   public logs: string[] = [];
 
   public toggleDrones(ext: string): void {
-    this.postDemoToggle(ext).subscribe();
+    this.postDemoToggle(ext).pipe(take(1)).subscribe();
   }
 
   public restartDrones(): void {
     this.toggleDrones('false');
-    this.delete().subscribe();
+    this.delete().pipe(take(1)).subscribe();
   }
 
   public addMapClickToLog(lat: number, lng: number) {
@@ -77,18 +78,18 @@ export class DemoService extends ApiBaseService<string, string>{
   public togglePredictive(): void {
     if (!this.isDemoLive) {
       this.isDemoLive = false;
-    this.isDemoStarted = false;
-    this.restartDrones();
-    this.btnTxt = toggleDemoBtnTxt[0];
-    this.logs.push('DemoRestart: ' + this.getTimestamp());
+      this.isDemoStarted = false;
+      this.restartDrones();
+      this.btnTxt = toggleDemoBtnTxt[0];
+      this.logs.push('DemoRestart: ' + this.getTimestamp());
 
-    this.feedsService.isPredictive = !this.feedsService.isPredictive;
-    this.feedsService.getFeeds();
-    
-    if(this.feedsService.isPredictive)
-      this.toastService.success('The demo has successfully switched to predictive mode');
-    else 
-      this.toastService.success('The demo has successfully switched to non predictive mode');
+      this.feedsService.isPredictive = !this.feedsService.isPredictive;
+      this.feedsService.getFeeds();
+      
+      if(this.feedsService.isPredictive)
+        this.toastService.success('The demo has successfully switched to predictive mode');
+      else 
+        this.toastService.success('The demo has successfully switched to non predictive mode');
     }
   }
 }
