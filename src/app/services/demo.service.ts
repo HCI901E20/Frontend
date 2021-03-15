@@ -1,22 +1,26 @@
 import { Injectable } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
-import { ApiBaseService } from './api-base.service';
+import { DroneService } from './drone.service';
 import { FeedsService } from './feeds.service';
+import { PredictiveService } from './predictive.service';
 import { environment } from '../../environments/environment';
 import { HttpClient } from '@angular/common/http';
+import { ApiBaseService } from './api-base.service';
+import { Drone } from '../models/drone.model';
 import { take } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root',
 })
-export class DemoService extends ApiBaseService<string, string>{
+export class DemoService extends ApiBaseService<string, string> {
   constructor(
-    protected toastrService: ToastrService,
+    protected toastService: ToastrService,
     protected feedsService: FeedsService,
-    protected httpClient: HttpClient
+    protected httpClient: HttpClient,
+    protected predictiveService: PredictiveService,
+    protected droneService: DroneService
   ) {
-    // Setup base API
-    super(`${environment.api.baseUrl}/demo`, httpClient, toastrService);
+    super(`${environment.api.baseUrl}/demo`, httpClient, toastService);
   }
 
   public isDemoLive = false;
@@ -64,6 +68,12 @@ export class DemoService extends ApiBaseService<string, string>{
     this.btnTxt = toggleDemoBtnTxt[1];
     this.logs.push('DemoStart: ' + this.getTimestamp());
 
+    this.predictiveService.Data.subscribe((idx: number) => {
+      if (idx >= 0) {
+        this.toggleDronePause(idx, true);
+      }
+    })
+
   }
 
   public pauseDemo(): void {
@@ -88,9 +98,13 @@ export class DemoService extends ApiBaseService<string, string>{
 
       if(this.feedsService.isPredictive)
         this.toastService.success('The demo has successfully switched to predictive mode');
-      else 
+      else
         this.toastService.success('The demo has successfully switched to non predictive mode');
     }
+  }
+
+  public toggleDronePause(idx: number, pause: boolean): void {
+    this.putDronePause(this.droneService.droneList[idx].uuid, pause).pipe(take(1)).subscribe();
   }
 }
 

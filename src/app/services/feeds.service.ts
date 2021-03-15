@@ -15,7 +15,7 @@ export class FeedsService extends ApiBaseService<string, string> {
   feedsActiveObs: Observable<string[]> = this.feedsActiveSub.asObservable();
 
   feedsPredictiveSub: BehaviorSubject<string[]> = new BehaviorSubject<string[]>([]);
-  feedsPredictiveObs: Observable<string[]> = this.feedsPredictiveSub.asObservable(); 
+  feedsPredictiveObs: Observable<string[]> = this.feedsPredictiveSub.asObservable();
 
   feedsNonPredictiveSub: BehaviorSubject<string[]> = new BehaviorSubject<string[]>([]);
   feedsNonPredictiveObs: Observable<string[]> = this.feedsNonPredictiveSub.asObservable();
@@ -54,7 +54,7 @@ export class FeedsService extends ApiBaseService<string, string> {
       'http://server.ronsholt.me/videos/feed7.mp4',
       'http://server.ronsholt.me/videos/feed8.mp4',
     ];
-    
+
     this.feedsActiveSub.next(startFeeds);
     */
     this.getFeeds();
@@ -84,7 +84,7 @@ export class FeedsService extends ApiBaseService<string, string> {
       })
     );
   }
-  
+
   public startFeeds(): void {
     this.playerApiList.forEach((feed) => {
       feed.play();

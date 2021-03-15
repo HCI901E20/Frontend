@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { take } from 'rxjs/operators';
+import { DemoService } from 'src/app/services/demo.service';
 import { FeedsService } from 'src/app/services/feeds.service';
 import { PredictiveService } from 'src/app/services/predictive.service';
 
@@ -13,7 +14,8 @@ export class ObjectConfirmComponent implements OnInit {
 
   constructor(
     public feedService: FeedsService,
-    public predictiveService: PredictiveService
+    public predictiveService: PredictiveService,
+    private demoService: DemoService
   ) {
     this.predictiveService.Data.subscribe((index: number) => {
       this.drone = index + 1;
@@ -27,6 +29,7 @@ export class ObjectConfirmComponent implements OnInit {
   }
 
   public ignore() {
+    this.demoService.toggleDronePause(this.drone - 1, false);
     this.predictiveService.removePredictive();
   }
 
