@@ -85,7 +85,7 @@ export class DemoService extends ApiBaseService<string, string>{
 
       this.feedsService.isPredictive = !this.feedsService.isPredictive;
       this.feedsService.getFeeds();
-      
+
       if(this.feedsService.isPredictive)
         this.toastService.success('The demo has successfully switched to predictive mode');
       else 
