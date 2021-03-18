@@ -80,6 +80,9 @@ export class LivefeedsComponent implements OnInit {
       case 'i':
         this.predictiveService.toggleIntrusive();
         break;
+      case 'r':
+        this.demoService.restartDemo();
+        break;
       default:
         break;
     }
