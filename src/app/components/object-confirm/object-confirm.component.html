@@ -1,4 +1,4 @@
-<div class="card" *ngIf="predictiveService.ShowInfoCard| async">
+<div class="card" *ngIf="predictiveService.ShowInfoCard| async" [class.intrusive]="predictiveService.Intrusive | async">
   <div class="card-image" *ngIf="predictiveService.Data | async">
     <figure>
       <app-video-player [source]="feedService.predictiveVidPathObs" (playerApi)="feedService.addPredictivePlayerApi($event)">
