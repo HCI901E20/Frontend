@@ -9,10 +9,12 @@ export class PredictiveService {
   private TriggerSub: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
   private DataSub: BehaviorSubject<number> = new BehaviorSubject<number>(NaN);
   private ShowInfoCardSub: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+  private IntrusiveSub: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
 
   public ShowPredictive: Observable<boolean> = this.TriggerSub.asObservable();
   public Data: Observable<number> = this.DataSub.asObservable();
   public ShowInfoCard: Observable<boolean> = this.ShowInfoCardSub.asObservable();
+  public Intrusive: Observable<boolean> = this.IntrusiveSub.asObservable();
 
   private block: boolean = false;
 
@@ -41,5 +43,9 @@ export class PredictiveService {
 
   public confirmPrediction() {
     this.ShowInfoCardSub.next(false);
+  }
+
+  public toggleIntrusive(): void {
+    this.IntrusiveSub.next(!this.IntrusiveSub.value);
   }
 }

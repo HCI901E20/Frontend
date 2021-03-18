@@ -71,13 +71,15 @@ export class LivefeedsComponent implements OnInit {
       case 'Enter': // Select
         this.hoverEnter();
         break;
-      case '-':
+      case 'p':
         this.demoService.togglePredictive();
         break;
-      case ',': // display logs in console
+      case 'l': // display logs in console
         this.demoService.displayLogs();
         break;
-
+      case 'i':
+        this.predictiveService.toggleIntrusive();
+        break;
       default:
         break;
     }
@@ -168,7 +170,7 @@ export class LivefeedsComponent implements OnInit {
   }
 
   onPlayerDoubleClick(index: number): void {
-    this.feedsService.activeFullscreenSourceSub.next(this.subjectList[index].value + '?start=' + 
+    this.feedsService.activeFullscreenSourceSub.next(this.subjectList[index].value + '?start=' +
       this.feedsService.playerApiList[index].currentTime);
   }
 
