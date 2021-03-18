@@ -8,6 +8,7 @@ import { HttpClient } from '@angular/common/http';
 import { ApiBaseService } from './api-base.service';
 import { Drone } from '../models/drone.model';
 import { take } from 'rxjs/operators';
+import { LogsService } from './logs.service';
 
 @Injectable({
   providedIn: 'root',
@@ -18,7 +19,8 @@ export class DemoService extends ApiBaseService<string, string> {
     protected feedsService: FeedsService,
     protected httpClient: HttpClient,
     protected predictiveService: PredictiveService,
-    protected droneService: DroneService
+    protected droneService: DroneService,
+    private logService: LogsService
   ) {
     super(`${environment.api.baseUrl}/demo`, httpClient, toastService);
   }
@@ -38,13 +40,35 @@ export class DemoService extends ApiBaseService<string, string> {
     this.delete().pipe(take(1)).subscribe();
   }
 
-  public addMapClickToLog(lat: number, lng: number) {
-    this.logs.push('MapClick: ' + this.getTimestamp() + ' | ' + lat + ', ' + lng);
+  public restartDemo() {
+    this.isDemoLive = false;
+    this.isDemoStarted = false;
+    this.restartDrones();
+
+    this.btnTxt = toggleDemoBtnTxt[0];
+    this.logs.push('DemoRestart: ' + this.getTimestamp());
+    this.logService.sendLog('DemoRestart: ' + this.getTimestamp());
+
+    this.feedsService.getFeeds();
   }
 
-  private getTimestamp() {
+  public addMapClickToLog(lat: number, lng: number) {
+    const msg = 'MapClick: ' + this.getTimestamp() + ' | ' + lat + ', ' + lng;
+    this.logs.push(msg);
+    this.logService.sendLog(msg);
+  }
+
+  public getTimestamp() {
     const now: Date = new Date();
-    return now.getHours() + ':' + now.getMinutes() + ':' + now.getSeconds() + ':' + now.getMilliseconds();
+    return (
+      now.getHours() +
+      ':' +
+      now.getMinutes() +
+      ':' +
+      now.getSeconds() +
+      ':' +
+      now.getMilliseconds()
+    );
   }
 
   public displayLogs() {
@@ -67,13 +91,13 @@ export class DemoService extends ApiBaseService<string, string> {
     );
     this.btnTxt = toggleDemoBtnTxt[1];
     this.logs.push('DemoStart: ' + this.getTimestamp());
+    this.logService.sendLog('DemoStart: ' + this.getTimestamp());
 
     this.predictiveService.Data.subscribe((idx: number) => {
       if (idx >= 0) {
         this.toggleDronePause(idx, true);
       }
-    })
-
+    });
   }
 
   public pauseDemo(): void {
@@ -83,28 +107,31 @@ export class DemoService extends ApiBaseService<string, string> {
     this.toastService.info('The demo has successfully paused', 'Demo Paused!');
     this.btnTxt = toggleDemoBtnTxt[2];
     this.logs.push('DemoPause: ' + this.getTimestamp());
+    this.logService.sendLog('DemoPause: ' + this.getTimestamp());
   }
 
   public togglePredictive(): void {
     if (!this.isDemoLive) {
-      this.isDemoLive = false;
-      this.isDemoStarted = false;
-      this.restartDrones();
-      this.btnTxt = toggleDemoBtnTxt[0];
-      this.logs.push('DemoRestart: ' + this.getTimestamp());
-
+      this.logs.push('Predictive Toggle: ' + this.getTimestamp());
+      this.logService.sendLog('Predictive Toggle: ' + this.getTimestamp());
       this.feedsService.isPredictive = !this.feedsService.isPredictive;
-      this.feedsService.getFeeds();
+      this.restartDemo();
 
-      if(this.feedsService.isPredictive)
-        this.toastService.success('The demo has successfully switched to predictive mode');
+      if (this.feedsService.isPredictive)
+        this.toastService.success(
+          'The demo has successfully switched to predictive mode'
+        );
       else
-        this.toastService.success('The demo has successfully switched to non predictive mode');
+        this.toastService.success(
+          'The demo has successfully switched to non predictive mode'
+        );
     }
   }
 
   public toggleDronePause(idx: number, pause: boolean): void {
-    this.putDronePause(this.droneService.droneList[idx].uuid, pause).pipe(take(1)).subscribe();
+    this.putDronePause(this.droneService.droneList[idx].uuid, pause)
+      .pipe(take(1))
+      .subscribe();
   }
 }
 
