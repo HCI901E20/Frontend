@@ -43,20 +43,20 @@ export class FeedsService extends ApiBaseService<string, string> {
     // Setup base api.
     super(`${environment.api.baseUrl}/feed`, httpClient, toastService);
 
-    /*
-    let startFeeds = [
-      'http://server.ronsholt.me/videos/feed1.mp4',
-      'http://server.ronsholt.me/videos/feed2.mp4',
-      'http://server.ronsholt.me/videos/feed3.mp4',
-      'http://server.ronsholt.me/videos/feed4.mp4',
-      'http://server.ronsholt.me/videos/feed5.mp4',
-      'http://server.ronsholt.me/videos/feed6.mp4',
-      'http://server.ronsholt.me/videos/feed7.mp4',
-      'http://server.ronsholt.me/videos/feed8.mp4',
+
+    /* let startFeeds = [
+      '/assets/videos/Drone1.mp4',
+      '/assets/videos/Drone2.mp4',
+      '/assets/videos/Drone3.mp4',
+      '/assets/videos/Drone4.mp4',
+      '/assets/videos/Drone5.mp4',
+      '/assets/videos/Drone6.mp4',
+      '/assets/videos/Drone7.mp4',
+      '/assets/videos/Drone8.mp4',
     ];
 
-    this.feedsActiveSub.next(startFeeds);
-    */
+    this.feedsActiveSub.next(startFeeds); */
+
     this.getFeeds();
   }
 
@@ -76,7 +76,7 @@ export class FeedsService extends ApiBaseService<string, string> {
   }
 
   public getSubscription(id: string): Observable<string[]> {
-    return this.getAllId(id).pipe();
+    return this.getAllId(id);
   }
 
   public startFeeds(): void {
@@ -107,7 +107,7 @@ export class FeedsService extends ApiBaseService<string, string> {
 
   public addPredictivePlayerApi(api: VgApiService) {
     this.predictiveApi = api;
-    this.predictiveApi.subscriptions.canPlay.pipe(take(1)).subscribe(() => {
+    this.predictiveApi.subscriptions.loadedMetadata.pipe(take(1)).subscribe(() => {
       this.predictiveApi.play();
     })
   }
@@ -117,6 +117,7 @@ export class FeedsService extends ApiBaseService<string, string> {
   }
 
   public setPredictiveSource(index: number) {
-    this.predictiveVidPathSub.next(this.feedsActiveSub.value[index]);
+    this.predictiveVidPathSub.next(`${this.feedsActiveSub.value[index]}?start=${this.playerApiList[index].currentTime}`);
+
   }
 }
