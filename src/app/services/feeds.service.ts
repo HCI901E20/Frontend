@@ -76,13 +76,7 @@ export class FeedsService extends ApiBaseService<string, string> {
   }
 
   public getSubscription(id: string): Observable<string[]> {
-    return this.getAllId(id).pipe(
-      map((value: string[]) => {
-        return value.map((val: string) => {
-          return 'http://' + val;
-        });
-      })
-    );
+    return this.getAllId(id);
   }
 
   public startFeeds(): void {

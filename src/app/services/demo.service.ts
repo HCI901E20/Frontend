@@ -9,6 +9,7 @@ import { ApiBaseService } from './api-base.service';
 import { Drone } from '../models/drone.model';
 import { take } from 'rxjs/operators';
 import { LogsService } from './logs.service';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -40,16 +41,19 @@ export class DemoService extends ApiBaseService<string, string> {
     this.delete().pipe(take(1)).subscribe();
   }
 
-  public restartDemo() {
-    this.isDemoLive = false;
-    this.isDemoStarted = false;
-    this.restartDrones();
+  public restartDemo(): void {
+    if (this.isDemoLive) {
+      this.toastService.error('You must pause the demo before resetting', 'Reset Failed');
+      return;
+    }
 
+    this.restartDrones();
     this.btnTxt = toggleDemoBtnTxt[0];
+    this.predictiveService.ShowInfoCardSub.next(false); 
     this.logs.push('DemoRestart: ' + this.getTimestamp());
     this.logService.sendLog('DemoRestart: ' + this.getTimestamp());
-
     this.feedsService.getFeeds();
+    this.toastService.success('The demo has successfully resetted', 'Reset Succeeded');
   }
 
   public addMapClickToLog(lat: number, lng: number) {
