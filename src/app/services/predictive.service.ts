@@ -25,6 +25,10 @@ export class PredictiveService {
   }
 
   public enablePredictive(data: string = '') {
+    if(!this.feedService.isPredictive) {
+      return;
+    }
+    
     if (!this.block) {
       this.block = true;
       setTimeout(() => { this.block = false; }, 1000);
