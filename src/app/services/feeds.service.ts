@@ -107,7 +107,7 @@ export class FeedsService extends ApiBaseService<string, string> {
 
   public addPredictivePlayerApi(api: VgApiService) {
     this.predictiveApi = api;
-    this.predictiveApi.subscriptions.canPlay.pipe(take(1)).subscribe(() => {
+    this.predictiveApi.subscriptions.loadedMetadata.pipe(take(1)).subscribe(() => {
       this.predictiveApi.play();
     })
   }
@@ -117,6 +117,7 @@ export class FeedsService extends ApiBaseService<string, string> {
   }
 
   public setPredictiveSource(index: number) {
-    this.predictiveVidPathSub.next(this.feedsActiveSub.value[index]);
+    this.predictiveVidPathSub.next(`${this.feedsActiveSub.value[index]}?start=${this.playerApiList[index].currentTime}`);
+
   }
 }
