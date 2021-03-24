@@ -43,20 +43,20 @@ export class FeedsService extends ApiBaseService<string, string> {
     // Setup base api.
     super(`${environment.api.baseUrl}/feed`, httpClient, toastService);
 
-    /*
-    let startFeeds = [
-      'http://server.ronsholt.me/videos/feed1.mp4',
-      'http://server.ronsholt.me/videos/feed2.mp4',
-      'http://server.ronsholt.me/videos/feed3.mp4',
-      'http://server.ronsholt.me/videos/feed4.mp4',
-      'http://server.ronsholt.me/videos/feed5.mp4',
-      'http://server.ronsholt.me/videos/feed6.mp4',
-      'http://server.ronsholt.me/videos/feed7.mp4',
-      'http://server.ronsholt.me/videos/feed8.mp4',
+
+    /* let startFeeds = [
+      '/assets/videos/Drone1.mp4',
+      '/assets/videos/Drone2.mp4',
+      '/assets/videos/Drone3.mp4',
+      '/assets/videos/Drone4.mp4',
+      '/assets/videos/Drone5.mp4',
+      '/assets/videos/Drone6.mp4',
+      '/assets/videos/Drone7.mp4',
+      '/assets/videos/Drone8.mp4',
     ];
 
-    this.feedsActiveSub.next(startFeeds);
-    */
+    this.feedsActiveSub.next(startFeeds); */
+
     this.getFeeds();
   }
 
@@ -76,13 +76,7 @@ export class FeedsService extends ApiBaseService<string, string> {
   }
 
   public getSubscription(id: string): Observable<string[]> {
-    return this.getAllId(id).pipe(
-      map((value: string[]) => {
-        return value.map((val: string) => {
-          return 'http://' + val;
-        });
-      })
-    );
+    return this.getAllId(id);
   }
 
   public startFeeds(): void {
