@@ -5,7 +5,7 @@ import { BehaviorSubject, Observable } from 'rxjs';
 import { ToastrService } from 'ngx-toastr';
 import { ApiBaseService } from './api-base.service';
 import { environment } from 'src/environments/environment';
-import { map } from 'rxjs/operators';
+import { map, take } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root',
@@ -107,6 +107,9 @@ export class FeedsService extends ApiBaseService<string, string> {
 
   public addPredictivePlayerApi(api: VgApiService) {
     this.predictiveApi = api;
+    this.predictiveApi.subscriptions.canPlay.pipe(take(1)).subscribe(() => {
+      this.predictiveApi.play();
+    })
   }
 
   public addFullScreenPlayerApi(api: VgApiService) {
