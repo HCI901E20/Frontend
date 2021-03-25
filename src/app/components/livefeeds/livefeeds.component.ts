@@ -83,6 +83,9 @@ export class LivefeedsComponent implements OnInit {
       case 'r':
         this.demoService.restartDemo();
         break;
+      case '0':
+        this.demoService.toggleSelectedDroneMovement();
+        break;  
       default:
         break;
     }

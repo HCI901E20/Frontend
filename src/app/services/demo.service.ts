@@ -10,6 +10,7 @@ import { Drone } from '../models/drone.model';
 import { take } from 'rxjs/operators';
 import { LogsService } from './logs.service';
 import { Observable } from 'rxjs';
+import { DroneStatus } from '../models/drone-status.enum';
 
 @Injectable({
   providedIn: 'root',
@@ -136,6 +137,13 @@ export class DemoService extends ApiBaseService<string, string> {
     this.putDronePause(this.droneService.droneList[idx].uuid, pause)
       .pipe(take(1))
       .subscribe();
+  }
+
+  public toggleSelectedDroneMovement(): void {
+    let idx: number = this.feedsService.feedsActiveSub.value.indexOf(this.feedsService.enlargedVidPathSub.value.split('?')[0]);
+    let isPaused: boolean = this.droneService.droneList[idx].status != DroneStatus.Searching;
+
+    this.toggleDronePause(idx, !isPaused);
   }
 }
 
