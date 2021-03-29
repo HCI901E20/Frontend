@@ -34,7 +34,8 @@
 
           <agm-marker
             [iconUrl]='{path: getSvgPath(drone.currentPosition.bearing - 90), fillColor: "#FFFFFF", fillOpacity: 0.25, strokeWeight: 0}'
-            [latitude]="drone.currentPosition.latitude" [longitude]="drone.currentPosition.longitude" [zIndex]="10">
+            [latitude]="drone.currentPosition.latitude" [longitude]="drone.currentPosition.longitude" [zIndex]="10"
+            (markerClick)="moveHere($event)">
           </agm-marker>
 
           <agm-marker [iconUrl]="{url: drone.ui.iconUrl, scaledSize:{height:30,width:30}}"
@@ -59,6 +60,7 @@
 
         </ng-container>
 
+        <!-- Zone -->
         <ng-container *ngFor="let zone of droneService.droneZones; let i=index">
           <agm-polygon [paths]="zone.area" [fillColor]="grey" [fillOpacity]="0.1" [strokeColor]="black"
             [strokeOpacity]="1" (polyClick)="click($event)"></agm-polygon>
