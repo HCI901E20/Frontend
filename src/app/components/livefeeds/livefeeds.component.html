@@ -103,7 +103,7 @@
     <div class="column is-4">
       <div class="container ">
         <app-video-player [source]=feedsService.enlargedVidPathObs
-          (playerApi)="feedsService.addEnlargedPlayerApi($event)"></app-video-player>
+          (playerApi)="feedsService.addEnlargedPlayerApi($event)" (dblclick)="onPlayerDoubleClick(selectedVidIndex)"></app-video-player>
         <span class="icon-circle">
           <span class="icon-text">{{selectedVidIndex + 1}}</span>
         </span>
