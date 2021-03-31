@@ -51,6 +51,12 @@ export class DashboardComponent implements OnInit {
     this.demoService.addMapClickToLog(marker.latitude, marker.longitude);
   }
 
+  public ctrlClick(event): void {
+    if (event.domEvent.ctrlKey) {
+      this.click(event);
+    }
+  }
+
   private degToRad(degress: number): number {
     return degress * (Math.PI / 180);
   }

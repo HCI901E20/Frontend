@@ -44,14 +44,12 @@ export class BoatService extends ApiBaseService<Boat, string> {
 
   public MoveTo(lat: number, lng: number): void {
     this.movementSub?.unsubscribe();
-    console.log('click');
 
     let position = this.boatPositionSub.value;
     const distance = this.mapService.calculateDistance(position.lat, position.lng, lat, lng);
     const steps = distance / this.ms;
 
     this.movementSub = this.tickService.UpdateClock.pipe(take(steps)).subscribe(() => {
-      console.log('update');
 
       position = this.boatPositionSub.value;
       const bearing = this.mapService.calculateBearing(position.lat, position.lng, lat, lng);

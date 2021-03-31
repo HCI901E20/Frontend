@@ -11,7 +11,7 @@
         <ng-container *ngIf="personService.Show | async">
           <agm-marker *ngIf="personService.Position | async; let pos"
             [iconUrl]="{url: '/assets/icons/person.svg', scaledSize:{height:45,width:45}}" [latitude]="pos.lat"
-            [longitude]="pos.lng" [zIndex]="30" (markerClick)="moveHere($event)">
+            [longitude]="pos.lng" [zIndex]="30" [markerClickable]=false>
           </agm-marker>
         </ng-container>
 
@@ -20,11 +20,11 @@
 
           <agm-marker
             [iconUrl]='{path: getSvgPath(boatService.BoatOrientation | async), fillColor: "#FFFFFF", fillOpacity: 0.25, strokeWeight: 0}'
-            [latitude]="pos.lat" [longitude]="pos.lng" [zIndex]="10">
+            [latitude]="pos.lat" [longitude]="pos.lng" [zIndex]="10" [markerClickable]=false>
           </agm-marker>
 
           <agm-marker [iconUrl]="{url: '/assets/icons/boat.svg', scaledSize:{height:30,width:30}}" [latitude]="pos.lat"
-            [longitude]="pos.lng" [zIndex]="20">
+            [longitude]="pos.lng" [zIndex]="20" [markerClickable]=false>
           </agm-marker>
 
         </ng-container>
@@ -35,13 +35,13 @@
           <agm-marker
             [iconUrl]='{path: getSvgPath(drone.currentPosition.bearing - 90), fillColor: "#FFFFFF", fillOpacity: 0.25, strokeWeight: 0}'
             [latitude]="drone.currentPosition.latitude" [longitude]="drone.currentPosition.longitude" [zIndex]="10"
-            (markerClick)="moveHere($event)">
+            [markerClickable]=false>
           </agm-marker>
 
           <agm-marker [iconUrl]="{url: drone.ui.iconUrl, scaledSize:{height:30,width:30}}"
             [label]="{color: 'white', text: (i + 1).toString(), fontWeight: 'bold', fontFamily: 'monospace'}"
             [latitude]="drone.currentPosition.latitude" [longitude]="drone.currentPosition.longitude" [zIndex]="20"
-            (markerClick)="moveHere($event)">
+            [markerClickable]=false>
 
             <agm-snazzy-info-window [maxWidth]="200" [isOpen]="true" [placement]="'right'" [closeOnMapClick]="false"
               [showCloseButton]="false" [panOnOpen]="false" [pointer]=false [shadow]=false [padding]="'0'"
@@ -63,7 +63,7 @@
         <!-- Zone -->
         <ng-container *ngFor="let zone of droneService.droneZones; let i=index">
           <agm-polygon [paths]="zone.area" [fillColor]="grey" [fillOpacity]="0.1" [strokeColor]="black"
-            [strokeOpacity]="1" (polyClick)="click($event)"></agm-polygon>
+            [strokeOpacity]="1" (polyClick)="ctrlClick($event)"></agm-polygon>
         </ng-container>
 
       </agm-map>
