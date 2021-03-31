@@ -18,7 +18,7 @@ export class PredictiveService {
 
   private block: boolean = false;
 
-  public TIMESTAMP: number = 10.10
+  public TIMESTAMP: number = 59.35
 
   constructor(private feedService: FeedsService) {
 
@@ -28,7 +28,7 @@ export class PredictiveService {
     if(!this.feedService.isPredictive) {
       return;
     }
-    
+
     if (!this.block) {
       this.block = true;
       setTimeout(() => { this.block = false; }, 1000);
