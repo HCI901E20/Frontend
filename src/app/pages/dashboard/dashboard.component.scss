@@ -11,13 +11,11 @@
 .info-card {
   background-color: transparent;
 }
-agm-map {
-  height: 62vh;
-}
 
 .feeds-container {
   background-color: #565656;
-  height: 38vh;
+  position: fixed;
+  bottom: 0px;
 }
 
 .is-fullheight {
