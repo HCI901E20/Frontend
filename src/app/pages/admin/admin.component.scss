@@ -1,0 +1,24 @@
+.map-child {
+  position: absolute !important;
+  transform: translateY(-150%);
+  left: 20px !important;
+}
+
+.button {
+  border-width: 0px;
+}
+
+.info-card {
+  background-color: transparent;
+}
+
+.feeds-container {
+  background-color: #565656;
+  position: fixed;
+  bottom: 0px;
+}
+
+.is-fullheight {
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0);
+}
