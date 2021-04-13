@@ -29,6 +29,14 @@ export class SignalRService {
     this.hubConnection.on('DemoStatus', (data) => func(data));
   }
 
+  public addRestartListener(func: () => void): void {
+    this.hubConnection.on('Restart', () => func());
+  }
+
+  public addPredictiveListener(func: () => void): void {
+    this.hubConnection.on('PredictiveChange', () => func());
+  }
+
   public callRemoteProcedure(procedure: string): void {
     this.hubConnection.invoke(procedure).catch((error) => {
       console.log(`Error while calling ${procedure}: ${error}`);

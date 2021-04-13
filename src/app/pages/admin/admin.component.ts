@@ -1,10 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, HostListener, OnInit } from '@angular/core';
 import { BoatService } from 'src/app/services/boat.service';
 import { DemoService } from 'src/app/services/demo.service';
 import { DroneService } from 'src/app/services/drone.service';
 import { FeedsService } from 'src/app/services/feeds.service';
 import { MapService } from 'src/app/services/map.service';
 import { PersonService } from 'src/app/services/person.service';
+import { PredictiveService } from 'src/app/services/predictive.service';
+import { SignalRService } from 'src/app/services/signal-r.service';
 import mapstyle from '../../../assets/mapstyle.json';
 
 @Component({
@@ -25,7 +27,9 @@ export class AdminComponent implements OnInit {
     public boatService: BoatService,
     public feedsService: FeedsService,
     public personService: PersonService,
-    public demoService: DemoService
+    public demoService: DemoService,
+    public predictiveService: PredictiveService,
+    private signalR: SignalRService
   ) { }
 
   ngOnInit(): void {
@@ -68,6 +72,4 @@ export class AdminComponent implements OnInit {
 
     return 'M0,-15 ' + x1 + ',' + (y1 - 15) + ' ' + x2 + ',' + (y2 - 15) + 'z';
   }
-
-
 }

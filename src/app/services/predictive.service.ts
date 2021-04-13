@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
+import { ToastrService } from 'ngx-toastr';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { FeedsService } from './feeds.service';
+import { SignalRService } from './signal-r.service';
 
 @Injectable({
   providedIn: 'root'
@@ -20,12 +22,18 @@ export class PredictiveService {
 
   public TIMESTAMP: number = 59.35
 
-  constructor(private feedService: FeedsService) {
-
+  constructor(
+    private feedService: FeedsService,
+    private signalR: SignalRService,
+    toastr: ToastrService) {
+    signalR.addPredictiveListener(() => {
+      this.IntrusiveSub.next(!this.IntrusiveSub.value);
+      toastr.success(`Changed Predictive Mode\nIntrusive: ${this.IntrusiveSub.value}`, 'Predictive Change');
+    });
   }
 
   public enablePredictive(data: string = '') {
-    if(!this.feedService.isPredictive) {
+    if (!this.feedService.isPredictive) {
       return;
     }
 
@@ -50,6 +58,6 @@ export class PredictiveService {
   }
 
   public toggleIntrusive(): void {
-    this.IntrusiveSub.next(!this.IntrusiveSub.value);
+    this.signalR.callRemoteProcedure('ChangePredictive');
   }
 }

@@ -1,3 +1,21 @@
+<div class="card">
+  <div class="card-header">
+    <p class="card-header-title">Admin Menu</p>
+  </div>
+  <div class="card-content">
+    <div class="content">
+      <p>Predictive: {{feedsService.isPredictive}}</p>
+      <p>Intrusive: {{predictiveService.Intrusive | async}}</p>
+    </div>
+  </div>
+  <footer class="card-footer">
+    <a class="card-footer-item" (click)="demoService.toggleStartDemo()"> {{this.demoService.btnTxt}} </a>
+    <a class="card-footer-item" (click)="demoService.restartDemo()">Reset</a>
+    <a class="card-footer-item" (click)="predictiveService.toggleIntrusive()">Change Predictive</a>
+    <a class="card-footer-item" (click)="demoService.togglePredictive()">Toggle Predictive</a>
+  </footer>
+</div>
+
 <div class="columns is-fullwidth is-gapless full-columns" style="overflow: hidden;">
   <div class="column">
     <!-- Map container -->
@@ -41,7 +59,8 @@
                 <ng-container *ngIf="boatService.BoatPosition | async; let pos">
                   Distance: {{mapService.calculateDistance(drone.currentPosition.latitude,
                   drone.currentPosition.longitude, pos.lat, pos.lng)}}m<br>
-                  Bearing: {{mapService.calculateBearing(drone.currentPosition.latitude, drone.currentPosition.longitude,
+                  Bearing: {{mapService.calculateBearing(drone.currentPosition.latitude,
+                  drone.currentPosition.longitude,
                   pos.lat, pos.lng)}}°
                 </ng-container>
               </ng-template>
@@ -59,3 +78,4 @@
       </agm-map>
     </div>
   </div>
+</div>

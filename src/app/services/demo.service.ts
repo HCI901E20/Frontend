@@ -34,12 +34,16 @@ export class DemoService extends ApiBaseService<string, string> {
   ) {
     super(`${environment.api.baseUrl}/demo`, httpClient, toastService);
     signalR.addDemoStateListener((data: boolean) => {
-      if (!data) {
+      if (!data)
         this.skinStart();
-      } else {
+      else
         this.skinPause();
-      }
+
       this.firstRun = false;
+    });
+
+    signalR.addRestartListener(() => {
+      this.restartDemo();
     });
   }
 
@@ -52,7 +56,7 @@ export class DemoService extends ApiBaseService<string, string> {
     this.delete().pipe(take(1)).subscribe();
   }
 
-  public restartDemo(): void {
+  public restartDemo(reload = true): void {
     if (this.isDemoLive) {
       this.toastService.error('You must pause the demo before resetting', 'Reset Failed');
       return;
@@ -63,8 +67,13 @@ export class DemoService extends ApiBaseService<string, string> {
     this.predictiveService.ShowInfoCardSub.next(false);
     this.logs.push('DemoRestart: ' + this.getTimestamp());
     this.logService.sendLog('DemoRestart: ' + this.getTimestamp());
-    this.feedsService.getFeeds();
-    this.toastService.success('The demo has successfully resetted', 'Reset Succeeded');
+
+    if (reload)
+      window.location.reload();
+    else {
+      this.feedsService.getFeeds();
+      this.toastService.success('The demo has successfully resetted', 'Reset Succeeded');
+    }
   }
 
   public addMapClickToLog(lat: number, lng: number) {
@@ -152,7 +161,7 @@ export class DemoService extends ApiBaseService<string, string> {
       this.logs.push('Predictive Toggle: ' + this.getTimestamp());
       this.logService.sendLog('Predictive Toggle: ' + this.getTimestamp());
       this.feedsService.isPredictive = !this.feedsService.isPredictive;
-      this.restartDemo();
+      this.restartDemo(false);
 
       if (this.feedsService.isPredictive)
         this.toastService.success(
